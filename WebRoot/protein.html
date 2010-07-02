@@ -1,0 +1,347 @@
+<!DOCTYPE html public "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/Transitional.dtd">
+<HTML>
+<HEAD>
+<TITLE>RNA Quality Indicators</TITLE>
+<META http-equiv="Content-Type" content="text/html;">
+<LINK REL=StyleSheet HREF="css/qiStyle.css" TYPE="text/css">
+
+ <%response.setDateHeader("Expires",System.currentTimeMillis());%>
+</HEAD>
+<SCRIPT language="JavaScript" src="images/calendar.js" >
+</script>
+
+<SCRIPT>
+function goThere(the_date)
+{  
+  setDateField(document.proteindate.analysis_date); 
+  top.newWin = window.open('calendar.html', 'cal', 'dependent=yes, width=210, height=230, screenX=200, screenY=300, titlebar=yes');
+}
+
+
+//***********************************************************
+// This function checks to see if a passed string is either
+// NULL or empty.  If it is, the function will return TRUE, 
+// otherwise it will return FALSE.
+//***********************************************************
+function isEmpty(s)
+{   
+   return ((s == null) || (s.length == 0))
+}
+
+
+//***********************************************************
+// This function checks to see if a single character contains
+// a numeric value.  If it does, this function returns TRUE,
+// otherwise it will return FALSE.
+//***********************************************************
+function isDigit (c)
+{  
+   return ((c >= "0") && (c <= "9") || (c=='.') || (c=='-') || (c==','))
+}
+
+//***********************************************************
+// This function checks to see if the passed string contains
+// only number.  The function will return TRUE if the string
+// contains only numbers, otherwise the function will return
+// false.
+//***********************************************************
+function isInteger (s)
+{
+   if (isEmpty(s)) 
+      if (isInteger.arguments.length == 1) return defaultEmptyOK;
+      else return (isInteger.arguments[1] == true);
+
+   // Search through string's characters one by one
+   // until we find a non-numeric character.
+   // When we do, return false; if we don't, return true.
+   for (i = 0; i < s.length; i++)
+   {   
+      // Check that current character is number.
+      var c = s.charAt(i);
+
+      if (!isDigit(c)) return false;
+   }
+
+   // All characters are numbers.
+   return true;
+}
+
+function ValidateRNAYield(theField)
+{	
+   var returnVal = true;			 
+   if (!(theField.value == null || theField.value == ''))
+   {
+      if (!isInteger(theField.value))
+      {
+         alert('Please enter only numeric value in this field.');
+         theField.value = '';
+         theField.focus();
+         returnVal = false;
+      }
+   }
+   return returnVal;
+}
+
+
+
+</SCRIPT>
+
+<body>
+
+<div class="page">
+
+<%@ include file="header.html"%> 
+
+
+<div class="main">
+
+ <%response.setDateHeader("Expires",System.currentTimeMillis());
+ %>
+
+
+<form  method="post" enctype="multipart/form-data" action="protein2.jsp"  name ="proteindate" >
+
+
+<INPUT TYPE = "HIDDEN" NAME = "id" VALUE = "<%=id%>">
+	
+	<h2 class="title">Enter Information for Protein Quality Indicator:</h2>
+	 
+	 <TABLE class="data" width="95%" cellspacing="0" cellpadding="5" border="0"  valign="top">
+	  <tr>
+                    <td colspan="3" height="50" valign="top">Required fields are in <font color="#800000"><b>Red</b></font> color.</td>
+                  </tr>
+                  <tr>		 
+			<td><b>Labtrak Id:</td>
+			 		<TD>	<INPUT name="labTrakId"  class="inps" type="TEXT" size="34" maxlength="50" readonly="true" value="<%= labtrak_id%>" >
+		
+                       
+			</TD>
+			</tr>		 
+	  <tr>
+	  
+			<td><font color="#800000"><b>Select Your Lab:</b></font></td>
+			<TD><%= Lookup.getProteinLabs("required_Sub-sampleId",1,protein.getProtein_subsample_id())%>
+		   </TD>
+			</tr>
+         
+   <tr>
+			<td>Analysis Date:</td>
+			<TD>
+			 <%if(protein.getAnalysis_date() != null && !protein.getAnalysis_date().equals("")){%>
+		
+				<INPUT name="analysis_date" class="inps" type="TEXT" size="34" maxlength="50" readonly="true" value="<%=formatter.format(protein.getAnalysis_date())%>"> 
+				<%}
+			else{%>			
+				<INPUT name="analysis_date" class="inps" type="TEXT" size="34" maxlength="50" readonly="true" > 
+			<%}%>
+				<A href="javascript:goThere(document.proteindate.analysis_date)">
+				<IMG src="images/calendar2.gif" border="0"></A>
+			</TD>
+		</tr>
+		
+		<tr>
+			<td>Enter Microdissection Efficiency of Capture:	</td>		
+			 <TD>
+			    <INPUT name="efficiency" type="TEXT" size="34" maxlength="50" value="<%=DatabaseSetup.removeNull(protein.getMicodissection_efficiency())%>" >%
+			 </TD>
+		</tr>
+						
+		<tr>
+					<td>Sample Length:</td>
+					<td>	<INPUT name="sample_length" type="TEXT" size="34" maxlength="50" value="<%=DatabaseSetup.removeNull(protein.getProtein_sample_length())%>"
+		
+					</td>
+		</tr>
+		<tr>
+					<td>Sample Width:</td>
+					<td>	<INPUT name="sample_width" type="TEXT" size="34" maxlength="50" value="<%=DatabaseSetup.removeNull(protein.getProtein_sample_width())%>"
+		
+					</td>
+		</tr>
+		<tr>
+					<td>Tumor Presence:</td>
+					<td>	<INPUT name="tumor_presence" type="TEXT" size="34" maxlength="50" value="<%=DatabaseSetup.removeNull(protein.getProtein_sample_tumor_presence())%>">%
+		
+					</td>
+		</tr>
+		<tr>
+					<td>Total Number of Microdissected Cells:<br>(integers only)</td>
+					<td>	<INPUT name="total_cells" type="TEXT" size="34" maxlength="50" value="<%=DatabaseSetup.removeNull(protein.getTotal_number_cells())%>"
+		
+					</td>
+		</tr>
+		<tr>
+					<td>Pathologic Diagnosis of Sample:</td>
+					<td>	
+		               <textarea cols="30" rows="3" name="diagnosis"><%=DatabaseSetup.removeNull(protein.getPathologic_diagnosis())%></textarea>
+					</td>
+		</tr>
+		
+		
+		
+						<tr>
+						<td colspan="5"><hr noshade>
+						</td>
+						</tr>
+						 <%String userDir = System.getProperty("user.dir");
+							   Vector protein_img_vec = new Vector();							  
+							   if(protein.getProtein_id() != null){
+							   String where = "PROTEIN_ID = " +protein.getProtein_id()+ " AND IMAGE_TYPE ="+"\'"+"Protein_array_image"+"\'" + "AND IMAGE_FILE_ID is not null";
+			                   protein_img_vec = protein_img.retrieveAllWhere(where);	
+							   System.out.println("where clause is  name is ******************"+where);	
+		                       if(protein_img_vec.size()==1){ 
+							      String imageName = null;
+							      for(int i=0; i<protein_img_vec.size();i++){
+								     protein_img = (Rna_quality_image)protein_img_vec.elementAt(i);
+							         imageName= protein_img.getImage_file_id();
+							         System.out.println("imageName name is ******************"+imageName);							    
+							 %>
+						<tr>
+						    <td valign="top" align="left" class="blbo">Upload Protein Array Image&nbsp;</td>
+					
+						    <td valign="top" align="left"><input type="file" name = "myUploadObject" >&nbsp;&nbsp;&nbsp;
+							
+							  <%  String lizard_Window = null;
+								   String lizard_Unix = null;
+								  if(imageName != null){
+								   lizard_Window = getServletConfig().getServletContext().getInitParameter("lizard_Window");	
+			                       lizard_Unix = getServletConfig().getServletContext().getInitParameter("lizard_Unix");
+								   System.out.println("lizard_Window is :"+lizard_Window);
+								   System.out.println("lizard_Unix is :"+lizard_Unix);
+			                       if(userDir.indexOf(":")!= -1){ %>							  
+									  <a href="<%=lizard_Window%>QI_Images/Protein_Array_Images/<%=DatabaseSetup.checkForNull(imageName)%>" target="_blank">
+						              <img src="<%=lizard_Window%>QI_Images/Protein_Array_Images/<%=DatabaseSetup.checkForNull(imageName)%>" alt="Click on the image to open in a new Browser window" border="0" target="_blank" width="80" height="40"></a>
+				                   <%}
+			                       else{ 
+		                           System.out.println("UNIX");%>    
+									  <a href="<%=lizard_Unix%>QI_Images/Protein_Array_Images/<%=DatabaseSetup.checkForNull(imageName)%>" target="_blank">
+									  <img src= "<%=lizard_Unix%>QI_Images/Protein_Array_Images/<%=DatabaseSetup.checkForNull(imageName)%>" alt="Click on the image to open in a new Browser window" border="0" target="_blank" width="80" height="40"></a>
+							        <% }
+								     }
+								   %>
+							
+							
+							</td>
+							</tr>		
+									
+						<tr>
+							<td valign="top" align="left">&nbsp;</td>
+							<td  valign="top" align="left" colspan="2">
+	
+	                              <% if(protein_img.getOriginal_image_name() != null){%>
+
+								 <br>You have submitted the following RNA trace file to the database:
+								 <b>"<%=DatabaseSetup.removeNull(protein_img.getOriginal_image_name())%>"</b> 
+								  <br>If you would like replace this image with a new one, please click on the <b>"Browse"</b> button.
+							      <%}%>
+							  </td>
+							</tr>				
+									
+							<tr>
+                               <td valign="top" align="left">Title of Protein Array Image<br><font size="-1">(enter info only when uploading image)</font>
+                               </td>
+							   <td valign="top" align="left" colspan="3">
+							   
+							      <%if(protein_img.getImage_title() != null&& !protein_img.getImage_title().equals("")){%>
+							     <textarea cols="30" rows="3" name="file_title"><%=protein_img.getImage_title()%></textarea></td>
+								
+                                <%}
+								 else{%>
+								  <textarea cols="30" rows="3" name="file_title"></textarea>
+                            	 <%}%>
+                         					   
+							 </td>
+							</tr>
+							<tr> 
+							  
+							    <td valign="top" align="left">Description of Protein Array Image<br><font size="-1">(enter info only when uploading image)</font></td>
+							    <td valign="top" align="left" colspan="3">
+							
+								 <%if(protein_img.getImage_desc() != null&& !protein_img.getImage_desc().equals("")){%>
+							        <textarea cols="30" rows="3" name="file_description"><%=protein_img.getImage_desc()%></textarea>
+                                 <%}
+								 else{%>
+								    <textarea cols="30" rows="3" name="file_description"></textarea>
+                             	 <%}%>
+								 
+							   </td>
+							</tr>
+                         
+						 
+						 
+						<%}
+						}// end of for
+						
+						} // end of for
+						// end of retrieving rna trace file
+						
+						if(protein.getProtein_id() != null){
+							  protein_img_vec = protein_img.retrieveAllWhere("PROTEIN_ID = " +protein.getProtein_id()+ " AND IMAGE_TYPE ="+"\'"+"Protein_array_image"+"\'" + "AND IMAGE_FILE_ID is not null");		
+		              		 }
+							 
+					   if(protein.getProtein_id()== null ||protein_img_vec.size()==0){
+							%>
+						 
+						 <tr>
+						    <td valign="top" align="left" class="blbo">Upload Protein Array Image &nbsp;</td>
+					        <td valign="top" align="left"><input type="file" name = "myUploadObject" >&nbsp;&nbsp;&nbsp;
+						
+												
+							
+							
+							</td>
+							</tr>		
+									
+						<tr>
+							<td valign="top" align="left">&nbsp;</td>
+							<td  valign="top" align="left" colspan="2">
+	
+	              
+							  </td>
+							</tr>				
+									
+							<tr>
+                               <td valign="top" align="left">Title of Protein Array Image<br><font size="-1">(enter info only when uploading image)</font>
+                               </td>
+							   <td valign="top" align="left" colspan="3">
+							   
+							      <textarea cols="30" rows="3" name="file_title"></textarea>
+                         					   
+							 </td>
+							</tr>
+							<tr> 
+							  
+							    <td valign="top" align="left">Description of Protein Array Image<br><font size="-1">(enter info only when uploading image)</font></td>
+							    <td valign="top" align="left" colspan="3">							
+								    <textarea cols="30" rows="3" name="file_description"></textarea>
+                         		 </td>
+							</tr>    
+						 
+						 <%}%>						 
+							
+						</table>
+
+				  <%if (submitterRole.isInRole(QIConstants.PROTEOMICSROLE) || submitterRole.isSuperUser() || submitterRole.isDemoUser()){%>
+						
+						<table class="tbuttons" width="95%">
+						 <tr><td>&nbsp;</td></tr>
+						<tr>
+						<TD>
+							<INPUT type="SUBMIT"  class="buttons" name="submit_protein_quality" value="   Save Data   ">&nbsp;&nbsp;&nbsp;
+							<INPUT type="RESET" class="buttons" value="  Clear  " >&nbsp;&nbsp;&nbsp;
+							<%if (id != null && !id.equals("")) {%>			
+							  <INPUT type="SUBMIT" class="buttons" name="delete_data" value="Delete Data"  onClick="return confirm('Are you sure you want to delete the record?')">
+						    <%}%>
+						    <INPUT type="SUBMIT" class="buttons" name="bk" value="Back">&nbsp;&nbsp;&nbsp;
+						</TD>
+					   </TR>					
+	                  </TABLE>	
+  				  <%}%>
+	
+</FORM>
+
+</div>
+<p class="note"><a href="select.jsp">Home</a> | <a href="#top">Top of the page</a></p>
+</div>
+
+

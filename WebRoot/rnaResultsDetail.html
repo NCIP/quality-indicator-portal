@@ -1,0 +1,201 @@
+<!DOCTYPE html public "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/Transitional.dtd">
+
+  <%@ include file="tabs.htm"%>   
+    
+<script language="JavaScript">   
+<!-- 
+function MM_default() { //v3.0
+  MM_swapImage('Image5','','images/generalinfo_OVER.gif',1);  
+  }    
+MM_default();	     
+//-->                
+</script>      
+<% response.setDateHeader("Expires",System.currentTimeMillis());%>
+	<p>&nbsp;</p>
+	<A name="top"></a>	
+<form method ="post" action ="rnaResultsDetail.jsp?sampleId=<%=sampleId%>">
+<INPUT  TYPE = "HIDDEN" NAME = "sampleId" VALUE = "<%=sampleId%>"> 
+
+ <div id="navcontainer">
+<ul id="navlist">
+<li><a href="searchResults.jsp">Back to Search Results</a></li>
+<li><a href="searchResultsDetail.jsp?sampleId=<%=DatabaseSetup.checkForNull(sampleId)%>&core_sample_id=<%=URLEncoder.encode(DatabaseSetup.checkForNull(core_sample_id))%>">General Info</a></li>
+<li><a href="dnaResultsDetail.jsp?sampleId=<%=DatabaseSetup.checkForNull(sampleId)%>&core_sample_id=<%=URLEncoder.encode(DatabaseSetup.checkForNull(core_sample_id))%>">DNA Quality Info</a></li>
+<li><a href="rnaResultsDetail.jsp?sampleId=<%=DatabaseSetup.checkForNull(sampleId)%>&core_sample_id=<%=URLEncoder.encode(DatabaseSetup.checkForNull(core_sample_id))%>" id="current">RNA Quality Info</a></li>
+<li><a href="proteinResultsDetail.jsp?sampleId=<%=DatabaseSetup.checkForNull(sampleId)%>&core_sample_id=<%=URLEncoder.encode(DatabaseSetup.checkForNull(core_sample_id))%>">Protein Quality Info</a></li>
+
+</ul>
+</div>
+ 
+ <%if(rnas.size()==0){%>
+ <table class="data" style="margin-left:40px;" cellpadding="5" cellspacing="0" border="1" width="85%" >
+<tr><th colspan="3">
+        Sorry, no records found.
+    </th></tr>
+	</table >
+	
+ <%}
+ else{%>
+<table class="data" style="margin-left:40px;" cellpadding="5" cellspacing="0" border="1" width="85%" >
+<tr><th colspan="3">
+     RNA Quality Indicator - LabTrak ID:<font color="Maroon"><%=DatabaseSetup.checkForNull(core_sample_id)%>
+    </th></tr>
+	
+	<% 
+	 for(int i=0; i<rnas.size();i++){
+	   rna =(Qi_rna)rnas.elementAt(i);	
+	  
+	  
+	 %> 
+	 <tr><td colspan="3" class="user">RNA Sub-sample ID: <%=DatabaseSetup.checkForNull(rna.getRna_subsample_id())%></td></tr>
+	  
+	
+	  <%if(rna.getRna_subsample_id()!=null){%>
+  <tr><td class="search" width="20%">RNA Sub-sample ID</td><td colspan="2"><%=DatabaseSetup.checkForNull(rna.getRna_subsample_id())%></td></tr>
+     <%}%>
+  <%if(rna.getRna_reading()!=null){%>
+  <tr><td class="search">RNA Spectrophotometer Reading</td><td colspan="2"><%=DatabaseSetup.checkForNull(rna.getRna_reading())%>  <%=DatabaseSetup.checkForNull(rna.getRna_quantity_unit())%></td></tr>
+    <%}%>
+	
+	 <%if(rna.getInstrument_id()!=null){
+      Qi_instrument instrument = new Qi_instrument();
+	  Vector instruments = instrument.retrieveAllWhere("INSTRUMENT_ID = "+rna.getInstrument_id());
+	  for(int j=0;j<instruments.size();j++){
+	   instrument = (Qi_instrument)instruments.elementAt(j);
+	%>
+	 
+  <tr><td class="search"> RNA Reading Instrument</td>
+    <td colspan="2"><%=DatabaseSetup.checkForNull(instrument.getInstrument_name())%></td>
+  </tr>
+     <%}
+  }%>
+  
+   <%if(rna.getRna_analysis_quality()!=null){
+      Qi_quality quality = new Qi_quality();
+	  Vector qualities = quality.retrieveAllWhere("QUALITY_NAME = "+"\'"+rna.getRna_analysis_quality()+"\'"+" AND QUALITY_CATEGORY ="+"\'"+"RNA"+"\'");
+	  for(int j=0;j<qualities.size();j++){
+	   quality = (Qi_quality)qualities.elementAt(j);
+	%>
+	 
+  <tr><td class="search"> RNA Quality</td>
+    <td colspan="2"><%=DatabaseSetup.checkForNull(quality.getQuality_desc())%></td>
+  </tr>
+     <%}
+  }%>  
+ 
+<%}
+if(rna.getProcess_date()!=null){%>
+  <tr><td class="search">Process Date</td><td colspan="2"><%=formatter.format(rna.getProcess_date())%></td></tr>
+  <%}
+ if(rna.getAnalysis_date()!=null){%>
+  <tr><td class="search">Analysis Date</td><td colspan="2"><%=formatter.format(rna.getAnalysis_date())%></td></tr>
+    <%}
+if(rna.getComments()!=null){%>
+  <tr><td class="search">RNA comment</td><td colspan="2"><%=DatabaseSetup.checkForNull(rna.getComments())%></td></tr>
+    <%}
+	
+	
+	    
+	
+String userDir = System.getProperty("user.dir");
+Vector rna_img_vec = new Vector();	
+Rna_quality_image rna_img = new Rna_quality_image();
+if(rna.getRna_id() != null){	
+   String whereTrace = "RNA_ID = " +rna.getRna_id()+ " AND IMAGE_TYPE ="+"\'"+"RNA_Trace"+"\'" + "AND IMAGE_FILE_ID is not null";
+   rna_img_vec = rna_img.retrieveAllWhere(whereTrace);	
+   if(rna_img_vec.size()==1){	
+       String imageName = null;
+	   for(int i=0; i<rna_img_vec.size();i++){
+	   rna_img = (Rna_quality_image)rna_img_vec.elementAt(i);
+	   imageName= rna_img.getImage_file_id();       
+	
+	   String lizard_Window = null;
+	   String lizard_Unix = null;
+	  if(imageName != null){
+	   lizard_Window = getServletConfig().getServletContext().getInitParameter("lizard_Window");	
+	   lizard_Unix = getServletConfig().getServletContext().getInitParameter("lizard_Unix");
+	   System.out.println("lizard_Window is :"+lizard_Window);
+	   System.out.println("lizard_Unix is :"+lizard_Unix);
+	   if(userDir.indexOf(":")!= -1){ %>							  
+		      <tr><td class="search">RNA Trace File</td><td colspan="2">
+	          <a href="<%=lizard_Window%>QI_Images/RNA_Trace_Files/<%=DatabaseSetup.checkForNull(imageName)%>" target="_blank">
+	          <img src="<%=lizard_Window%>QI_Images/RNA_Trace_Files/<%=DatabaseSetup.checkForNull(imageName)%>" alt="Click on the image to open in a new Browser window" border="0" target="_blank" width="80" height="40"></a>
+	          </td></tr>
+	     <%}
+        else{ 
+          System.out.println("UNIX");%>    
+	          <tr><td class="search">RNA Trace File</td><td colspan="2">
+              <a href="<%=lizard_Unix%>QI_Images/RNA_Trace_Files/<%=DatabaseSetup.checkForNull(imageName)%>" target="_blank">
+	          <img src= "<%=lizard_Unix%>QI_Images/RNA_Trace_Files/<%=DatabaseSetup.checkForNull(imageName)%>" alt="Click on the image to open in a new Browser window" border="0" target="_blank" width="80" height="40"></a>
+              </td></tr>  
+           <% }
+          }
+  if(rna_img.getImage_title() != null&& !rna_img.getImage_title().equals("")){%>						
+  <tr><td class="search">Title of Trace File</td><td colspan="2"><%=DatabaseSetup.checkForNull(rna_img.getImage_title())%></td></tr>
+    <%}  
+ if(rna_img.getImage_desc() != null&& !rna_img.getImage_desc().equals("")){%>							
+  <tr><td class="search">Description of Trace File</td><td colspan="2"><%=DatabaseSetup.checkForNull(rna_img.getImage_desc())%></td></tr>
+   <%} 
+   
+       }
+     }
+   } // end of RNA trace file retrieving
+   
+   
+   // starting RNA gel file retrieving
+   
+   
+   if(rna.getRna_id() != null){		         
+	   String whereGel = "RNA_ID = " +rna.getRna_id()+ " AND IMAGE_TYPE ="+"\'"+"RNA_Gel"+"\'" + "AND IMAGE_FILE_ID is not null";
+	   rna_img_vec = rna_img.retrieveAllWhere(whereGel);	
+	   if(rna_img_vec.size()==1){	
+	       String imageName2 = null;
+		   for(int i=0; i<rna_img_vec.size();i++){
+		   rna_img = (Rna_quality_image)rna_img_vec.elementAt(i);
+		   imageName2= rna_img.getImage_file_id();   
+		   			 
+		   if(imageName2 != null){
+		      String  lizard_Window = getServletConfig().getServletContext().getInitParameter("lizard_Window");	
+	          String lizard_Unix = getServletConfig().getServletContext().getInitParameter("lizard_Unix");
+	
+			   if(userDir.indexOf(":")!= -1){ %>	
+			   	<tr><td class="search">RNA Gel Image </td><td colspan="2">
+			     <a href="<%=lizard_Window%>QI_Images/RNA_Gel_Images/<%=DatabaseSetup.checkForNull(imageName2)%>" target="_blank">
+	              <img src="<%=lizard_Window%>QI_Images/RNA_Gel_Images/<%=DatabaseSetup.checkForNull(imageName2)%>" alt="Click on the image to open in a new Browser window" border="0" target="_blank" width="80" height="40"></a>
+                  </td></tr>  
+			  <%}
+               else{ 
+                 System.out.println("UNIX");%> 
+				  	<tr><td class="search">RNA Gel Image </td><td colspan="2">   
+					  <a href="<%=lizard_Unix%>QI_Images/RNA_Gel_Images/<%=DatabaseSetup.checkForNull(imageName2)%>" target="_blank">
+					  <img src= "<%=lizard_Unix%>QI_Images/RNA_Gel_Images/<%=DatabaseSetup.checkForNull(imageName2)%>" alt="Click on the image to open in a new Browser window" border="0" target="_blank" width="80" height="40"></a>
+			         </td></tr>  
+			  <% }
+			    }
+								
+		if(rna_img.getImage_title()!=null){%>
+           <tr><td class="search">Title of Trace File</td><td colspan="2"><%=DatabaseSetup.checkForNull(rna_img.getImage_title())%></td></tr>
+           <%}  
+        if(rna_img.getImage_desc()!=null){%>
+           <tr><td class="search">Description of Trace File</td><td colspan="2"><%=DatabaseSetup.checkForNull(rna_img.getImage_desc())%></td></tr>
+            <%} 
+			}
+		}
+	}
+   
+   
+ %>	
+ </table>  
+  <div>&nbsp;</div>
+<%}// for loop for the sample
+
+%><br /><br /><br />
+
+<%@ include file="bottomTabs.html"%>  
+
+<INPUT  TYPE = "HIDDEN" NAME = "core_sample_id" VALUE = "<%=core_sample_id%>"> 
+</form>
+</div>
+<p class="note"><a href="select.jsp">Home</a> | <a href="#top">Top of the page</a></p>
+</div>
+

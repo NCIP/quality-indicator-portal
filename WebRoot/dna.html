@@ -1,0 +1,279 @@
+<!DOCTYPE html public "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/Transitional.dtd">
+<HTML>
+<HEAD>
+<TITLE>DNA Quality Indicators</TITLE>
+<META http-equiv="Content-Type" content="text/html;">
+<LINK REL=StyleSheet HREF="css/qiStyle.css" TYPE="text/css">
+ <%response.setDateHeader("Expires",System.currentTimeMillis());%>
+</HEAD>
+  
+<body>
+<SCRIPT language="JavaScript" src="images/calendar.js" >
+</script> 
+ 
+<SCRIPT>
+function goThere(the_date)
+{  
+  setDateField(document.dnadate.hyb_date); 
+  top.newWin = window.open('calendar.html', 'cal', 'dependent=yes, width=210, height=230, screenX=200, screenY=300, titlebar=yes');
+}
+function goThere2(the_date)
+{  
+  setDateField(document.dnadate.analysis_date); 
+  top.newWin = window.open('calendar.html', 'cal', 'dependent=yes, width=210, height=230, screenX=200, screenY=300, titlebar=yes');
+}
+ 
+function goThere3(the_date)
+{  
+  setDateField(document.dnadate.label_date); 
+  top.newWin = window.open('calendar.html', 'cal', 'dependent=yes, width=210, height=230, screenX=200, screenY=300, titlebar=yes');
+}
+//***********************************************************
+// This function checks to see if a passed string is either
+// NULL or empty.  If it is, the function will return TRUE, 
+// otherwise it will return FALSE.
+//***********************************************************
+function isEmpty(s)
+{   
+   return ((s == null) || (s.length == 0))
+}
+
+
+//***********************************************************
+// This function checks to see if a single character contains
+// a numeric value.  If it does, this function returns TRUE,
+// otherwise it will return FALSE.
+//***********************************************************
+function isDigit (c)
+{  
+   return ((c >= "0") && (c <= "9") || (c=='.') || (c=='-') || (c==','))
+}
+
+//***********************************************************
+// This function checks to see if the passed string contains
+// only number.  The function will return TRUE if the string
+// contains only numbers, otherwise the function will return
+// false.
+//***********************************************************
+function isInteger (s)
+{
+   if (isEmpty(s)) 
+      if (isInteger.arguments.length == 1) return defaultEmptyOK;
+      else return (isInteger.arguments[1] == true);
+
+   // Search through string's characters one by one
+   // until we find a non-numeric character.
+   // When we do, return false; if we don't, return true.
+   for (i = 0; i < s.length; i++)
+   {   
+      // Check that current character is number.
+      var c = s.charAt(i);
+
+      if (!isDigit(c)) return false;
+   }
+
+   // All characters are numbers.
+   return true;
+}
+
+function ValidateDNAYield(theField)
+{	
+   var returnVal = true;			 
+   if (!(theField.value == null || theField.value == ''))
+   {
+      if (!isInteger(theField.value))
+      {
+         alert('Please enter only numeric value in this field.');
+         theField.value = '';
+         theField.focus();
+         returnVal = false;
+      }
+   }
+   return returnVal;
+}
+
+
+</SCRIPT>
+
+<div class="page">
+
+<%@ include file="header.html"%> 
+
+
+<div class="main">
+ <%response.setDateHeader("Expires",System.currentTimeMillis());
+ %>
+
+<FORM  method="POST" action="dna.jsp" name ="dnadate" >
+
+<INPUT TYPE = "HIDDEN" NAME = "id" VALUE = "<%=id%>">
+	
+	<h2 class="title">Enter Information for DNA Quality Indicator:</h2>
+            <TABLE class="data" width="75%" cellspacing="0" cellpadding="5" border="0"  valign="top">
+			 <tr>
+                    <td colspan="3" height="50" valign="top">Required fields are in <font color="#800000"><b>Red</b></font> color.</td>
+                  </tr>
+		
+			
+
+				      
+		
+	
+			<tr>		 
+			<td><b>Labtrak Id:</td>
+			 		<TD>	<INPUT name="labTrakId"  class="inps" type="TEXT" size="34" maxlength="50" readonly="true" value="<%= labtrak_id%>" >
+		
+                       
+			</TD>
+			</tr>		 
+			<tr>		 
+			<td><font color="#800000"><b>Select Your Lab:</b></font></td>
+			<TD><%= Lookup.getDNALabs("required_dna_Sub-sampleId",1,dna.getDna_subsample_id())%>
+			
+			</TD>
+			</tr>
+		<tr>
+						<td>P53 Multiplex PCR Rating:</td>
+						<td><%= Lookup.getPCRRating("pcr_rating",1,dna.getPcr_rating())%>
+					      
+						 </td>
+					</tr>
+					<tr>
+			<td>P53 PCR Analysis Date:</td>
+			<TD>
+			 <%if(dna.getAnalysis_date() != null && !dna.getAnalysis_date().equals("")){%>
+				<INPUT name="analysis_date"  class="inps" type="TEXT" size="34" maxlength="50" readonly="true" value="<%=formatter.format(dna.getAnalysis_date())%>" >
+			<%}
+			else{%>
+			   <INPUT name="analysis_date"  class="inps" type="TEXT" size="34" maxlength="50" readonly="true" >
+			<%}%>
+			
+			<A href="javascript:goThere2(document.dnadate.analysis_date)">
+			<IMG src="images/calendar2.gif" border="0"></A>
+			</TD>
+		</tr>
+					<tr>
+						<td colspan="5"><hr noshade>
+						</td>
+						</tr>
+						<tr>
+						<td colspan="5"><b>Enter New DNA Labeling and CGH Info Here	</b>
+						</td>
+						</tr>
+						<tr>
+						
+						
+						
+						
+				
+			<td>Which Attempt of Labeling DNA(1st,2nd,3rd,4th):</td>
+			<%String label_attempt = Lookup.getAttempts("labeling_attempt",1, labeling_attempt_ids);%>
+			<td><%=label_attempt%>
+			
+		</tr>
+		<%
+		
+		
+		if(label_attempt!= null && label_attempt.trim().lastIndexOf("entered")==-1){%>
+		<tr>
+			<td><font #336633></font>Intensity of Labeling DNA:</font></td>
+			<td><%= Lookup.getIntensities("intensity",1)%>
+			
+			
+		</tr>
+		
+		 <tr>
+						<td>DNA Labeling Date:</td>
+						<td>
+						
+						<INPUT NAME="label_date" class="inps" TYPE=TEXT SIZE=10 MAXLENGTH=15 readonly="true" value="">&nbsp;&nbsp;
+						
+						<A href="javascript:goThere3(document.dnadate.label_date)">
+							  <IMG src="images/calendar2.gif" border="0"></A>
+
+						</td>
+					</tr>
+			<%}%>		
+						
+						<tr>
+			<td>Which Attempt of CGH Hybridization(1st,2nd,3rd,4th):</td>
+			<% String cgh_hyb_attempt =Lookup.getAttempts("cgh_hyb_attempt",1, cgh_hyb_attempt_ids);%>
+			<td><%=cgh_hyb_attempt%></td>
+			
+		</tr>
+		
+			
+		<%if(cgh_hyb_attempt!= null && cgh_hyb_attempt.trim().lastIndexOf("entered")==-1){%>
+	
+		<tr>
+			<td>CGH Hybridization Quality:</td>
+			<td><%= Lookup.getCGHQualities("cgh_quality",1)%>
+			
+			
+		</tr>
+		
+		 <tr>
+						<td>Hybdization Date:</td>
+						<td>
+						
+						<INPUT NAME="hyb_date" class="inps" TYPE=TEXT SIZE=10 MAXLENGTH=15 readonly="true" value="">&nbsp;&nbsp;
+						
+						<A href="javascript:goThere(document.dnadate.hyb_date)">
+							<IMG src="images/calendar2.gif" border="0"></A>
+						</td>
+					</tr>
+					<%
+				}
+					if(!(dna_labels.size()==0 && cgh_hybs.size()==0)){%>
+					<tr>
+						<td colspan="5"><b><A href="viewAllLabel_CGH.jsp?id=<%=dnaId%>">View Previous Labeling and CGH Info Here	</b></A>
+						</td>
+						</tr>
+						<%}%>
+					<tr>
+						<td colspan="5"><hr noshade>
+						</td>
+						</tr>
+						
+			
+		
+		 <tr>
+					     <td>Comment:</td>
+						 <td>
+						 <%if(dna.getComments() != null && !dna.getComments().equals("")){%>
+						 	  <textarea cols="30" rows="3" name="comment"><%=dna.getComments()%></textarea>
+                            <%}
+							else{%>
+							 <textarea cols="30" rows="3" name="comment"></textarea>                        
+							<%}%>
+						 </td>
+					  </tr>
+		
+						</table>
+						
+				  <%if (submitterRole.isInRole(QIConstants.DNAROLE) || submitterRole.isSuperUser() || submitterRole.isDemoUser()){%>
+					<table class="tbuttons" width="75%">
+						<tr><td>&nbsp;</td></tr>
+					<TR>
+						<TD colspan="2">
+							<INPUT type="SUBMIT" class="buttons" name="submit_dan_quality" value="Save Data">&nbsp;&nbsp;&nbsp;
+							<INPUT type="RESET" class="buttons" value="Clear" >&nbsp;&nbsp;&nbsp;
+							<%if (id != null && !id.equals("")) {%>							
+							   <INPUT type="SUBMIT" class="buttons" name="delete_data" value="Delete Data"  onClick="return confirm('Are you sure you want to delete the record?')">
+							<%}%>
+							<INPUT type="SUBMIT" class="buttons" name="bk" value="Back">&nbsp;&nbsp;&nbsp;
+						
+							</TD>
+					</TR>
+	                  </TABLE>
+  				  <%}%>
+		
+	
+</FORM>
+
+
+	
+	</div>
+	<p class="note"><a href="select.jsp">Home</a> | <a href="#top">Top of the page</a></p>
+	</div>
+	

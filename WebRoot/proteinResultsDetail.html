@@ -1,0 +1,152 @@
+<!DOCTYPE html public "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/Transitional.dtd">
+
+  <%@ include file="tabs.htm"%>   
+    
+<script language="JavaScript">   
+<!-- 
+function MM_default() { //v3.0
+  MM_swapImage('Image5','','images/generalinfo_OVER.gif',1);  
+  }    
+MM_default();	     
+//-->                
+</script>   
+<% response.setDateHeader("Expires",System.currentTimeMillis());%>
+	<p>&nbsp;</p>
+	<A name="top"></a>	
+<form method ="post" action ="proteinResultsDetail.jsp?sampleId=<%=sampleId%>">
+<INPUT  TYPE = "HIDDEN" NAME = "sampleId" VALUE = "<%=sampleId%>"> 
+
+ <div id="navcontainer">
+<ul id="navlist">
+<li><a href="searchResults.jsp">Back to Search Results</a></li>
+<li><a href="searchResultsDetail.jsp?sampleId=<%=DatabaseSetup.checkForNull(sampleId)%>&core_sample_id=<%=URLEncoder.encode(DatabaseSetup.checkForNull(core_sample_id))%>">General Info</a></li>
+<li><a href="dnaResultsDetail.jsp?sampleId=<%=DatabaseSetup.checkForNull(sampleId)%>&core_sample_id=<%=URLEncoder.encode(DatabaseSetup.checkForNull(core_sample_id))%>">DNA Quality Info</a></li>
+<li><a href="rnaResultsDetail.jsp?sampleId=<%=DatabaseSetup.checkForNull(sampleId)%>&core_sample_id=<%=URLEncoder.encode(DatabaseSetup.checkForNull(core_sample_id))%>" id="current">RNA Quality Info</a></li>
+<li><a href="proteinResultsDetail.jsp?sampleId=<%=DatabaseSetup.checkForNull(sampleId)%>&core_sample_id=<%=URLEncoder.encode(DatabaseSetup.checkForNull(core_sample_id))%>">Protein Quality Info</a></li>
+
+</ul>
+</div>
+ 
+ <%if(proteins.size()==0){%>
+ <table class="data" style="margin-left:40px;" cellpadding="5" cellspacing="0" border="1" width="85%" >
+<tr><th colspan="3">
+        Sorry, no records found.
+    </th></tr>
+	</table >
+	
+ <%}
+ else{%>
+<table class="data" style="margin-left:40px;" cellpadding="5" cellspacing="0" border="1" width="85%" >
+<tr><th colspan="3">
+     Protein Quality Indicator - LabTrak ID:<font color="Maroon"><%=DatabaseSetup.checkForNull(core_sample_id)%>
+    </th></tr>
+	
+	<% 
+	 for(int i=0; i<proteins.size();i++){
+	   protein =(Qi_protein)proteins.elementAt(i);	
+	  
+	  
+	 %> 
+	 <tr><td colspan="3" class="user">Protein Sub-sample ID: <%=DatabaseSetup.checkForNull(protein.getProtein_subsample_id())%></td></tr>
+	  
+	
+	  <%if(protein.getProtein_subsample_id()!=null){%>
+  <tr><td class="search" width="20%">Protein Sub-sample ID</td><td colspan="2"><%=DatabaseSetup.checkForNull(protein.getProtein_subsample_id())%></td></tr>
+     <%}%>
+  <%if(protein.getMicodissection_efficiency()!=null){%>
+  <tr><td class="search">Microdissection Efficiency of Capture</td><td colspan="2"><%=DatabaseSetup.checkForNull(protein.getMicodissection_efficiency())%>%</td></tr>
+    <%}%>
+	
+	
+	 
+  <tr><td class="search"> Sample Length</td>
+    <td colspan="2"><%=DatabaseSetup.checkForNull(protein.getProtein_sample_length())%></td>
+  </tr>
+    
+   <%if(protein.getProtein_sample_width()!=null){%>
+  <tr><td class="search">Sample Width</td>
+    <td colspan="2"><%=DatabaseSetup.checkForNull(protein.getProtein_sample_width())%></td>
+  </tr>
+   <%}%> 
+ 
+<%}
+if(protein.getProtein_sample_tumor_presence()!=null){%>
+  <tr><td class="search">Protein Sample Tumor Presence</td><td colspan="2"><%=DatabaseSetup.checkForNull(protein.getProtein_sample_tumor_presence())%></td></tr>
+  <%}
+ if(protein.getTotal_number_cells()!=null){%>
+  <tr><td class="search">Total Number of Microdissected Cells</td><td colspan="2"><%=DatabaseSetup.checkForNull(protein.getTotal_number_cells())%></td></tr>
+    <%}
+if(protein.getPathologic_diagnosis()!=null){%>
+  <tr><td class="search">Pathologic Diagnosis of Sample</td><td colspan="2"><%=DatabaseSetup.checkForNull(protein.getPathologic_diagnosis())%></td></tr>
+    <%}
+	
+	
+	    
+	
+String userDir = System.getProperty("user.dir");
+Vector protein_img_vec = new Vector();	
+Rna_quality_image protein_img = new Rna_quality_image();
+if(protein.getProtein_id() != null){	
+   String whereTrace = "PROTEIN_ID = " +protein.getProtein_id()+ " AND IMAGE_TYPE ="+"\'"+"Protein_array_image"+"\'" + "AND IMAGE_FILE_ID is not null";
+   protein_img_vec = protein_img.retrieveAllWhere(whereTrace);	
+   if(protein_img_vec.size()==1){	
+       String imageName = null;
+	   for(int i=0; i<protein_img_vec.size();i++){
+	   protein_img = (Rna_quality_image)protein_img_vec.elementAt(i);
+	   imageName= protein_img.getImage_file_id();       
+	
+	   String lizard_Window = null;
+	   String lizard_Unix = null;
+	  if(imageName != null){
+	   lizard_Window = getServletConfig().getServletContext().getInitParameter("lizard_Window");	
+	   lizard_Unix = getServletConfig().getServletContext().getInitParameter("lizard_Unix");
+	   System.out.println("lizard_Window is :"+lizard_Window);
+	   System.out.println("lizard_Unix is :"+lizard_Unix);
+	   if(userDir.indexOf(":")!= -1){ %>							  
+		      <tr><td class="search">Protein Trace File</td><td colspan="2">
+	          <a href="<%=lizard_Window%>QI_Images/Protein_Array_Images/<%=DatabaseSetup.checkForNull(imageName)%>" target="_blank">
+	          <img src="<%=lizard_Window%>QI_Images/Protein_Array_Images/<%=DatabaseSetup.checkForNull(imageName)%>" alt="Click on the image to open in a new Browser window" border="0" target="_blank" width="80" height="40"></a>
+	          </td></tr>
+	     <%}
+        else{ 
+          System.out.println("UNIX");%>    
+	          <tr><td class="search">Protein Trace File</td><td colspan="2">
+              <a href="<%=lizard_Unix%>QI_Images/Protein_Array_Images/<%=DatabaseSetup.checkForNull(imageName)%>" target="_blank">
+	          <img src= "<%=lizard_Unix%>QI_Images/Protein_Array_Images/<%=DatabaseSetup.checkForNull(imageName)%>" alt="Click on the image to open in a new Browser window" border="0" target="_blank" width="80" height="40"></a>
+              </td></tr>  
+           <% }
+          }
+  if(protein_img.getImage_title() != null&& !protein_img.getImage_title().equals("")){%>						
+  <tr><td class="search">Title of Protein Array Image</td><td colspan="2"><%=DatabaseSetup.checkForNull(protein_img.getImage_title())%></td></tr>
+    <%}  
+ if(protein_img.getImage_desc() != null&& !protein_img.getImage_desc().equals("")){%>							
+  <tr><td class="search">Description of Protein Array Image</td><td colspan="2"><%=DatabaseSetup.checkForNull(protein_img.getImage_desc())%></td></tr>
+   <%} 
+   
+       }
+     }
+   } // end of Protein trace file retrieving
+   
+   
+   // starting Protein gel file retrieving
+   
+   
+  
+		
+   
+   
+ %>	
+ </table>  
+  <div>&nbsp;</div>
+<%}// for loop for the sample
+
+%><br /><br /><br />
+
+<%@ include file="bottomTabs.html"%>  
+
+<INPUT  TYPE = "HIDDEN" NAME = "core_sample_id" VALUE = "<%=core_sample_id%>"> 
+</form>
+</div>
+<p class="note"><a href="select.jsp">Home</a> | <a href="#top">Top of the page</a></p>
+</div>
+

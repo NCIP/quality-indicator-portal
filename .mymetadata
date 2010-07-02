@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="qualityindicator"
+  id="myeclipse.1274457306581"
+  context-root="/qualityindicator"
+  j2ee-spec="5.0"
+  archive="qualityindicator.war">
+  <attributes>
+    <attribute name="webrootdir" value="WebRoot" />
+  </attributes>
+</project-module>
+

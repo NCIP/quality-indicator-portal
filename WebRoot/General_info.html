@@ -1,0 +1,486 @@
+<!DOCTYPE html public "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/Transitional.dtd">
+<HTML>
+<HEAD>
+<TITLE>Submit Entry</TITLE>
+<META http-equiv="Content-Type" content="text/html;">
+
+
+<LINK REL=StyleSheet HREF="css/qiStyle.css" TYPE="text/css">
+ <%response.setDateHeader("Expires",System.currentTimeMillis());%>
+</HEAD>
+<SCRIPT language="JavaScript" src="images/calendar.js" >
+
+</script>
+<SCRIPT>
+function goThere(the_date)
+{
+  setDateField(document.generalinfo.process_date);
+  top.newWin = window.open('calendar.html', 'cal', 'dependent=yes, width=210, height=230, screenX=200, screenY=300, titlebar=yes');
+}
+function goThere2(the_date)
+{
+  setDateField(document.generalinfo.core_date);
+  top.newWin = window.open('calendar.html', 'cal', 'dependent=yes, width=210, height=230, screenX=200, screenY=300, titlebar=yes');
+}
+
+function goThere3(the_date)
+{
+  setDateField(document.generalinfo.dna_process_date);
+  top.newWin = window.open('calendar.html', 'cal', 'dependent=yes, width=210, height=230, screenX=200, screenY=300, titlebar=yes');
+}
+function goThere4(the_date)
+{
+  setDateField(document.generalinfo.rna_process_date);
+  top.newWin = window.open('calendar.html', 'cal', 'dependent=yes, width=210, height=230, screenX=200, screenY=300, titlebar=yes');
+}
+function check_coreType()
+{
+
+ if (ValidateCoreType() == true) {
+
+	 if(document.generalinfo.required_coreType.selectedIndex == "1")
+  	{
+		  document.generalinfo.tumorPresence.disabled=false;
+		  document.generalinfo.nontumor.disabled=false;
+		  document.generalinfo.H_E.disabled=true;
+		  document.generalinfo.usability.disabled=true;
+		  document.generalinfo.touchPreps.disabled=true;
+		  document.generalinfo.comment.disabled=false;
+  	}
+  	else
+   	{
+
+		    document.generalinfo.tumorPresence.disabled=true;
+			document.generalinfo.nontumor.disabled=true;
+			document.generalinfo.H_E.disabled=false;
+		    document.generalinfo.usability.disabled=false;
+		    document.generalinfo.touchPreps.disabled=false;
+			document.generalinfo.comment.disabled=false;
+
+   	}
+ }else
+ {document.generalinfo.required_coreType.focus()}
+}
+
+function validAccrual(accrualVal)
+{
+	var thisAccrualValue = parseInt(accrualVal.value);
+	var returnVal = true;
+	if (accrualVal.value < '0' || accrualVal.value > '9') {
+			alert("I-SPY patient ID must be a number");
+	        accrualVal.value = '';
+			accrualVal.focus();
+			returnVal = false;
+	} else
+	{
+		if (thisAccrualValue < 1001 || thisAccrualValue > 1244) {
+			alert("I-SPY patient ID must be between 1001 and 1244 !!");
+	        accrualVal.value = '';
+			accrualVal.focus();
+			returnVal = false;
+		}
+	}
+	return returnVal;
+}
+
+function ValidateCoreType()
+{
+	var thisCoreTypeValue = document.generalinfo.required_coreType.value;
+	var thisTimePointValue = document.generalinfo.required_timePoint.value;
+	if (thisCoreTypeValue.substring(0,1) != thisTimePointValue.substring(0,1)) {
+		alert("The selected TimePoint should match the chosen CoreType!! Please fix this error before proceeding");
+		document.generalinfo.required_coreType.selectedIndex = -1;
+		return false;
+	}
+	return true;
+}
+
+//***********************************************************
+// This function checks to see if a passed string is either
+// NULL or empty.  If it is, the function will return TRUE,
+// otherwise it will return FALSE.
+//***********************************************************
+function isEmpty(s)
+{
+   return ((s == null) || (s.length == 0))
+}
+
+
+//***********************************************************
+// This function checks to see if a single character contains
+// a numeric value.  If it does, this function returns TRUE,
+// otherwise it will return FALSE.
+//***********************************************************
+function isDigit (c)
+{
+   return ((c >= "0") && (c <= "9") || (c=='.') || (c=='-') || (c==','))
+}
+
+//***********************************************************
+// This function checks to see if the passed string contains
+// only number.  The function will return TRUE if the string
+// contains only numbers, otherwise the function will return
+// false.
+//***********************************************************
+function isInteger (s)
+{
+   if (isEmpty(s))
+      if (isInteger.arguments.length == 1) return defaultEmptyOK;
+      else return (isInteger.arguments[1] == true);
+
+   // Search through string's characters one by one
+   // until we find a non-numeric character.
+   // When we do, return false; if we don't, return true.
+   for (i = 0; i < s.length; i++)
+   {
+      // Check that current character is number.
+      var c = s.charAt(i);
+
+      if (!isDigit(c)) return false;
+   }
+
+   // All characters are numbers.
+   return true;
+}
+
+function ValidateTumor(theField)
+{
+   var returnVal = true;
+   if (!(theField.value == null || theField.value == ''))
+   {
+      if (!isInteger(theField.value))
+      {
+         alert('Please enter only numeric value in this field.');
+         theField.value = '';
+         theField.focus();
+         returnVal = false;
+      }
+   }
+   return returnVal;
+}
+
+
+</SCRIPT>
+
+<BODY>
+<div class="page">
+	<%@ include file="header.html"%>
+
+
+	<div class="main">
+	<FORM method="POST" action="General_info.jsp" name="generalinfo">
+			<INPUT TYPE = "HIDDEN" NAME = "id" VALUE = "<%=id%>">
+
+				<H2 class="title">Enter General Information About The Sample</H2>
+
+
+                <table border="0" class="data" width="75%">
+
+
+				 <tr>
+                    <td colspan="3" height="50" valign="top">Required fields are in <font color="#800000"><b>Red</b></font> color.</td>
+                  </tr>
+				  <tr>
+			
+						<td><b><font color="#800000">LabTrak ID:</b></font></td>
+						<td>
+						<INPUT NAME="required_core_sample_Id" class="inps" TYPE=TEXT SIZE=40 MAXLENGTH=50 value="<%=DatabaseSetup.removeNull(sample.getLabtrak_id())%>">
+						</td>
+
+						</tr>
+				  <TR>
+						<TD> <b><font color="#800000">Institution(Core Collected):</b></font></Td>
+						<td>
+						<%= Lookup.getSampleInstitutions("required_institution",1,sample.getSample_generating_institute_id())%>
+				        <!---   <SELECT name="institution" size="1">
+								<OPTION value="">
+								<OPTION value="1">UCSF
+							</SELECT>  --->
+							</td>
+							</TR>
+
+					<tr><td><b><font color="#800000">I-SPY patient ID <br>(range 1001-1244):</b></font></td>
+						<td>
+						<INPUT NAME="required_accrual" class="inps" TYPE=TEXT SIZE=4 MAXLENGTH=10 value="<%=DatabaseSetup.removeNull(sample.getPatient_accrual())%>" onchange="return validAccrual(this);">
+						</td>
+						</tr>
+
+					<tr><td><b><font color="#800000">TimePoint:</b></font></td>
+							<td>
+								<%= Lookup.getTimePoints("required_timePoint",1,sample.getTimepoint_name(), submitterRole)%>
+							</td>
+					</tr>
+
+					<!--- <tr>
+						<td>Date Cores Collected (mm/yyyy):</td>
+						<td>
+						<%if(sample.getCore_collect_date() != null){%>
+
+						<INPUT NAME="core_date" class="inps" readonly="true" TYPE=TEXT SIZE=10 MAXLENGTH=15 value="<%=formatter3.format(sample.getCore_collect_date())%>">&nbsp;&nbsp;
+						<%}
+						else{%>
+						<INPUT NAME="core_date" class="inps" readonly="true" TYPE=TEXT SIZE=10 MAXLENGTH=15 value=" ">&nbsp;&nbsp;
+
+						<%}%>
+						</td>
+					</tr> --->
+					<!---  <tr>
+					     <td>Comment:</td>
+						 <td>
+						  <textarea cols="30" rows="3" name="comment"><%=DatabaseSetup.removeNull(sample.getQi_comment())%></textarea>
+						</td>
+					  </tr>
+					<tr> --->
+					<td><b><font color="#800000">Core Type:</b></font></td>
+					<td>
+					<%= Lookup.getCoreTypes("required_coreType",1,sample.getCore_type(), submitterRole)%>
+							</td>
+						</tr>
+                      <tr>
+						<td>Tissue Cutting Date:</td>
+						<td>
+						<%if(sample.getProcess_date() != null){%>
+						<INPUT NAME="process_date" class="inps" TYPE=TEXT SIZE=10 MAXLENGTH=15 readonly="true" value="<%=formatter.format(sample.getProcess_date())%>">&nbsp;&nbsp;
+						<%}
+						else{%>
+						<INPUT NAME="process_date" class="inps" TYPE=TEXT SIZE=10 MAXLENGTH=15 readonly="true" value="">&nbsp;&nbsp;
+
+						<%}%>
+						<A href="javascript:goThere(document.generalinfo.process_date)">
+							   <IMG src="images/calendar2.gif" border="0"></A>
+
+						</td>
+					</tr>
+
+					 <tr>
+					     <td>Comment:</td>
+						 <td>
+						  <textarea cols="30" rows="3" name="comment"><%=DatabaseSetup.removeNull(sample.getQi_comment())%></textarea>
+						</td>
+					  </tr>
+
+  <%if (!submitterRole.isInRole(QIConstants.PARAFFINSAMPLEROLE)){%>
+
+						<tr>
+						<td colspan="5"><hr noshade>
+						</td>
+						</tr>
+
+					<tr>
+						<td colspan="5" class="formLabel"><b>Frozen Core</b>
+						</td>
+						</tr>
+						<tr>
+						<td colspan="5">
+						</td>
+						</tr>
+					</tr>
+					<tr>
+					<td>Touch Prep:</td>
+						<td>
+						  <%= Lookup.getFrozen_TouchPreps("frozen_Touch_Prep",1,sample.getFrozen_touch_prep())%>
+						  </td>
+						  </tr>
+						<tr>
+					<td>H&E Tumor Review:</td>
+
+					       <td>
+							<%= Lookup.getFrozen_H_E("frozen_H_E",1,sample.getFrozen_h_e())%>
+						   </td></tr>
+
+					<tr>
+					<td>Tumor Density:</td>
+						<td>
+
+						   <INPUT NAME="tumorPresence" class="inps" TYPE=TEXT SIZE=40 MAXLENGTH=50 value="<%=DatabaseSetup.removeNull(sample.getTumorpresence())%>" onchange="return ValidateTumor(this);">%</td>
+						</tr>
+
+
+				     <tr>
+					<td>Non-Tumor Nucleated Cells:</td>
+						<td>
+						<INPUT NAME="nontumor" TYPE=TEXT class="inps" SIZE=40 MAXLENGTH=50 value="<%=DatabaseSetup.removeNull(sample.getNontumor())%>" onchange="return ValidateTumor(this);">%</td>
+						</tr>
+
+						<tr>
+						<td colspan="5"><hr noshade>
+						</td>
+						</tr>
+						<tr>
+						   <td colspan="5" class="formLabel"><b>DNA Section</b>
+						   </td>
+						</tr>
+						<tr>
+			<td>Enter Process Date:</td>
+			<TD>
+			 <%if(sample.getDna_process_date() != null && !sample.getDna_process_date().equals("")){%>
+
+				<INPUT name="dna_process_date" class="inps" type="TEXT" size="34" maxlength="50" readonly="true" value="<%=formatter.format(sample.getDna_process_date())%>">
+				<%}
+			else{%>
+				<INPUT name="dna_process_date" class="inps" type="TEXT" size="34" maxlength="50" readonly="true" >
+			<%}%>
+				<A href="javascript:goThere3(document.generalinfo.dna_process_date)">
+				<IMG src="images/calendar2.gif" border="0"></A>
+			</TD>
+		</tr>
+		<tr>
+
+
+
+
+		<tr>
+			<td>Enter DNA Yield Via Spectrophotometer Reading:
+			<br><font size="-2">(Enter integer or decimal numbers only)</font>
+			</td>
+			<TD>
+
+				<INPUT name="dnaReading" type="TEXT" size="34" maxlength="50" value="<%=DatabaseSetup.removeNull(sample.getDna_reading())%>" onchange="return ValidateDNAYield(this);"> <%= Lookup.getUnits("dna_unit",1,sample.getDna_quantity_unit())%>
+			</TD>
+						</tr>
+		<tr>
+					<td>Select Reading Instrument:</td>
+					<td><%= Lookup.getDNAInstrument("dna_reading_instrument",1,sample.getDna_instrument_id())%>
+				     <!--   	<td><SELECT name="dna_reading_instrument" MULTIPLE >
+<OPTION value="">
+<OPTION value="1">Agilent NanoDrop Spectrophotometer
+<OPTION value="3">Fluorimeter
+</SELECT>-->
+							</td>
+						</tr>
+						<tr>
+					<td>Select DNA Quality (260/280 ratio):</td>
+					<td><%= Lookup.getDNAQuality("dnaQuality",1,sample.getDna_extraction_quality())%>
+
+					</td>
+				</tr>
+
+						<tr>
+						    <td colspan="5">
+						    </td>
+						</tr>
+						<tr>
+						<td colspan="5"><hr noshade>
+						</td>
+						</tr>
+						<tr>
+						   <td colspan="5" class="formLabel"><b>RNA Section</b>
+						   </td>
+						</tr>
+						 <tr>
+			<td>Enter Process Date:</td>
+			<TD>
+			 <%if(sample.getRna_process_date() != null && !sample.getRna_process_date().equals("")){%>
+				<INPUT name="rna_process_date" class="inps" type="TEXT" size="34" maxlength="50" readonly="true" value="<%=formatter.format(sample.getRna_process_date())%>">
+				<%}
+			else{%>
+				<INPUT name="rna_process_date" class="inps" type="TEXT" size="34" maxlength="50" readonly="true" >
+			<%}%>
+				<A href="javascript:goThere4(document.generalinfo.rna_process_date)">
+				  <IMG src="images/calendar2.gif" border="0">
+				 </A>
+			</TD>
+		</tr>
+
+		<tr>
+			<td>Enter RNA Yield Via Spectrophotometer Reading:
+			<br><font size="-2">(Enter integer or decimal numbers only)</font> </td>
+			<TD>
+			<INPUT name="rnaReading" type="TEXT" size="34" maxlength="50" value="<%=DatabaseSetup.removeNull(sample.getRna_reading())%>" onchange="return ValidateRNAYield(this);"> <%= Lookup.getUnits("rna_unit",1,sample.getRna_quantity_unit())%>
+
+			</TD>
+		</tr>
+
+		<tr>
+		   <td>Select Reading Instrument:</td>
+		   <td><%= Lookup.getRNAProcessInstrument("rna_reading_instrument",1,sample.getRna_instrument_id())%>
+		   </td>
+		</tr>
+		<tr>
+		<td>Select RNA Quality(260/280 ratio):</td>
+		<td><%= Lookup.getDNAQuality("rnaQuality",1,sample.getRna_extraction_quality())%>
+
+		</td>
+		</tr>
+
+
+
+
+  <%}%>
+
+  <%if (!submitterRole.isInRole(QIConstants.FROZENSAMPLEROLE)){%>
+						<tr>
+						<td colspan="5"><hr noshade>
+						</td>
+						</tr>
+						<tr>
+						<td colspan="5" class="formLabel"><b>Paraffin Core</b>
+						</td>
+						</tr>
+						<tr>
+						<td colspan="5">
+						</td>
+						</tr>
+					  <tr>
+					    <td>H&E Review(Top/Bottom):</td>
+							<td>
+							<%= Lookup.getH_EReviews("H_E",1,sample.getH_e_review())%>
+							</td>
+					  </tr>
+
+					  <tr>
+					     <td>H&E Usability:</td>
+						 <td>
+						 <%= Lookup.getUsabilities("usability",1,sample.getUsability())%>
+						</td>
+						  </tr>
+
+						  <tr>
+					     <td>Touch Preps Received:</td>
+						 <td>
+						 <%= Lookup.getTouchPreps("touchPreps",1,sample.getTouchprep_recvd())%>
+						</td>
+						  </tr>
+
+  <%}%>
+				</table>
+
+
+  <%if (submitterRole.isInRole(QIConstants.FROZENSAMPLEROLE) || submitterRole.isSuperUser() || submitterRole.isDemoUser() || submitterRole.isInRole(QIConstants.PARAFFINSAMPLEROLE)){%>
+
+					<table border="0" width="75%" class="tbuttons">
+					      <tr><td>&nbsp;</td></tr>
+
+							<tr><td>
+								<INPUT type="SUBMIT"  class="buttons" name="submit_sample" value="   Save Data   " onclick="return ValidateCoreType();">&nbsp;&nbsp;&nbsp;
+								<INPUT type="RESET" class="buttons" value="  Clear  " >&nbsp;&nbsp;&nbsp;
+
+								<%
+								if (id != null && !id.equals("") && dna_rna_status==true){%>
+								  <INPUT type="SUBMIT" class="buttons" name="delete_data" value="Delete Data"  onClick="return confirm('Are you sure you want to delete the record?')">
+				               <%}
+							    else if (id != null && !id.equals("")&& dna_rna_status==false){%>
+								  <INPUT type="SUBMIT" class="buttons" name="delete_data" value="Delete Data"  onClick="return confirm('You must delete associated DNA/RNA record(s) first before deleting sample record!')">
+
+								<%}%>
+								 <INPUT type="BUTTON" class="buttons" name="back" value="Back"  onClick="parent.location='intro.jsp'">
+
+							    </td></tr>
+				   </table>
+  <%}else {%>
+
+					<table border="0" width="75%" class="tbuttons">
+					      <tr><td>&nbsp;</td></tr>
+					      <tr><td align="center">
+								 <INPUT type="BUTTON" class="buttons" name="back" value="Back"  onClick="parent.location='intro.jsp'">
+					      </td></tr>
+				   	</table>
+  <%}%>
+				      </FORM>
+
+	<br /><br />
+</div>
+<!-- #EndEditable -->
+
+<p class="note"><a href="select.jsp">Home</a> | <a href="#top">Top of the page</a></p>
+</div>

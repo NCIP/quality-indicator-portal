@@ -1,0 +1,66 @@
+<!DOCTYPE html public "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/Transitional.dtd">
+<HTML>
+<HEAD>
+<TITLE>Submit Entry</TITLE>
+<META http-equiv="Content-Type" content="text/html;">
+<LINK REL=StyleSheet HREF="css/qiStyle.css" TYPE="text/css">
+ <%response.setDateHeader("Expires",System.currentTimeMillis());%>
+</HEAD>
+
+<body>
+
+<div class="page">
+
+<%@ include file="header.html"%> 
+
+
+<div class="main">
+
+ 
+<%response.setDateHeader("Expires",System.currentTimeMillis());%>
+<FORM method="POST" action="exit.jsp">
+<INPUT TYPE ="HIDDEN" NAME ="sampleId" VALUE ="<%=sampleId%>">
+<INPUT TYPE = "HIDDEN" NAME = "submitterId" VALUE = "<%=submitterId%>">
+<INPUT type="hidden" name="a" value="1">
+	<TABLE border="0" align="center" cellspacing="5" cellpadding="5" width="95%">
+		<TR>
+			<TD><H2 class ="title">Thank you for submitting the sample<FONT color="Maroon">
+				<%=labtrak_id%></FONT> to the Quality Indicator database!<br>
+				Your data has been saved.</H2>
+			</TD>
+		</TR>
+		<TR align="left">
+			<TD valign="bottom">
+			</td>
+			</tr>
+			</table>
+			</TD>
+		</tr>
+</TABLE>	
+
+
+		
+<!--- 			Click on <a href="index.jsp"><img src="images/home_UP.gif" width="38" height="16" border="0" alt="Home"></a> if you would like to return to the home page.&nbsp;&nbsp;If you would like to enter or modify another model, please click <a href="intro.jsp">here</a>	 --->
+			<table class="tbuttons" align="center">
+			<tr>
+				<td><input type="submit" class="buttons" name="home" value=" Return to Home ">&nbsp;&nbsp;</td>
+				<td><input type="submit" class="buttonsBIG" name="nextSample" value="Submit or Modify Another Sample/Quality Indicator"></td>
+			</tr>
+			</table>
+
+		
+	</FORM>	
+	</div>
+	</div>
+
+
+<%					
+	if(request.getParameter("home")!= null ){	%>
+	   <jsp:forward page="select.jsp"/>						
+	 <%}
+	 if(request.getParameter("nextSample")!= null ){	%>
+	   <jsp:forward page="intro.jsp"/>						
+	 <%}
+	%>
+	
+<%@ include file="footer.jsp"%>	

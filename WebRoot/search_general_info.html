@@ -1,0 +1,264 @@
+<!DOCTYPE html public "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/Transitional.dtd">
+
+  <%@ include file="tabs.htm"%>  
+    
+ 
+<% response.setDateHeader("Expires",System.currentTimeMillis());
+ SimpleDateFormat formatter = new SimpleDateFormat ("MM/dd/yyyy");%>
+	<p>&nbsp;</p>
+	<A name="top"></a>	
+<form method ="post" action ="searchResultsDetail.jsp?sampleId=<%=sampleId%>">
+<INPUT  TYPE = "HIDDEN" NAME = "sampleId" VALUE = "<%=sampleId%>"> 
+
+ 
+  
+ 
+	<% for(int i=0; i<samples.size();i++){
+	  Qi_sample sample =(Qi_sample)samples.elementAt(i);
+	  Long institutionId = sample.getSample_generating_institute_id();
+	  String coreTypeId = sample.getCore_type();
+	
+	  
+	 %>  
+	   
+	
+<!-- #BeginEditable "mainpart" --><tr><td colspan="5">
+      
+    <div id="navcontainer">
+<ul id="navlist">
+<li><a href="searchResults.jsp">Back to Search Results</a></li>
+<li><a href="searchResultsDetail.jsp?sampleId=<%=DatabaseSetup.checkForNull(sampleId)%>&core_sample_id=<%=URLEncoder.encode(DatabaseSetup.checkForNull(core_sample_id))%>" id="current">General Info</a></li>
+<li><a href="dnaResultsDetail.jsp?sampleId=<%=DatabaseSetup.checkForNull(sampleId)%>&core_sample_id=<%=URLEncoder.encode(DatabaseSetup.checkForNull(core_sample_id))%>">DNA Quality Info</a></li>
+<li><a href="rnaResultsDetail.jsp?sampleId=<%=DatabaseSetup.checkForNull(sampleId)%>&core_sample_id=<%=URLEncoder.encode(DatabaseSetup.checkForNull(core_sample_id))%>">RNA Quality Info</a></li>
+<li><a href="proteinResultsDetail.jsp?sampleId=<%=DatabaseSetup.checkForNull(sampleId)%>&core_sample_id=<%=URLEncoder.encode(DatabaseSetup.checkForNull(core_sample_id))%>">Protein Quality Info</a></li>
+
+</ul>
+</div> 
+	
+	<table class="data" style="margin-left:40px;" cellpadding="5" cellspacing="0" border="1" width="85%" >
+	<tr><th colspan="3">General Information - Sample:<font color="Maroon"><%=DatabaseSetup.checkForNull(sample.getLabtrak_id())%></font></th></tr>
+  <tr><td class="search" width="20%">LabTrak ID</td><td colspan="2"><%=DatabaseSetup.checkForNull(sample.getLabtrak_id())%></td></tr>
+  <%if(sample.getCorenumber()!=null){%>
+  <tr><td class="search">Core Number</td><td colspan="2"><%=DatabaseSetup.checkForNull(sample.getCorenumber())%></td></tr>
+    <%}
+	if(sample.getSample_generating_institute_id()!=null){
+    Qi_institution institution = new Qi_institution();
+	  Vector institutions = institution.retrieveAllWhere("INSTITUTION_ID = "+institutionId);
+	  for(int j=0;j<institutions.size();j++){
+	   institution = (Qi_institution)institutions.elementAt(j);
+	%>
+   
+  <tr><td class="search">Core Collection Institution</td>
+    <td colspan="2"><%=DatabaseSetup.checkForNull(institution.getInstitute_name())%></td>
+  </tr>
+     <%}
+  }
+  if(sample.getPatient_accrual()!=null){%>
+     <tr><td class="search">Patient Registration ID</td><td colspan="2"><%=DatabaseSetup.checkForNull(sample.getPatient_accrual())%></td></tr>
+  <%}
+  if(sample.getTimepoint_name()!=null){%>
+     <tr><td class="search">Time Point</td><td colspan="2"><%=DatabaseSetup.checkForNull(sample.getTimepoint_name())%></td></tr>
+  <%}
+  if(sample.getProcess_date()!=null){%>
+     <tr><td class="search">Process Date</td><td colspan="2"><%=formatter.format(sample.getProcess_date())%></td></tr>
+  <%}
+  if(sample.getQi_comment()!=null){%>
+     <tr><td class="search">Comment</td><td colspan="2"><%=DatabaseSetup.checkForNull(sample.getQi_comment())%></td></tr>
+  <%}
+  
+ if(sample.getCore_type() != null){%>
+ <tr>
+    <td class="search">Core Type</td>   
+    <td colspan="2"><%=DatabaseSetup.checkForNull(sample.getCore_type())%></td>
+ </tr>
+    <%}
+  
+  if(sample.getCore_type() != null && sample.getCore_type().equals("Frozen")){
+    Qi_frozen_touchprep frozen_touchprep = new Qi_frozen_touchprep();				
+	Vector frozen_touchpreps = frozen_touchprep.retrieveAllWhere("TOUCH_PREP = "+"'"+sample.getFrozen_touch_prep()+"'");
+	for(int j=0;j<frozen_touchpreps.size();j++){					
+	  frozen_touchprep = (Qi_frozen_touchprep)frozen_touchpreps.elementAt(j);
+	
+	if(frozen_touchprep.getTouch_prep()!= null){%>
+	 <tr><td class="search">Touch Prep</td>
+	    <TD><%=DatabaseSetup.checkForNull(frozen_touchprep.getTouch_prep()+ " ("+frozen_touchprep.getTouch_prep_desc()+")")%></TD></tr>
+<%  }
+   }
+   
+    Qi_frozen_h_e frozen_h_e = new Qi_frozen_h_e();
+				
+	Vector frozen_h_es = frozen_h_e.retrieveAllWhere("H_E_REVIEW = "+"'"+sample.getFrozen_h_e()+"'");
+	 for(int j=0;j<frozen_h_es.size();j++){				
+	   frozen_h_e = (Qi_frozen_h_e)frozen_h_es.elementAt(j);
+	   if(frozen_h_e.getH_e_review()!= null){%>
+	    <tr><td class="search">H&E Tumor Review</td>
+	    <TD><%=DatabaseSetup.checkForNull(frozen_h_e.getH_e_review()+ " ("+frozen_h_e.getH_e_review_desc()+")")%></TD></tr>
+      <%  }
+         }
+    if(sample.getTumorpresence()!=null){%>
+       <tr><td class="search">Tumor Density(%)</td><td colspan="2"><%=DatabaseSetup.checkForNull(sample.getTumorpresence())%></td></tr>
+    <%}
+  
+  
+    if(sample.getNontumor()!=null){%>
+	  <tr><td class="search">Non-Tumor Nucleated Cells(%)</td>
+	    <td colspan="2"><%=DatabaseSetup.checkForNull(sample.getNontumor())%></td>
+	  </tr>
+    <%} 
+  }
+  
+  
+    if(sample.getDna_process_date() != null){%>
+	   <tr><td class="search">DNA Process Date</td>
+	       <td colspan="2"><%=formatter.format(sample.getDna_process_date())%></td>
+	  </tr>
+	  <%}
+				 
+	if(	sample.getDna_reading()!= null){%>		
+	
+	 <tr><td class="search">DNA Yield</td>
+	       <td colspan="2"><%=DatabaseSetup.checkForNull(sample.getDna_reading())%><%=DatabaseSetup.checkForNull(sample.getDna_quantity_unit())%></td>
+	  </tr>					
+		<%}		
+	 if(sample.getDna_instrument_id()!=null){
+      Qi_instrument instrument = new Qi_instrument();
+	  Vector instruments = instrument.retrieveAllWhere("INSTRUMENT_ID = "+sample.getDna_instrument_id());
+	  for(int j=0;j<instruments.size();j++){
+	   instrument = (Qi_instrument)instruments.elementAt(j);
+	   %>
+	  <tr><td class="search">DNA Reading Instrument</td>
+	       <td colspan="2"><%=DatabaseSetup.checkForNull(instrument.getInstrument_name())%></td>
+	  </tr>		
+              
+     <%  }	
+		}	
+		
+    if(sample.getDna_extraction_quality()!=null){
+	      Qi_quality quality = new Qi_quality();	 
+		  Vector qualities = quality.retrieveAllWhere("QUALITY_NAME = "+"\'"+sample.getDna_extraction_quality()+"\'"+" AND QUALITY_CATEGORY = "+"\'"+"DNA"+"\'");
+		  for(int j=0;j<qualities.size();j++){
+		   quality = (Qi_quality)qualities.elementAt(j);
+				%>	
+			 <tr><td class="search">DNA Quality</td>
+	           <td colspan="2"><%=DatabaseSetup.checkForNull(quality.getQuality_desc())%></td>
+	         </tr>						 			 
+			   
+		 <% }
+		}
+		
+ if(sample.getRna_process_date() != null){%>
+	   <tr><td class="search">RNA Process Date</td>
+	       <td colspan="2"><%=formatter.format(sample.getRna_process_date())%></td>
+	  </tr>
+	  <%}
+	  
+if(	sample.getRna_reading()!= null){%>		
+	
+	 <tr><td class="search">RNA Yield</td>
+	       <td colspan="2"><%=DatabaseSetup.checkForNull(sample.getRna_reading())%><%=DatabaseSetup.checkForNull(sample.getRna_quantity_unit())%></td>
+	  </tr>					
+		<%}		
+	 if(sample.getRna_instrument_id()!=null){
+      Qi_instrument instrument = new Qi_instrument();
+	  Vector instruments = instrument.retrieveAllWhere("INSTRUMENT_ID = "+sample.getRna_instrument_id());
+	  for(int j=0;j<instruments.size();j++){
+	   instrument = (Qi_instrument)instruments.elementAt(j);
+	   %>
+	  <tr><td class="search">RNA Reading Instrument</td>
+	       <td colspan="2"><%=DatabaseSetup.checkForNull(instrument.getInstrument_name())%></td>
+	  </tr>		
+              
+     <%  }	
+		}	
+		
+    if(sample.getRna_extraction_quality()!=null){
+	      Qi_quality quality = new Qi_quality();	 
+		  Vector qualities = quality.retrieveAllWhere("QUALITY_NAME = "+"\'"+sample.getRna_extraction_quality()+"\'"+" AND QUALITY_CATEGORY = "+"\'"+"DNA"+"\'");
+		  for(int j=0;j<qualities.size();j++){
+		   quality = (Qi_quality)qualities.elementAt(j);
+				%>	
+			 <tr><td class="search">RNA Quality</td>
+	           <td colspan="2"><%=DatabaseSetup.checkForNull(quality.getQuality_desc())%></td>
+	         </tr>						 			 
+			   
+		 <% }
+		}
+		  
+ if(sample.getCore_type() != null && sample.getCore_type().equals("Paraffin")){
+  
+   if(sample.getH_e_review()!=null){
+      Qi_h_e_review h_e = new Qi_h_e_review();					
+	  Vector h_es = h_e.retrieveAllWhere("H_E_REVIEW = "+sample. getH_e_review());
+	  for(int j=0;j<h_es.size();j++){		  
+	    h_e = (Qi_h_e_review)h_es.elementAt(j);%>
+       <tr><td class="search">H&E Review</td><td colspan="2"><%=DatabaseSetup.checkForNull(h_e.getH_e_review_desc())%></td></tr>
+    <%}
+   }
+    if(sample.getUsability()!=null){
+	  Qi_usability usability = new Qi_usability();
+	  Vector usabilitys = usability.retrieveAllWhere("USABILITY = "+sample.getUsability());
+	  for(int j=0;j<usabilitys.size();j++){	  
+	    usability = (Qi_usability)usabilitys.elementAt(j);
+		%>
+	  
+	  <tr><td class="search">H&E Usability</td>
+	    <td colspan="2"><%=DatabaseSetup.checkForNull(usability.getUsability_desc())%></td>
+	  </tr>
+    <%} 
+	}
+  if(sample.getTouchprep_recvd()!=null){
+      Qi_touchprep_recvd touchprep_recvd = new Qi_touchprep_recvd();	  
+	  Vector touchprep_recvds = touchprep_recvd.retrieveAllWhere("TOUCHPREP_RECVD = "+sample.getTouchprep_recvd());
+	  for(int j=0;j<touchprep_recvds.size();j++){	 
+	    touchprep_recvd = (Qi_touchprep_recvd)touchprep_recvds.elementAt(j);
+    %>
+	  <tr><td class="search">Touch Preps Received</td>
+	    <td colspan="2"><%=DatabaseSetup.checkForNull(touchprep_recvd.getTouchprep_recvd_desc())%></td>
+	  </tr>
+    <%} 
+	}
+ 
+  
+ }   
+
+  if(sample.getSubmitterkey()!=null){    
+     Submitter submitter = new Submitter();
+	  Vector submitters = submitter.retrieveAllWhere("SUBMITTERKEY = "+sample.getSubmitterkey());
+	  for(int j=0;j<submitters.size();j++){
+	    submitter = (Submitter)submitters.elementAt(j);
+	%> 
+  <tr><td class="search">Submitted by</td>
+  <%
+
+  if(submitter.getFirstname().equals(submitter.getLastname())){%>
+   
+	<td colspan="2"><%="<a href=\"mailto:"+DatabaseSetup.checkForNull(submitter.getEmail())+"\">"+DatabaseSetup.checkForNull(submitter.getFirstname())+"</a>"%></td>
+  <%}
+  else{%>
+	<td colspan="2"><%="<a href=\"mailto:"+DatabaseSetup.checkForNull(submitter.getEmail())+"\">"+DatabaseSetup.checkForNull(submitter.getFirstname()+" " +submitter.getLastname())+"</a>"%></td>
+
+
+  <%}%>
+  
+  </tr>
+  
+  <%}
+   }
+
+}// for loop for the sample
+%>
+</table> <br /><br /><br />
+
+<%@ include file="bottomTabs.html"%>  
+<INPUT  TYPE = "HIDDEN" NAME = "core_sample_id" VALUE = "<%=core_sample_id%>"> 
+</form>
+
+</div>
+<p class="note"><a href="select.jsp">Home</a> | <a href="#top">Top of the page</a></p>
+</div>
+
+
+
+
+
+

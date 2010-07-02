@@ -1,0 +1,249 @@
+<!DOCTYPE html public "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/Transitional.dtd">
+
+  <%@ include file="tabs.htm"%>   
+    
+<script language="JavaScript">   
+<!-- 
+function MM_default() { //v3.0
+  MM_swapImage('Image5','','images/generalinfo_OVER.gif',1);  
+  }     
+MM_default();	       
+//-->                
+</script>   
+<% response.setDateHeader("Expires",System.currentTimeMillis());%>
+	<p>&nbsp;</p>
+	<A name="top"></a>	
+<form method ="post" action ="dnaResultsDetail.jsp?sampleId=<%=sampleId%>">
+<INPUT  TYPE = "HIDDEN" NAME = "sampleId" VALUE = "<%=sampleId%>"> 
+
+<div id="navcontainer">
+<ul id="navlist">
+<li><a href="searchResults.jsp">Back to Search Results</a></li>
+<li><a href="searchResultsDetail.jsp?sampleId=<%=DatabaseSetup.checkForNull(sampleId)%>&core_sample_id=<%=URLEncoder.encode(DatabaseSetup.checkForNull(core_sample_id))%>">General Info</a></li>
+<li><a href="dnaResultsDetail.jsp?sampleId=<%=DatabaseSetup.checkForNull(sampleId)%>&core_sample_id=<%=URLEncoder.encode(DatabaseSetup.checkForNull(core_sample_id))%>" id="current" >DNA Quality Info</a></li>
+<li><a href="rnaResultsDetail.jsp?sampleId=<%=DatabaseSetup.checkForNull(sampleId)%>&core_sample_id=<%=URLEncoder.encode(DatabaseSetup.checkForNull(core_sample_id))%>">RNA Quality Info</a></li>
+<li><a href="proteinResultsDetail.jsp?sampleId=<%=DatabaseSetup.checkForNull(sampleId)%>&core_sample_id=<%=URLEncoder.encode(DatabaseSetup.checkForNull(core_sample_id))%>">Protein Quality Info</a></li>
+
+</ul>
+</div> 
+ 
+ <%if(dnas.size()==0){%>
+ <table class="data" style="margin-left:40px;" cellpadding="5" cellspacing="0" border="1" width="85%" >
+   <tr><th colspan="3">
+      Sorry, no records found.
+    </th></tr>
+ </table>
+	
+ <%}
+ else{%>
+ <!--- Startin pcr table --->
+ <table class="data" style="margin-left:40px;" cellpadding="5" cellspacing="0" border="1" width="85%" >
+<tr><th colspan="3">
+      DNA Quality Indicator - LabTrak ID:<font color="Maroon"><%=DatabaseSetup.checkForNull(core_sample_id)%>
+    </td></tr>
+	
+	<% 
+	 for(int i=0; i<dnas.size();i++){
+	   dna =(Qi_dna)dnas.elementAt(i);		  
+	   if (dna.getDna_subsample_id().indexOf("-3") !=-1){%>
+	 
+	 <tr><td colspan="3" class="user"> DNA Sub-sample ID: <%=DatabaseSetup.checkForNull(dna.getDna_subsample_id())%></td></tr>
+	  
+	
+	  <%if(dna.getDna_subsample_id()!=null){%>
+  <tr><td class="search" width="20%">DNA Sub-sample ID</td><td colspan="2"><%=DatabaseSetup.checkForNull(dna.getDna_subsample_id())%></td></tr>
+     <%}%>
+	 <%if(dna.getPcr_rating()!=null){
+      Pcr_rating pcrRating = new Pcr_rating();
+	  Vector pcrRatings = pcrRating.retrieveAllWhere("PCR_RATING = "+"\'"+dna.getPcr_rating()+"\'");
+	  for(int j=0;j<pcrRatings.size();j++){
+	   pcrRating = (Pcr_rating)pcrRatings.elementAt(j);
+	%>
+	 
+  <tr><td class="search"> P53 Multiplex PCR Rating</td>
+    <td colspan="2"><%=DatabaseSetup.checkForNull(pcrRating.getPcr_rating_desc())%></td>
+  </tr>
+     <%}
+  }
+  if(dna.getAnalysis_date()!=null){%>
+  <tr><td class="search">Analysis Date</td><td colspan="2"><%=formatter.format(dna.getAnalysis_date())%></td></tr>
+    <%}
+	if(dna.getComments()!=null){%>
+  <tr><td class="search">Comment</td><td colspan="2"><%=DatabaseSetup.checkForNull(dna.getComments())%></td></tr>
+    <%}
+	     }
+	   }
+	%>
+	
+	 </table>
+	 
+	<!--- Startin dna table --->
+<table class="data" style="margin-left:40px;" cellpadding="5" cellspacing="0" border="1" width="85%" >
+<tr><th colspan="3">
+      DNA Quality Indicator - LabTrak ID:<font color="Maroon"><%=DatabaseSetup.checkForNull(core_sample_id)%>
+    </td></tr>
+	
+	<% 
+	 for(int i=0; i<dnas.size();i++){
+	   dna =(Qi_dna)dnas.elementAt(i);	
+	  
+	   if (dna.getDna_subsample_id().indexOf("-2") !=-1){%>
+	 
+	 <tr><td colspan="3" class="user"> DNA Sub-sample ID: <%=DatabaseSetup.checkForNull(dna.getDna_subsample_id())%></td></tr>
+	  
+	
+	  <%if(dna.getDna_subsample_id()!=null){%>
+  <tr><td class="search" width="20%">DNA Sub-sample ID</td><td colspan="2"><%=DatabaseSetup.checkForNull(dna.getDna_subsample_id())%></td></tr>
+     <%}%>
+	 <%if(dna.getInstitution_id()!=null){
+      Qi_institution institution = new Qi_institution();
+	  Vector institutions = institution.retrieveAllWhere("INSTITUTION_ID = "+dna.getInstitution_id());
+	  for(int j=0;j<institutions.size();j++){
+	   institution = (Qi_institution)institutions.elementAt(j);
+	%>
+	 
+  <tr><td class="search"> Submit Institution</td>
+    <td colspan="2"><%=DatabaseSetup.checkForNull(institution.getInstitute_name())%></td>
+  </tr>
+     <%}
+  }%> 
+	 
+  <%if(dna.getDna_reading()!=null){%>
+  <tr><td class="search">DNA Spectrophotometer Reading</td><td colspan="2"><%=DatabaseSetup.checkForNull(dna.getDna_reading())%>  <%=DatabaseSetup.checkForNull(dna.getDna_quantity_unit())%></td></tr>
+    <%}%>
+	
+	 <%if(dna.getInstrument_id()!=null){
+      Qi_instrument instrument = new Qi_instrument();
+	  Vector instruments = instrument.retrieveAllWhere("INSTRUMENT_ID = "+dna.getInstrument_id());
+	  for(int j=0;j<instruments.size();j++){
+	   instrument = (Qi_instrument)instruments.elementAt(j);
+	%>
+	 
+  <tr><td class="search"> DNA Reading Instrument</td>
+    <td colspan="2"><%=DatabaseSetup.checkForNull(instrument.getInstrument_name())%></td>
+  </tr>
+     <%}
+  }%>
+  
+   <%if(dna.getDna_extraction_quality()!=null){
+      Qi_quality quality = new Qi_quality();	 
+	  Vector qualities = quality.retrieveAllWhere("QUALITY_NAME = "+"\'"+dna.getDna_extraction_quality()+"\'"+" AND QUALITY_CATEGORY = "+"\'"+"DNA"+"\'");
+	  for(int j=0;j<qualities.size();j++){
+	   quality = (Qi_quality)qualities.elementAt(j);
+	%>
+	 
+  <tr><td class="search"> DNA Quality</td>
+    <td colspan="2"><%=DatabaseSetup.checkForNull(quality.getQuality_desc())%></td>
+  </tr>
+     <%}
+  }
+  
+ 
+  
+for(int u=0;u<dna_labels.size();u++){
+		      dna_label = (Qi_dna_labeling)dna_labels.elementAt(u);
+			  %>
+			  
+			  
+			  	<tr>
+			       <td>Attempt of Labeling DNA:</td>
+				    <% attempts.clear();
+					   attempts = qi_attempt.retrieveAllWhere(" ATTEMPT_ID = "+dna_label.getLabeling_attempt_id());
+				       for (int v=0; v<attempts.size();v++){
+					       qi_attempt = (Qi_attempt)attempts.elementAt(v);%>
+						
+					       <td><%=qi_attempt.getAttempt_desc()%></td>	
+					  
+					<%}
+				 
+				 %>
+				   
+			    </tr>
+				
+				<tr>
+				   <td><font #336633></font>Intensity of Labeling DNA for this Attempt:</font></td>
+				  <%
+				    Qi_dna_labeling_intensity intensity = new Qi_dna_labeling_intensity();
+					intensitys = intensity.retrieveAllWhere("INTENSITY_ID = "+dna_label.getIntensity_id());
+					for(int v=0;v<intensitys.size();v++){
+					   intensity = (Qi_dna_labeling_intensity)intensitys.elementAt(v);					   
+					}
+					%>
+				     <td><%=intensity.getIntensity_desc()%></td>  
+				
+				</tr>
+				
+				<tr>
+				  <td>DNA Labeling Date for this Attempt:</td>
+				   <td><%=formatter.format(dna_label.getLabeling_date())%>&nbsp;&nbsp;			
+				   </td>
+					</tr>
+		     
+		     <%}
+			 
+             for(int u=0;u<cgh_hybs.size();u++){
+		          cgh_hyb = (Qi_cgh_hybridization)cgh_hybs.elementAt(u);				  
+		     %>			
+		      
+			   
+			   <tr>
+			      <td>Attempt of CGH Hybridization:</td>
+				 <%   attempts.clear();
+				      attempts = qi_attempt.retrieveAllWhere(" ATTEMPT_ID = "+cgh_hyb.getCgh_hyb_attempt_id());
+				      for (int v=0; v<attempts.size();v++){
+					      qi_attempt = (Qi_attempt)attempts.elementAt(v);%>
+						  <td><%=qi_attempt.getAttempt_desc()%></td>	
+					
+					
+					  
+					<%}
+				 
+				 %>
+			     
+		       </tr>
+		
+		      <tr>
+			    <td>CGH Hybdization Quality for this Attempt:</td>
+				 <%
+					 Qi_cgh_quality cgh_quality = new Qi_cgh_quality();					 
+					 cgh_hyb_qualitys =  cgh_quality.retrieveAllWhere(" CGH_QUALITY_ID = "+cgh_hyb.getCgh_quality_id());	 
+					 for(int v=0; v< cgh_hyb_qualitys.size();v++){
+					    cgh_quality= (Qi_cgh_quality)cgh_hyb_qualitys.elementAt(v);%>
+						<td><%=cgh_quality.getCgh_quality_desc()%></td>	
+					 <%}
+					  %>
+			  		
+		      </tr>
+		
+		       <tr>
+			   		 <td>Hybdization Date for this Attempt:</td>					
+						<td>						
+						  <%=formatter.format(cgh_hyb.getHybridization_date())%>&nbsp;&nbsp;						
+						 </td>
+			  </tr>
+			
+			<%}
+			
+		
+ 
+if(dna.getComments()!=null){%>
+  <tr><td class="search">Comment</td><td colspan="2"><%=DatabaseSetup.checkForNull(dna.getComments())%></td></tr>
+    <%}%>	
+  
+<%}%>
+ <div>&nbsp;</div>
+
+</table>  
+ 
+<%}}// for loop for the sample
+
+%>
+<br /><br /><br />
+
+<%@ include file="bottomTabs.html"%>  
+
+<INPUT  TYPE = "HIDDEN" NAME = "core_sample_id" VALUE = "<%=core_sample_id%>"> 
+</form>
+</div>
+<p class="note"><a href="select.jsp">Home</a> | <a href="#top">Top of the page</a></p>
+</div>

@@ -1,0 +1,64 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+	<title>Quality Indicators: Submit and Search</title>
+	<LINK REL=StyleSheet HREF="css/qiStyle.css" TYPE="text/css">
+</head>
+
+<body>
+<div class="page">
+
+<%@ include file="header.html"%> 
+
+<div style="border:1px solid #666699;border-bottom:none;">
+<img src="images/tube.gif" alt="quality indicator minibanner" />
+</div>
+
+<div class="main">
+ <form  method="post" action="redirect.jsp">
+ <h2 class="title">Submit and Search Quality Indicator Data</h2>
+ 
+ <table class="data" border="0" style="margin: 7px 5px 0px 5px;border:none;">
+                <tr><td width="500" rowspan="6">
+                   <h5>About This Application</h5>
+                   <p style="font-size:.9em;">The Quality Indicator (QI) portal will allow the I-SPY users 
+				   to submit and retrieve tissue core quality data. For the I-SPY study, two frozen and 
+				   two formalin-fixed biopsy specimens are collected prior to the start of chemotherapy, 
+				   2-4 days after the start of chemotherapy, between chemotherapeutic regimens 
+				   (if applicable), and at the end of chemotherapy. 
+                   </p>
+
+                 <!---   <p style="font-size:.9em;">The quality data collected from processing the frozen and formalin fixed 
+                   biopsy specimen can be entered in the QI portal.  The QI portal will allow the user to submit the 
+                   following data types:  general sample information, H&E data, PCR, DNA, RNA and protein quality 
+                   data.  In addition the I-SPY user can search for quality data.
+                   </p> --->
+                
+                   </td>
+	            <tr><Td>
+	             <table style="margin: 5px 5px 5px 10px;padding-left:15px;border:2px solid #9A0101;background-color:#f2f2f2;">
+	              <tr><td style="padding-left:15px;padding-top:5px;">User Name:</td></tr>
+	            <tr><td style="padding-left:15px;padding-right:15px;"><input type="text" class="inps" name="UserName" value=""></td><td rowspan="3"></td></tr>
+	            <tr><Td style="padding-left:15px;">Password:</td></tr>
+	            <tr><td style="padding-left:15px;"><input type="password" class="inps" name="password" value=""></td></tr>				
+			    <tr><td style="padding-left:15px;padding-bottom:5px;"><input type="submit" class="buttonsSMALL" name="submit_name" value="Submit">&nbsp;&nbsp;<input type="reset" class="buttonsSMALL" value="Reset"></td></tr>
+               </table>
+              </td>
+             </tr>
+             </table>
+	         <p class="note" style="border-top:2px solid #000066;"><br />
+			   * If you don't have an user account yet, please contact  <A 
+                href="mailto:ncicb@pop.nci.nih.gov?subject=QualityIndicator">ncicb@pop.nci.nih.gov</A> to request an user name and a password. 
+			  </P>
+            
+	</form>
+</div>
+
+<%@ include file="footer.jsp"%> 
+</div>
+</body>
+</html>
+
+	 

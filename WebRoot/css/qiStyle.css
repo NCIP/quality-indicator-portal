@@ -1,0 +1,138 @@
+body {
+ font-family:verdana,tahoma,sans-serif;
+ font-size: 12px;
+ margin: 0px 0px 0px 0px;
+ padding: 0px 0px 0px 0px;
+}
+p{
+font-family:verdana,tahoma,sans-serif;
+ font-size: 12px;
+ }
+ td{
+font-family:verdana,tahoma,sans-serif;
+ font-size: 12px;
+ }
+h2.title{
+font-size:13px;
+background-color:#C3C3C3;
+}
+th{
+font-size:13px;
+background-color:#E0E0E0;
+}
+div.page{
+width:750px;
+margin: 0px 0px 0px 10px;
+}
+div.main{
+ margin:0px;
+ border-top: 1px solid #000045;
+ border-right: 1px solid #000045;
+ border-left: 1px solid #000045;
+ border-bottom: 1px solid #000045;
+ padding: 0px 0px 0px 8px;
+ 
+ }
+p.note{
+font-size: 11px;
+text-align:center;
+}
+
+
+
+table.data{ 
+border:1px solid #000033;
+background-color:#ffffff;
+  }
+td.label{
+font-size:13 px;
+font-weight:bold;
+background-color:#E0E0E0;
+text-align:center;
+}
+td.formLabel{
+font-size:12 px;
+font-weight:bold;
+background-color:#E0E0E0;
+border: 1px solid #000066;
+text-align:left;
+}
+td.user{
+background-color:#FFFFCC;
+font-weight:bold;
+}
+.inps{
+border: 1px solid #000033;
+}
+.buttons{
+border: 1px solid #000033;
+width:150px;
+}
+.buttonsSMALL{
+border: 1px solid #000033;
+width:70px;
+}
+.buttonsBIG{
+border: 1px solid #000033;
+width:350px;
+}
+select{
+border: 1px solid #000033;
+}
+.tbuttons{
+text-align:right;
+}
+/*#navcontainer{
+  border: 0px solid #ccc;
+}*/
+
+#navcontainer ul
+{
+list-style-type: none;
+text-align: center;
+z-index: 2;
+background-color:#C3C3C3;
+margin-top:10px;
+margin-left:0px;
+border-top: 0px solid #000;
+
+
+}
+
+#navcontainer li
+{
+display: inline;
+text-align: center;
+margin: 0 5px;
+z-index: 3;
+}
+
+#navcontainer li a
+{
+padding: 1px 7px;
+color: #666;
+background-color: #fff;
+border: 1px solid #C3C3C3;
+text-decoration: none;
+}
+
+#navcontainer li a:hover
+{
+color: #000;
+border: 1px solid #666;
+border-top: 2px solid #666;
+border-bottom: 2px solid #666;
+}
+
+#navcontainer li a#current
+{
+color: #000;
+border: 1px solid #666;
+border-top: 2px solid #666;
+border-bottom: 2px solid #666;
+}
+span.add{
+text-align:right;
+width:64%;
+
+}

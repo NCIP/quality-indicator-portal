@@ -1,0 +1,333 @@
+<!DOCTYPE html public "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/Transitional.dtd">
+<HTML>
+<HEAD>
+<TITLE>DNA Quality Indicators</TITLE>
+<META http-equiv="Content-Type" content="text/html;">
+<LINK REL=StyleSheet HREF="css/qiStyle.css" TYPE="text/css">
+ <%response.setDateHeader("Expires",System.currentTimeMillis());%>
+</HEAD>
+    
+<body>      
+<SCRIPT language="JavaScript" src="images/calendar.js" >
+</script> 
+          
+<SCRIPT>      
+function goThere(the_date) 
+{  
+  setDateField(document.dna_label_cgh_hyb.hyb_date); 
+  top.newWin = window.open('calendar.html', 'cal', 'dependent=yes, width=210, height=230, screenX=200, screenY=300, titlebar=yes');
+}
+
+  
+function goThere3(the_date)
+{  
+  setDateField(document.dna_label_cgh_hyb.label_date); 
+  top.newWin = window.open('calendar.html', 'cal', 'dependent=yes, width=210, height=230, screenX=200, screenY=300, titlebar=yes');
+}
+//***********************************************************
+// This function checks to see if a passed string is either
+// NULL or empty.  If it is, the function will return TRUE, 
+// otherwise it will return FALSE.
+//***********************************************************
+function isEmpty(s)
+{   
+   return ((s == null) || (s.length == 0))
+}
+
+
+//***********************************************************
+// This function checks to see if a single character contains
+// a numeric value.  If it does, this function returns TRUE,
+// otherwise it will return FALSE.
+//***********************************************************
+function isDigit (c)
+{  
+   return ((c >= "0") && (c <= "9") || (c=='.') || (c=='-') || (c==','))
+}
+
+//***********************************************************
+// This function checks to see if the passed string contains
+// only number.  The function will return TRUE if the string
+// contains only numbers, otherwise the function will return
+// false.
+//***********************************************************
+function isInteger (s)
+{
+   if (isEmpty(s)) 
+      if (isInteger.arguments.length == 1) return defaultEmptyOK;
+      else return (isInteger.arguments[1] == true);
+
+   // Search through string's characters one by one
+   // until we find a non-numeric character.
+   // When we do, return false; if we don't, return true.
+   for (i = 0; i < s.length; i++)
+   {   
+      // Check that current character is number.
+      var c = s.charAt(i);
+
+      if (!isDigit(c)) return false;
+   }
+
+   // All characters are numbers.
+   return true;
+}
+
+function ValidateDNAYield(theField)
+{	
+   var returnVal = true;			 
+   if (!(theField.value == null || theField.value == ''))
+   {
+      if (!isInteger(theField.value))
+      {
+         alert('Please enter only numeric value in this field.');
+         theField.value = '';
+         theField.focus();
+         returnVal = false;
+      }
+   }
+   return returnVal;
+}
+
+
+</SCRIPT>
+
+<div class="page">
+
+<%@ include file="header.html"%> 
+
+
+<div class="main">
+ <%response.setDateHeader("Expires",System.currentTimeMillis());
+ 
+ %>
+
+<FORM  method="POST" action="viewAllLabel_CGH.jsp" name ="dna_label_cgh_hyb" >
+
+<INPUT TYPE = "HIDDEN" NAME = "id" VALUE = "<%=id%>">
+	
+	<h2 class="title"> DNA Labeling Intensity & CGH Hybridization Quality Info:</h2>
+            <TABLE class="data" width="75%" cellspacing="0" cellpadding="5" border="0"  valign="top">
+			
+
+				      
+		
+				 <tr>	
+			<td><b>Labtrak Id:</td>
+			 		<TD>	<INPUT name="labTrakId"  class="inps" type="TEXT" size="34" maxlength="50" readonly="true" value="<%= labtrak_id%>" >
+		
+                       
+			</TD>
+			</tr>		 
+			<tr>		 
+			<td><b>CGH Lab:</b></font></td>
+			
+			<% 		 
+			if(dna.getDna_subsample_id()!= null){
+			  String labStr = dna.getDna_subsample_id().substring(dna.getDna_subsample_id().indexOf("-")+1);  
+			  Vector labs = new Vector();
+			  Laboratory lab = new Laboratory();
+			  labs = lab.retrieveAllWhere(" LABORATORY_ID = "+ new Long(labStr));
+			  for(int q=0;q<labs.size();q++){
+			     lab = (Laboratory)labs.elementAt(q);
+				 %>
+				 <td><INPUT name="lab" class="inps" type="TEXT" size="20" maxlength="50" readonly="true" value="<%=lab.getLaboratory()%>">		</td>	
+					  
+			    <% 
+				  } 
+				}%> 
+			  
+			  			
+			
+			</TD>
+			</tr>
+		
+					<tr>
+						<td colspan="5"><hr noshade>
+						</td>
+						</tr>
+						
+				
+						
+						
+		<% System.out.println("dna_labels.size():"+dna_labels.size());
+		for(int i=0;i<dna_labels.size();i++){
+		      dna_label = (Qi_dna_labeling)dna_labels.elementAt(i);
+			  %>
+			  <SCRIPT>      
+function goTherelabel_date<%=i%>(the_date<%=i%>) 
+{  
+  setDateField(document.dna_label_cgh_hyb.label_date<%=i%>); 
+  top.newWin = window.open('calendar.html', 'cal', 'dependent=yes, width=210, height=230, screenX=200, screenY=300, titlebar=yes');
+}
+
+  
+  </SCRIPT>    
+			  <tr>
+			       <td>&nbsp;</td>
+				   <td>&nbsp;</td>
+			    </tr>
+			  	<tr>
+			       <td>Attempt of Labeling DNA:</td>
+				    <% attempts.clear();
+					   attempts = qi_attempt.retrieveAllWhere(" ATTEMPT_ID = "+dna_label.getLabeling_attempt_id());
+				       for (int p=0; p<attempts.size();p++){
+					       qi_attempt = (Qi_attempt)attempts.elementAt(p);%>
+						
+					       <td><INPUT name="labeling_attempt" class="inps" type="TEXT" size="10" maxlength="50" readonly="true" value="<%=qi_attempt.getAttempt_desc()%>">		</td>	
+					  
+					<%}
+				 
+				 %>
+				   
+			    </tr>
+				
+				<tr>
+				   <td><font #336633></font>Intensity of Labeling DNA for this Attempt:</font></td>
+				   <td><%= Lookup.getIntensities("intensity"+i,1,dna_label.getIntensity_id())%></td>
+				</tr>
+				
+				<tr>
+				  <td>DNA Labeling Date for this Attempt:</td>
+				  <td>		
+				  <%if(	dna_label.getLabeling_date()== null){%>			
+						<INPUT NAME="label_date<%=i%>" class="inps" TYPE=TEXT SIZE=10 MAXLENGTH=15 readonly="true" value="">&nbsp;&nbsp;
+			
+					<%}
+					else{%>
+						<INPUT NAME="label_date<%=i%>" class="inps" TYPE=TEXT SIZE=10 MAXLENGTH=15 readonly="true" value="<%=formatter.format(dna_label.getLabeling_date())%>">&nbsp;&nbsp;
+			         <%}%>
+						<A href="javascript:goTherelabel_date<%=i%>(document.dna_label_cgh_hyb.label_date<%=i%>)">
+							  <IMG src="images/calendar2.gif" border="0"></A>
+
+						</td>
+					</tr>
+		     
+		     <%}
+			 
+			 if(dna_labels.size()==0){%>
+			    <tr>
+				   <td>Currently there is no DNA Labeling Info Available.</td>
+					</tr>
+				
+			 <%}
+		%>				
+						
+			
+		
+	
+		
+					
+
+			
+									
+		
+		
+
+				<tr>
+						<td colspan="5"><hr noshade>
+						</td>
+						</tr>	
+			<%  for(int i=0;i<cgh_hybs.size();i++){
+		          cgh_hyb = (Qi_cgh_hybridization)cgh_hybs.elementAt(i);				  
+		     %>		
+<SCRIPT>      
+function goTherehyb_date<%=i%>(the_date<%=i%>) 
+{  
+  setDateField(document.dna_label_cgh_hyb.hyb_date<%=i%>); 
+  top.newWin = window.open('calendar.html', 'cal', 'dependent=yes, width=210, height=230, screenX=200, screenY=300, titlebar=yes');
+}
+
+  
+  
+  
+  </SCRIPT>    	
+		       <tr>
+			       <td>&nbsp;</td>
+				   <td>&nbsp;</td>
+			   </tr>
+			   
+			   <tr>
+			      <td>Attempt of CGH Hybridization:</td>
+				 <%   attempts.clear();
+				      attempts = qi_attempt.retrieveAllWhere(" ATTEMPT_ID = "+cgh_hyb.getCgh_hyb_attempt_id());
+				      for (int k=0; k<attempts.size();k++){
+					      qi_attempt = (Qi_attempt)attempts.elementAt(k);%>
+						  <td><INPUT name="cgh_hyb_attempt" class="inps" type="TEXT" size="10" maxlength="50" readonly="true" value="<%=qi_attempt.getAttempt_desc()%>">		</td>	
+					
+					
+					  
+					<%}
+				 
+				 %>
+			     
+		       </tr>
+		
+		      <tr>
+			    <td>CGH Hybridization Quality for this Attempt:</td>
+			    <td><%= Lookup.getCGHQualities("cgh_hyb"+i,1,cgh_hyb.getCgh_quality_id())%></td>			
+		      </tr>
+		
+		       <tr>
+			   		 <td>Hybridization Date for this Attempt:</td>
+						<td>	
+						<%if(cgh_hyb.getHybridization_date()== null){%>				
+						   <INPUT NAME="hyb_date<%=i%>" class="inps" TYPE=TEXT SIZE=10 MAXLENGTH=15 readonly="true" value="">&nbsp;&nbsp;
+						<%}
+						else{%>
+						   <INPUT NAME="hyb_date<%=i%>" class="inps" TYPE=TEXT SIZE=10 MAXLENGTH=15 readonly="true" value="<%=formatter.format(cgh_hyb.getHybridization_date())%>">&nbsp;&nbsp;
+				         <%}%>
+						    <A href="javascript:goTherehyb_date<%=i%>(document.dna_label_cgh_hyb.hyb_date<%=i%>)">
+							  <IMG src="images/calendar2.gif" border="0"></A>
+						   </td>
+			</tr>
+			
+			<%}
+			
+			 if(cgh_hybs.size()==0){%>
+			    <tr>
+				   <td>Currently there is no DNA Labeling Info Available.</td>
+					</tr>
+				
+			 <%}
+			
+			%>
+		
+		
+					
+					<tr>
+						<td colspan="5"><hr noshade>
+						</td>
+						</tr>
+						
+			
+	
+		
+						</table>
+						
+				  <%if (submitterRole.isInRole(QIConstants.DNAROLE) || submitterRole.isSuperUser() || submitterRole.isDemoUser()){%>
+					<table class="tbuttons" width="75%">
+						<tr><td>&nbsp;</td></tr>
+					<TR>
+						<TD colspan="2">
+							<INPUT type="SUBMIT" class="buttons" name="update_dna_labeling_cgh_quality" value="Update">&nbsp;&nbsp;&nbsp;
+							<%if (id != null && !id.equals("")) {%>							
+							   <INPUT type="SUBMIT" class="buttons" name="delete_dna_label_cgh_data" value="Delete Data"  onClick="return confirm('Are you sure you want to delete the record?')">
+							<%}%>
+							<INPUT type="SUBMIT" class="buttons" name="bk_to_previous" value="Back">&nbsp;&nbsp;&nbsp;
+						
+							</TD>
+					</TR>
+	                  </TABLE>
+  				  <%}%>
+				   
+		
+		
+	
+</FORM>
+
+
+	
+	</div>
+	<p class="note"><a href="select.jsp">Home</a> | <a href="#top">Top of the page</a></p>
+	</div>
+	

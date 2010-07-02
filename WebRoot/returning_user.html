@@ -1,0 +1,193 @@
+<html>
+<head>
+	<title>Select : Submit/Search</title>
+	<LINK REL=StyleSheet HREF="css/qiStyle.css" TYPE="text/css">
+</head>
+<script src="images/sorttable.js"></script>
+	<style>
+		/* Sortable tables */
+		table.sortable a.sortheader {
+			background-color:#eee;
+			color:#666666;
+			font-weight: bold;
+			text-decoration: none;
+			display: block;
+		}  
+
+		table.sortable span.sortarrow {
+			color: black;
+			text-decoration: none;
+		}
+
+		table.sortable {border:1px solid black;	}
+		table#unique_id TD { border: 1px solid gray; padding:3px; font-size: 10px; padding:2px }
+
+		.over TD {background-color:#E0E0E0;}
+		.out TD { background-color:#FFFFFF;}
+		thead	{ background-color:#eee }
+		
+	</style>
+
+<body>
+<%response.setHeader("Cache-Control","no-cache");
+  response.setHeader("Pragma","no-cache");
+  response.setDateHeader("Expires",System.currentTimeMillis());
+ %>
+
+<div class="page">
+
+<%@ include file="header.html"%> 
+
+
+<div class="main">
+<form method="post"  action = "intro.jsp">
+			
+	
+	<h2 class="title">Welcome  <%=CapsConverter.convert(firstName)%> <%=CapsConverter.convert(lastName)%>!</h2>
+  1. To add a <b>new sample</b> select &quot;Add a new sample&quot;.<br><br>
+  2. To edit one of your <b>existing samples</b> click on the name of the sample. <br><br>
+  3. To add or edit one of your <b> quality indicators for existing samples</b> click on the name of the sample. <br>
+ 
+  <p><br>There are <b><%=sampleAcct%></b> records returned.<br><br>
+  
+  <b>Search LabTrak ID:</b>	<input type="text" name="StringToSearch" size="10" maxlength="20">&nbsp;<span class="search"><input type="SUBMIT"  class="buttons" style="width:50px" name ="search_str" value="Search" ></span> 
+ 
+  
+  
+  
+
+  <%if (submitterRole != null && submitterRole.isInRole(QIConstants.FROZENSAMPLEROLE) || submitterRole.isSuperUser() || submitterRole.isDemoUser() || submitterRole.isInRole(QIConstants.PARAFFINSAMPLEROLE)){%>
+	  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	  <span class="add"><input type="button" class="buttons" style="width:150px" value="Add a new sample" onclick="window.location.href='General_info.jsp?mode=Submit'"></a></span></p> 
+  <%}%>
+					<p>
+	<TABLE  class="sortable" id="unique_id" border="1" cellspacing="0" cellpadding="5" width="90%">	
+	<thead>
+	    <tr><td class="label">Sample LabTrak ID</td>
+		<td class="label">Core Type</td>	    
+		<td class="label">The sample was entered on</td></tr>
+	</thead>	
+	  
+
+<%
+
+
+ Vector labTrakVector = new Vector();
+ String searchFor= (String)session.getAttribute("gov.nci.nih.qi.searchStatus");
+ String searchedStr = (String)session.getAttribute("gov.nci.nih.qi.searchedWord");
+ String labTrakId = null;
+ boolean searchStatus = false;
+ 
+
+ 
+ if(searchFor!= null){
+   
+   
+    Qi_sample SearchSample = new Qi_sample();
+    Vector SearchSamples = new Vector();
+    SearchSamples = SearchSample.retrieveAllWhere("LABTRAK_ID = "+"'"+searchedStr+"'");
+    for(int k=0;k<SearchSamples.size();k++){
+    SearchSample = (Qi_sample)SearchSamples.elementAt(k);	
+    labTrakId = SearchSample.getLabtrak_id();
+    
+    %>
+    
+    <tr>	
+		
+		<td class="label" width="40%"><b><a href="Submission.jsp?sampleID=<%=SearchSample.getSample_id()%>&core_sampeId=<%=SearchSample.getLabtrak_id()%>" ><%=SearchSample.getLabtrak_id()%></b></a></td>
+		<td>&nbsp;<%=(SearchSample.getCore_type()==null?"":SearchSample.getCore_type())%></td>		
+		<td><%=formatter.format(SearchSample.getTimestamp())%></td>		
+		</tr>
+		<%
+		
+		
+    }
+   
+   
+   }
+ 
+ 
+ 
+
+ for(int k=0; k<samples.size();k++){
+    	
+	Qi_sample sample = (Qi_sample)samples.elementAt(k);		
+	sampleId = sample.getSample_id();	
+	
+	 labTrakVector.add(sample.getLabtrak_id());  
+	if(labTrakId != null && !labTrakId.equals(sample.getLabtrak_id())){
+	
+	  
+	
+	
+%>
+		<tr>	
+		
+		<td width="40%"><a href="Submission.jsp?sampleID=<%=sample.getSample_id()%>&core_sampeId=<%=sample.getLabtrak_id()%>" ><%=sample.getLabtrak_id()%></a></td>
+		<td>&nbsp;<%=(sample.getCore_type()==null?"":sample.getCore_type())%></td>		
+		<td><%=formatter.format(sample.getTimestamp())%></td>		
+		</tr>
+		
+		
+<%
+  }
+  if(labTrakId==null){
+ %>
+  
+  <tr>	
+		
+		<td width="40%"><a href="Submission.jsp?sampleID=<%=sample.getSample_id()%>&core_sampeId=<%=sample.getLabtrak_id()%>" ><%=sample.getLabtrak_id()%></a></td>
+		<td>&nbsp;<%=(sample.getCore_type()==null?"":sample.getCore_type())%></td>		
+		<td><%=formatter.format(sample.getTimestamp())%></td>		
+		</tr>
+  <%}
+}
+ session.removeAttribute("gov.nci.nih.qi.searchFound");
+ session.removeAttribute("gov.nci.nih.qi.searchedWord");
+labTrakId = null;
+ 
+ 
+if(request.getParameter("search_str")!= null){
+
+  
+   boolean status = false;
+   String strToSearch = (String)request.getParameter("StringToSearch");
+  
+   if(strToSearch != null && !strToSearch.equals("")){
+   SearchString searchString = new SearchString(strToSearch,labTrakVector);
+   status = searchString.performSearch();
+   
+   }
+   if(status){
+     
+     session.setAttribute("gov.nci.nih.qi.searchStatus","true");
+     session.setAttribute("gov.nci.nih.qi.searchedWord",strToSearch);
+     %>
+     <script language="JavaScript">
+	 location.replace("intro.jsp");
+	 </script> 
+    
+   <%
+   
+   }
+  else{%>
+     <script language="JavaScript">
+         alert("String Not Found");
+      </script> 
+    <%}
+}
+%>				
+									
+										
+</TABLE>
+				
+				
+			
+	</form>	
+
+   
+ 
+    
+</div>
+<p class="note"><a href="select.jsp">Home</a> | <a href="#top">Top of the page</a></p>
+</div>

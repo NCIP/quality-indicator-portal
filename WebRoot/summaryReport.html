@@ -1,0 +1,1571 @@
+
+<table>
+<tr>
+	<td colspan="2" align="right">
+		<a href="select.jsp">Home</a>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
+		<a href="search.jsp">Back to Search</a>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
+		<a href="searchResults.jsp">Back to search Results</a>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
+		
+		<INPUT type="submit" class="buttons" name="download" value="  Download this report ">
+		
+	</td>
+</tr>
+</table> 
+ 
+<p>
+<b>NaN% indicates percent is not available.</b>
+
+<p>
+<table class="data" style="margin-left:40px;" cellpadding="5" cellspacing="0000") border="1" width="85%" >
+  
+  <tr><th colspan="3">Sample/Sub-sample Summary Report ( Based on Current Search Result Only)</th></tr> 
+  
+  <tr><td class="search" width="50%"><b>Number of Labtrak Samples</b></td><td colspan="2"><%=report.getSampleSize()%></td></tr>
+
+  
+  <tr>
+
+    <td valign="top" align="left" class="search"><b>Number of Patients By Institutions</b></td>
+
+	
+  
+  <TD>
+	 <TABLE cellpadding="2" align="left" border="1" width="100%">
+
+ 
+       <TR><TD><%=report.allPt%> (Total number Of patients)</TD></TR>
+        <TR><TD><%=report.ucsfPt%> (UCSF) </TD></TR>
+        <TR><TD><%=report.uncPt%> (UNC) </TD></TR>
+        <TR><TD><%=report.upennPt%> (UPENN) </TD></TR>
+		<TR><TD><%=report.ucPt%> (Univ. of Chicago) </TD></TR>
+        <TR><TD><%=report.uabPt%> (UAB) </TD></TR>
+        <TR><TD><%=report.mskccPt%> (MSKCC) </TD></TR>
+		<TR><TD><%=report.gwPt%> (GTWN) </TD></TR>
+        <TR><TD><%=report.uwPt%> (Univ. of Wash.) </TD></TR>
+        <TR><TD><%=report.utPt%> (Univ. of Texas) </TD></TR>	
+	          
+	 </TABLE>
+  </td>
+ </tr>
+  
+  
+  <tr>
+
+    <td valign="top" align="left" class="search"><b>Touch Prep Info For Frozen Core</b></td>
+<TD>
+  
+  
+  
+   <TABLE cellpadding="2" align="left" border="1" width="100%">  
+        
+       <TR>
+	      <TD><b>Total No. of touch prep samples</b></TD>
+	      <TD><b>No. , % of total samples with + (malignant cells present) </b></TD>
+		  <TD><b>No. , % of total samples with +/- (suggestive of malignant cells) </b></TD>
+		  <TD><b>No. , % of total samples with  - (no malignant cells present) </b></TD>		
+	   </TR>
+	    <TR><TD><%=report.samples_f.size()%><br> <//%=(new Float(report.f_touch_prep).toString()).equals("NaN")?"NaN":(new Float(report.f_touch_prep).toString()).substring(0,new Float(report.f_touch_prep).toString().indexOf("."))%> </TD>
+		    <TD><%=report.samples_f_pos_touch_prep.size()%>,<br>  <%=(new Float(report.f_pos_touch_prep).toString()).equals("NaN")?"NaN":(new Float(report.f_pos_touch_prep).toString()).substring(0,new Float(report.f_pos_touch_prep).toString().indexOf("."))%>% </TD>
+			<TD><%=report.samples_f_pos_neg_touch_prep.size()%>,<br>  <%=(new Float(report.f_pos_neg_touch_prep).toString()).equals("NaN")?"NaN":(new Float(report.f_pos_neg_touch_prep).toString()).substring(0,new Float(report.f_pos_neg_touch_prep).toString().indexOf("."))%>% </TD>
+			<TD><%=report.samples_f_neg_touch_prep.size()%>,<br>  <%=(new Float(report.f_neg_touch_prep).toString()).equals("NaN")?"NaN":(new Float(report.f_neg_touch_prep).toString()).substring(0,new Float(report.f_neg_touch_prep).toString().indexOf("."))%>% </TD>
+		</TR>	
+			
+			  
+	</TABLE>
+  </td>
+ </tr>
+	   
+	   
+ <tr>
+
+    <td valign="top" align="left" class="search"><b>Institution-based Touch Prep Info For Frozen Core</b> </td>
+<TD>
+	 <TABLE cellpadding="2" align="left" border="1" width="100%">
+ 
+    <TR>
+	      <TD><b>Total No. of touch prep samples</b></TD>
+	      <TD><b>No. , % of total samples with + (malignant cells present) </b></TD>
+		  <TD><b>No. , % of total samples with +/- (suggestive of malignant cells) </b></TD>
+		  <TD><b>No. , % of total samples with  - (no malignant cells present) </b></TD>		
+	   </TR>
+	 
+	   
+	   <TR>
+	   
+	       <TD><%=report.samples_f_touch_prep_allInstitutes.size()%> <//%=(new Float(report.touch_prep_allInstitutes).toString()).equals("NaN")?"NaN":(new Float(report.touch_prep_allInstitutes).toString()).substring(0,new Float(report.touch_prep_allInstitutes).toString().indexOf("."))%> (All Institutions)<br></td>
+	       <td><%=report.samples_f_pos_touch_prep_allInstitutes.size()%>, <%=(new Float(report.pos_touch_prep_allInstitutes).toString()).equals("NaN")?"NaN":(new Float(report.pos_touch_prep_allInstitutes).toString()).substring(0,new Float(report.pos_touch_prep_allInstitutes).toString().indexOf("."))%>% (All Institutions)</td>
+	       <td><%=report.samples_f_pos_neg_touch_prep_allInstitutes.size()%>, <%=(new Float(report.pos_neg_touch_prep_allInstitutes).toString()).equals("NaN")?"NaN":(new Float(report.pos_neg_touch_prep_allInstitutes).toString()).substring(0,new Float(report.pos_neg_touch_prep_allInstitutes).toString().indexOf("."))%>% (All Institutions)</td>
+		   <td><%=report.samples_f_neg_touch_prep_allInstitutes.size()%>, <%=(new Float(report.neg_touch_prep_allInstitutes).toString()).equals("NaN")?"NaN":(new Float(report.neg_touch_prep_allInstitutes).toString()).substring(0,new Float(report.neg_touch_prep_allInstitutes).toString().indexOf("."))%>% (All Institutions)</td> 
+	  
+	   </tr>
+	   
+	   
+	    <TR>
+
+	      <td> <%=report.samples_f_touch_prep_ucsf.size()%> <//%=(new Float(report.touch_prep_ucsf).toString()).equals("NaN")?"NaN":(new Float(report.touch_prep_ucsf).toString()).substring(0,new Float(report.touch_prep_ucsf).toString().indexOf("."))%> (UCSF)<br></td>
+		  <td> <%=report.samples_f_pos_touch_prep_ucsf.size()%>, <%=(new Float(report.pos_touch_prep_ucsf).toString()).equals("NaN")?"NaN":(new Float(report.pos_touch_prep_ucsf).toString()).substring(0,new Float(report.pos_touch_prep_ucsf).toString().indexOf("."))%>% (UCSF)<br></td>
+		  <td> <%=report.samples_f_pos_neg_touch_prep_ucsf.size()%>, <%=(new Float(report.pos_neg_touch_prep_ucsf).toString()).equals("NaN")?"NaN":(new Float(report.pos_neg_touch_prep_ucsf).toString()).substring(0,new Float(report.pos_neg_touch_prep_ucsf).toString().indexOf("."))%>% (UCSF)<br></td>
+		  <td> <%=report.samples_f_neg_touch_prep_ucsf.size()%>, <%=(new Float(report.neg_touch_prep_ucsf).toString()).equals("NaN")?"NaN":(new Float(report.neg_touch_prep_ucsf).toString()).substring(0,new Float(report.neg_touch_prep_ucsf).toString().indexOf("."))%>% (UCSF)<br></td>
+			  
+	   </tr>
+	   
+	   <TR>
+	     <td> <%=report.samples_f_touch_prep_unc.size()%> <//%=(new Float(report.touch_prep_unc).toString()).equals("NaN")?"NaN":(new Float(report.touch_prep_unc).toString()).substring(0,new Float(report.touch_prep_unc).toString().indexOf("."))%>(UNC)<br></td>
+	     <td> <%=report.samples_f_pos_touch_prep_unc.size()%>, <%=(new Float(report.pos_touch_prep_unc).toString()).equals("NaN")?"NaN":(new Float(report.pos_touch_prep_unc).toString()).substring(0,new Float(report.pos_touch_prep_unc).toString().indexOf("."))%>% (UNC)<br></td>
+		 <td> <%=report.samples_f_pos_neg_touch_prep_unc.size()%>, <%=(new Float(report.pos_neg_touch_prep_unc).toString()).equals("NaN")?"NaN":(new Float(report.pos_neg_touch_prep_unc).toString()).substring(0,new Float(report.pos_neg_touch_prep_unc).toString().indexOf("."))%>% (UNC)<br></td>
+		 <td> <%=report.samples_f_neg_touch_prep_unc.size()%>, <%=(new Float(report.neg_touch_prep_unc).toString()).equals("NaN")?"NaN":(new Float(report.neg_touch_prep_unc).toString()).substring(0,new Float(report.neg_touch_prep_unc).toString().indexOf("."))%>% (UNC)<br></td>
+			   
+	   </tr>
+	   
+	    <TR>
+	     <td> <%=report.samples_f_touch_prep_upenn.size()%> <//%=(new Float(report.touch_prep_upenn).toString()).equals("NaN")?"NaN":(new Float(report.touch_prep_upenn).toString()).substring(0,new Float(report.touch_prep_upenn).toString().indexOf("."))%> (UPENN)<br></td>
+	     <td> <%=report.samples_f_pos_touch_prep_upenn.size()%>, <%=(new Float(report.pos_touch_prep_upenn).toString()).equals("NaN")?"NaN":(new Float(report.pos_touch_prep_upenn).toString()).substring(0,new Float(report.pos_touch_prep_upenn).toString().indexOf("."))%>% (UPENN)<br></td>
+		 <td> <%=report.samples_f_pos_neg_touch_prep_upenn.size()%>, <%=(new Float(report.pos_neg_touch_prep_upenn).toString()).equals("NaN")?"NaN":(new Float(report.pos_neg_touch_prep_upenn).toString()).substring(0,new Float(report.pos_neg_touch_prep_upenn).toString().indexOf("."))%>% (UPENN)<br></td>
+		 <td> <%=report.samples_f_neg_touch_prep_upenn.size()%>, <%=(new Float(report.neg_touch_prep_upenn).toString()).equals("NaN")?"NaN":(new Float(report.neg_touch_prep_upenn).toString()).substring(0,new Float(report.neg_touch_prep_upenn).toString().indexOf("."))%>% (UPENN)<br></td>
+			   
+	   </tr>
+	   
+	   
+	    <TR>
+	     <td> <%=report.samples_f_touch_prep_uc.size()%> <//%=(new Float(report.touch_prep_uc).toString()).equals("NaN")?"NaN":(new Float(report.touch_prep_uc).toString()).substring(0,new Float(report.touch_prep_uc).toString().indexOf("."))%> (Univ.of Chicago)<br></td>
+	     <td> <%=report.samples_f_pos_touch_prep_uc.size()%>, <%=(new Float(report.pos_touch_prep_uc).toString()).equals("NaN")?"NaN":(new Float(report.pos_touch_prep_uc).toString()).substring(0,new Float(report.pos_touch_prep_uc).toString().indexOf("."))%>% (Univ.of Chicago)<br></td>
+		 <td> <%=report.samples_f_pos_neg_touch_prep_uc.size()%>, <%=(new Float(report.pos_neg_touch_prep_uc).toString()).equals("NaN")?"NaN":(new Float(report.pos_neg_touch_prep_uc).toString()).substring(0,new Float(report.pos_neg_touch_prep_uc).toString().indexOf("."))%>% (Univ.of Chicago)<br></td>
+		 <td> <%=report.samples_f_neg_touch_prep_uc.size()%>, <%=(new Float(report.neg_touch_prep_uc).toString()).equals("NaN")?"NaN":(new Float(report.neg_touch_prep_uc).toString()).substring(0,new Float(report.neg_touch_prep_uc).toString().indexOf("."))%>% (Univ.of Chicago)<br></td>
+			   
+	   </tr>
+	   
+	   
+	    <TR>
+	     <td> <%=report.samples_f_touch_prep_uab.size()%> <//%=(new Float(report.touch_prep_uab).toString()).equals("NaN")?"NaN":(new Float(report.touch_prep_uab).toString()).substring(0,new Float(report.touch_prep_uab).toString().indexOf("."))%> (UAB)<br></td>
+	     <td> <%=report.samples_f_pos_touch_prep_uab.size()%>, <%=(new Float(report.pos_touch_prep_uab).toString()).equals("NaN")?"NaN":(new Float(report.pos_touch_prep_uab).toString()).substring(0,new Float(report.pos_touch_prep_uab).toString().indexOf("."))%>% (UAB)<br></td>
+		 <td> <%=report.samples_f_pos_neg_touch_prep_uab.size()%>, <%=(new Float(report.pos_neg_touch_prep_uab).toString()).equals("NaN")?"NaN":(new Float(report.pos_neg_touch_prep_uab).toString()).substring(0,new Float(report.pos_neg_touch_prep_uab).toString().indexOf("."))%>% (UAB)<br></td>
+		 <td> <%=report.samples_f_neg_touch_prep_uab.size()%>, <%=(new Float(report.neg_touch_prep_uab).toString()).equals("NaN")?"NaN":(new Float(report.neg_touch_prep_uab).toString()).substring(0,new Float(report.neg_touch_prep_uab).toString().indexOf("."))%>% (UAB)<br></td>
+			   
+	   </tr>
+	   
+	   
+	    <TR>
+	     <td> <%=report.samples_f_touch_prep_mskcc.size()%> <//%=(new Float(report.touch_prep_mskcc).toString()).equals("NaN")?"NaN":(new Float(report.touch_prep_mskcc).toString()).substring(0,new Float(report.touch_prep_mskcc).toString().indexOf("."))%> (MSKCC)<br></td>
+	     <td> <%=report.samples_f_pos_touch_prep_mskcc.size()%>, <%=(new Float(report.pos_touch_prep_mskcc).toString()).equals("NaN")?"NaN":(new Float(report.pos_touch_prep_mskcc).toString()).substring(0,new Float(report.pos_touch_prep_mskcc).toString().indexOf("."))%>% (MSKCC)<br></td>
+		 <td> <%=report.samples_f_pos_neg_touch_prep_mskcc.size()%>, <%=(new Float(report.pos_neg_touch_prep_mskcc).toString()).equals("NaN")?"NaN":(new Float(report.pos_neg_touch_prep_mskcc).toString()).substring(0,new Float(report.pos_neg_touch_prep_mskcc).toString().indexOf("."))%>% (MSKCC)<br></td>
+		 <td> <%=report.samples_f_neg_touch_prep_mskcc.size()%>, <%=(new Float(report.neg_touch_prep_mskcc).toString()).equals("NaN")?"NaN":(new Float(report.neg_touch_prep_mskcc).toString()).substring(0,new Float(report.neg_touch_prep_mskcc).toString().indexOf("."))%>% (MSKCC)<br></td>
+			   
+	   </tr>
+	   
+	   
+	    <TR>
+	     <td> <%=report.samples_f_touch_prep_gw.size()%> <//%=(new Float(report.touch_prep_gw).toString()).equals("NaN")?"NaN":(new Float(report.touch_prep_gw).toString()).substring(0,new Float(report.touch_prep_gw).toString().indexOf("."))%> (GTWN)<br></td>
+	     <td> <%=report.samples_f_pos_touch_prep_gw.size()%>, <%=(new Float(report.pos_touch_prep_gw).toString()).equals("NaN")?"NaN":(new Float(report.pos_touch_prep_gw).toString()).substring(0,new Float(report.pos_touch_prep_gw).toString().indexOf("."))%>% (GTWN)<br></td>
+		 <td> <%=report.samples_f_pos_neg_touch_prep_gw.size()%>, <%=(new Float(report.pos_neg_touch_prep_gw).toString()).equals("NaN")?"NaN":(new Float(report.pos_neg_touch_prep_gw).toString()).substring(0,new Float(report.pos_neg_touch_prep_gw).toString().indexOf("."))%>% (GTWN)<br></td>
+		 <td> <%=report.samples_f_neg_touch_prep_gw.size()%>, <%=(new Float(report.neg_touch_prep_gw).toString()).equals("NaN")?"NaN":(new Float(report.neg_touch_prep_gw).toString()).substring(0,new Float(report.neg_touch_prep_gw).toString().indexOf("."))%>% (GTWN)<br></td>
+			   
+	   </tr>
+	   
+	   
+	     <TR>
+	     <td> <%=report.samples_f_touch_prep_uw.size()%> <//%=(new Float(report.touch_prep_uw).toString()).equals("NaN")?"NaN":(new Float(report.touch_prep_uw).toString()).substring(0,new Float(report.touch_prep_uw).toString().indexOf("."))%> (Univ. of Wash.)<br></td>
+	     <td> <%=report.samples_f_pos_touch_prep_uw.size()%>, <%=(new Float(report.pos_touch_prep_uw).toString()).equals("NaN")?"NaN":(new Float(report.pos_touch_prep_uw).toString()).substring(0,new Float(report.pos_touch_prep_uw).toString().indexOf("."))%>% (Univ. of Wash.)<br></td>
+		 <td> <%=report.samples_f_pos_neg_touch_prep_uw.size()%>, <%=(new Float(report.pos_neg_touch_prep_uw).toString()).equals("NaN")?"NaN":(new Float(report.pos_neg_touch_prep_uw).toString()).substring(0,new Float(report.pos_neg_touch_prep_uw).toString().indexOf("."))%>% (Univ. of Wash.)<br></td>
+		 <td> <%=report.samples_f_neg_touch_prep_uw.size()%>, <%=(new Float(report.neg_touch_prep_uw).toString()).equals("NaN")?"NaN":(new Float(report.neg_touch_prep_uw).toString()).substring(0,new Float(report.neg_touch_prep_uw).toString().indexOf("."))%>% (Univ. of Wash.)<br></td>
+			   
+	   </tr>
+	   
+	   
+	     <TR>
+	     <td> <%=report.samples_f_touch_prep_ut.size()%> <//%=(new Float(report.touch_prep_ut).toString()).equals("NaN")?"NaN":(new Float(report.touch_prep_ut).toString()).substring(0,new Float(report.touch_prep_ut).toString().indexOf("."))%> (Univ. of Texas)<br></td>
+	     <td> <%=report.samples_f_pos_touch_prep_ut.size()%>, <%=(new Float(report.pos_touch_prep_ut).toString()).equals("NaN")?"NaN":(new Float(report.pos_touch_prep_ut).toString()).substring(0,new Float(report.pos_touch_prep_ut).toString().indexOf("."))%>% (Univ. of Texas)<br></td>
+		 <td> <%=report.samples_f_pos_neg_touch_prep_ut.size()%>, <%=(new Float(report.pos_neg_touch_prep_ut).toString()).equals("NaN")?"NaN":(new Float(report.pos_neg_touch_prep_ut).toString()).substring(0,new Float(report.pos_neg_touch_prep_ut).toString().indexOf("."))%>% (Univ. of Texas)<br></td>
+		 <td> <%=report.samples_f_neg_touch_prep_ut.size()%>, <%=(new Float(report.neg_touch_prep_ut).toString()).equals("NaN")?"NaN":(new Float(report.neg_touch_prep_ut).toString()).substring(0,new Float(report.neg_touch_prep_ut).toString().indexOf("."))%>% (Univ. of Texas)<br></td>
+			   
+	   </tr>
+	   
+	   
+	    
+	          
+	 </TABLE>
+  </td>
+ </tr>
+ 
+ 
+ 
+ <tr>
+
+    <td valign="top" align="left" class="search"><b>Time Point Based Touch Prep Info For Frozen Core</b> </td>
+<TD>
+	 <TABLE cellpadding="2" align="left" border="1" width="100%">
+ 
+   <TR>
+	      <TD><b>Total No. of touch prep samples</b></TD>
+	      <TD><b>No. , % of total samples with + (malignant cells present) </b></TD>
+		  <TD><b>No. , % of total samples with +/- (suggestive of malignant cells) </b></TD>
+		  <TD><b>No. , % of total samples with  - (no malignant cells present) </b></TD>		
+	   </TR>
+	   
+	   <TR>
+	   
+	       <TD><%=report.samples_f_touch_prep_alltps.size()%> <//%=(new Float(report.touch_prep_alltps).toString()).equals("NaN")?"NaN":(new Float(report.touch_prep_alltps).toString()).substring(0,new Float(report.touch_prep_alltps).toString().indexOf("."))%> (All T.P.)<br></td>
+	       <td><%=report.samples_f_pos_touch_prep_alltps.size()%>, <%=(new Float(report.pos_touch_prep_alltps).toString()).equals("NaN")?"NaN":(new Float(report.pos_touch_prep_alltps).toString()).substring(0,new Float(report.pos_touch_prep_alltps).toString().indexOf("."))%>% (All T.P.)</td>
+	       <td><%=report.samples_f_pos_neg_touch_prep_alltps.size()%>, <%=(new Float(report.pos_neg_touch_prep_alltps).toString()).equals("NaN")?"NaN":(new Float(report.pos_neg_touch_prep_alltps).toString()).substring(0,new Float(report.pos_neg_touch_prep_alltps).toString().indexOf("."))%>% (All T.P.)</td>
+		   <td><%=report.samples_f_neg_touch_prep_alltps.size()%>, <%=(new Float(report.neg_touch_prep_alltps).toString()).equals("NaN")?"NaN":(new Float(report.neg_touch_prep_alltps).toString()).substring(0,new Float(report.neg_touch_prep_alltps).toString().indexOf("."))%>% (All T.P.)</td> 
+	  
+	   </tr>
+	   
+	   
+	    <TR>
+	   
+	      <td> <%=report.samples_f_touch_prep_f1.size()%> <//%=(new Float(report.touch_prep_f1).toString()).equals("NaN")?"NaN":(new Float(report.touch_prep_f1).toString()).substring(0,new Float(report.touch_prep_f1).toString().indexOf("."))%> (F1)<br></td>
+		  <td> <%=report.samples_f_pos_touch_prep_f1.size()%>, <%=(new Float(report.pos_touch_prep_f1).toString()).equals("NaN")?"NaN":(new Float(report.pos_touch_prep_f1).toString()).substring(0,new Float(report.pos_touch_prep_f1).toString().indexOf("."))%>% (F1)<br></td>
+		  <td> <%=report.samples_f_pos_neg_touch_prep_f1.size()%>, <%=(new Float(report.pos_neg_touch_prep_f1).toString()).equals("NaN")?"NaN":(new Float(report.pos_neg_touch_prep_f1).toString()).substring(0,new Float(report.pos_neg_touch_prep_f1).toString().indexOf("."))%>% (F1)<br></td>
+		  <td> <%=report.samples_f_neg_touch_prep_f1.size()%>, <%=(new Float(report.neg_touch_prep_f1).toString()).equals("NaN")?"NaN":(new Float(report.neg_touch_prep_f1).toString()).substring(0,new Float(report.neg_touch_prep_f1).toString().indexOf("."))%>% (F1)<br></td>
+			  
+	   </tr>
+	   
+	   <TR>
+	     <td> <%=report.samples_f_touch_prep_f2.size()%> <//%=(new Float(report.touch_prep_f2).toString()).equals("NaN")?"NaN":(new Float(report.touch_prep_f2).toString()).substring(0,new Float(report.touch_prep_f2).toString().indexOf("."))%> (F2)<br></td>
+	     <td> <%=report.samples_f_pos_touch_prep_f2.size()%>, <%=(new Float(report.pos_touch_prep_f2).toString()).equals("NaN")?"NaN":(new Float(report.pos_touch_prep_f2).toString()).substring(0,new Float(report.pos_touch_prep_f2).toString().indexOf("."))%>% (F2)<br></td>
+		 <td> <%=report.samples_f_pos_neg_touch_prep_f2.size()%>, <%=(new Float(report.pos_neg_touch_prep_f2).toString()).equals("NaN")?"NaN":(new Float(report.pos_neg_touch_prep_f2).toString()).substring(0,new Float(report.pos_neg_touch_prep_f2).toString().indexOf("."))%>% (F2)<br></td>
+		 <td> <%=report.samples_f_neg_touch_prep_f2.size()%>, <%=(new Float(report.neg_touch_prep_f2).toString()).equals("NaN")?"NaN":(new Float(report.neg_touch_prep_f2).toString()).substring(0,new Float(report.neg_touch_prep_f2).toString().indexOf("."))%>% (F2)<br></td>
+			   
+	   </tr>
+	   
+	    <TR>
+	     <td> <%=report.samples_f_touch_prep_f3.size()%> <//%=(new Float(report.touch_prep_f3).toString()).equals("NaN")?"NaN":(new Float(report.touch_prep_f3).toString()).substring(0,new Float(report.touch_prep_f3).toString().indexOf("."))%> (F3)<br></td>
+	     <td> <%=report.samples_f_pos_touch_prep_f3.size()%>, <%=(new Float(report.pos_touch_prep_f3).toString()).equals("NaN")?"NaN":(new Float(report.pos_touch_prep_f3).toString()).substring(0,new Float(report.pos_touch_prep_f3).toString().indexOf("."))%>% (F3)<br></td>
+		 <td> <%=report.samples_f_pos_neg_touch_prep_f3.size()%>, <%=(new Float(report.pos_neg_touch_prep_f3).toString()).equals("NaN")?"NaN":(new Float(report.pos_neg_touch_prep_f3).toString()).substring(0,new Float(report.pos_neg_touch_prep_f3).toString().indexOf("."))%>% (F3)<br></td>
+		 <td> <%=report.samples_f_neg_touch_prep_f3.size()%>, <%=(new Float(report.neg_touch_prep_f3).toString()).equals("NaN")?"NaN":(new Float(report.neg_touch_prep_f3).toString()).substring(0,new Float(report.neg_touch_prep_f3).toString().indexOf("."))%>% (F3)<br></td>
+			   
+	   </tr>
+	   
+	   
+	    <TR>
+	     <td> <%=report.samples_f_touch_prep_f4.size()%> <//%=(new Float(report.touch_prep_f4).toString()).equals("NaN")?"NaN":(new Float(report.touch_prep_f4).toString()).substring(0,new Float(report.touch_prep_f4).toString().indexOf("."))%> (F4)<br></td>
+	     <td> <%=report.samples_f_pos_touch_prep_f4.size()%>, <%=(new Float(report.pos_touch_prep_f4).toString()).equals("NaN")?"NaN":(new Float(report.pos_touch_prep_f4).toString()).substring(0,new Float(report.pos_touch_prep_f4).toString().indexOf("."))%>% (F4)<br></td>
+		 <td> <%=report.samples_f_pos_neg_touch_prep_f4.size()%>, <%=(new Float(report.pos_neg_touch_prep_f4).toString()).equals("NaN")?"NaN":(new Float(report.pos_neg_touch_prep_f4).toString()).substring(0,new Float(report.pos_neg_touch_prep_f4).toString().indexOf("."))%>% (F4)<br></td>
+		 <td> <%=report.samples_f_neg_touch_prep_f4.size()%>, <%=(new Float(report.neg_touch_prep_f4).toString()).equals("NaN")?"NaN":(new Float(report.neg_touch_prep_f4).toString()).substring(0,new Float(report.neg_touch_prep_f4).toString().indexOf("."))%>% (F4)<br></td>
+			   
+	   </tr>
+	   
+	   
+	    <TR>
+	     <td> <%=report.samples_f_touch_prep_f5.size()%> <//%=(new Float(report.touch_prep_f5).toString()).equals("NaN")?"NaN":(new Float(report.touch_prep_f5).toString()).substring(0,new Float(report.touch_prep_f5).toString().indexOf("."))%> (F5)<br></td>
+	
+	     <td> <%=report.samples_f_pos_touch_prep_f5.size()%>, <%=(new Float(report.pos_touch_prep_f5).toString()).equals("NaN")?"NaN":(new Float(report.pos_touch_prep_f5).toString()).substring(0,new Float(report.pos_touch_prep_f5).toString().indexOf("."))%>% (F5)<br></td>
+		 <td> <%=report.samples_f_pos_neg_touch_prep_f5.size()%>, <%=(new Float(report.pos_neg_touch_prep_f5).toString()).equals("NaN")?"NaN":(new Float(report.pos_neg_touch_prep_f5).toString()).substring(0,new Float(report.pos_neg_touch_prep_f5).toString().indexOf("."))%>% (F5)<br></td>
+		 <td> <%=report.samples_f_neg_touch_prep_f5.size()%>, <%=(new Float(report.neg_touch_prep_f5).toString()).equals("NaN")?"NaN":(new Float(report.neg_touch_prep_f5).toString()).substring(0,new Float(report.neg_touch_prep_f5).toString().indexOf("."))%>% (F5)<br></td>
+			   
+	   </tr>
+	   
+	   
+	    <TR>
+	     <td> <%=report.samples_f_touch_prep_f6.size()%> <//%=(new Float(report.touch_prep_f6).toString()).equals("NaN")?"NaN":(new Float(report.touch_prep_f6).toString()).substring(0,new Float(report.touch_prep_f6).toString().indexOf("."))%> (F6)<br></td>
+	     <td> <%=report.samples_f_pos_touch_prep_f6.size()%>, <%=(new Float(report.pos_touch_prep_f6).toString()).equals("NaN")?"NaN":(new Float(report.pos_touch_prep_f6).toString()).substring(0,new Float(report.pos_touch_prep_f6).toString().indexOf("."))%>% (F6)<br></td>
+		 <td> <%=report.samples_f_pos_neg_touch_prep_f6.size()%>, <%=(new Float(report.pos_neg_touch_prep_f6).toString()).equals("NaN")?"NaN":(new Float(report.pos_neg_touch_prep_f6).toString()).substring(0,new Float(report.pos_neg_touch_prep_f6).toString().indexOf("."))%>% (F6)<br></td>
+		 <td> <%=report.samples_f_neg_touch_prep_f6.size()%>, <%=(new Float(report.neg_touch_prep_f6).toString()).equals("NaN")?"NaN":(new Float(report.neg_touch_prep_f6).toString()).substring(0,new Float(report.neg_touch_prep_f6).toString().indexOf("."))%>% (F6)<br></td>
+			   
+	   </tr>
+	   
+	   
+	    <TR>
+	     <td> <%=report.samples_f_touch_prep_fs.size()%> <//%=(new Float(report.touch_prep_fs).toString()).equals("NaN")?"NaN":(new Float(report.touch_prep_fs).toString()).substring(0,new Float(report.touch_prep_fs).toString().indexOf("."))%> (FS)<br></td>
+	     <td> <%=report.samples_f_pos_touch_prep_fs.size()%>, <%=(new Float(report.pos_touch_prep_fs).toString()).equals("NaN")?"NaN":(new Float(report.pos_touch_prep_fs).toString()).substring(0,new Float(report.pos_touch_prep_fs).toString().indexOf("."))%>% (FS)<br></td>
+		 <td> <%=report.samples_f_pos_neg_touch_prep_fs.size()%>, <%=(new Float(report.pos_neg_touch_prep_fs).toString()).equals("NaN")?"NaN":(new Float(report.pos_neg_touch_prep_fs).toString()).substring(0,new Float(report.pos_neg_touch_prep_fs).toString().indexOf("."))%>% (FS)<br></td>
+		 <td> <%=report.samples_f_neg_touch_prep_fs.size()%>, <%=(new Float(report.neg_touch_prep_fs).toString()).equals("NaN")?"NaN":(new Float(report.neg_touch_prep_fs).toString()).substring(0,new Float(report.neg_touch_prep_fs).toString().indexOf("."))%>% (FS)<br></td>
+			   
+	   </tr>
+	   
+	    
+	          
+	 </TABLE>
+  </td>
+ </tr>
+ 
+ 
+ 
+ <tr>
+
+    <td valign="top" align="left" class="search"><b>H&E Tumor Review Info For Frozen Core</b></td>
+<TD>
+  
+  
+  
+   <TABLE cellpadding="2" align="left" border="1" width="100%">  
+        
+       <TR>
+	      <TD><b>Total No. of H&E tumor  samples</b></TD>	     
+	      <TD><b>No. , % of total samples with + (cancer present)</b></TD>		
+		  <TD><b>No. , % of total samples with - (no cancer present)</b></TD>		
+	   </TR>
+	    <TR><TD><%=report.samples_f_h_e.size()%><br> <//%=(new Float(report.f_h_e).toString()).equals("NaN")?"NaN":(new Float(report.f_h_e).toString()).substring(0,new Float(report.f_h_e).toString().indexOf("."))%> </TD>
+		    <TD><%=report.samples_f_pos_h_e.size()%>,<br>  <%=(new Float(report.f_pos_h_e).toString()).equals("NaN")?"NaN":(new Float(report.f_pos_h_e).toString()).substring(0,new Float(report.f_pos_h_e).toString().indexOf("."))%>% </TD>
+		    <TD><%=report.samples_f_neg_h_e.size()%>,<br>  <%=(new Float(report.f_neg_h_e).toString()).equals("NaN")?"NaN":(new Float(report.f_neg_h_e).toString()).substring(0,new Float(report.f_neg_h_e).toString().indexOf("."))%>% </TD>
+		</TR>	
+			
+			  
+	</TABLE>
+  </td>
+ </tr>
+ 
+ 
+ 
+ 
+ <tr>
+
+    <td valign="top" align="left" class="search"><b>Institution-based H&E Tumor Review Info For Frozen Core</b> </td>
+<TD>
+	 <TABLE cellpadding="2" align="left" border="1" width="100%">
+ 
+      <TR>
+	      <TD><b>Total No. of H&E tumor  samples</b></TD>	     
+	      <TD><b>No. , % of total samples with + (cancer present)</b></TD>		
+		  <TD><b>No. , % of total samples with - (no cancer present)</b></TD>		
+	   </TR>
+	   
+	   <TR>
+	   
+	       <TD><%=report.samples_f_h_e_allInstitutes.size()%> <//%=(new Float(report.h_e_allInstitutes).toString()).equals("NaN")?"NaN":(new Float(report.h_e_allInstitutes).toString()).substring(0,new Float(report.h_e_allInstitutes).toString().indexOf("."))%> (All Institutions)<br></td>
+	       <td><%=report.samples_f_pos_h_e_allInstitutes.size()%>, <%=(new Float(report.pos_h_e_allInstitutes).toString()).equals("NaN")?"NaN":(new Float(report.pos_h_e_allInstitutes).toString()).substring(0,new Float(report.pos_h_e_allInstitutes).toString().indexOf("."))%>% (All Institutions)</td>
+	       <td><%=report.samples_f_neg_h_e_allInstitutes.size()%>, <%=(new Float(report.neg_h_e_allInstitutes).toString()).equals("NaN")?"NaN":(new Float(report.neg_h_e_allInstitutes).toString()).substring(0,new Float(report.neg_h_e_allInstitutes).toString().indexOf("."))%>% (All Institutions)</td> 
+	  
+	   </tr>
+	   
+	   
+	    <TR>
+	   
+	      <td> <%=report.samples_f_h_e_ucsf.size()%> <//%=(new Float(report.h_e_ucsf).toString()).equals("NaN")?"NaN":(new Float(report.h_e_ucsf).toString()).substring(0,new Float(report.h_e_ucsf).toString().indexOf("."))%> (UCSF)<br></td>
+		  <td> <%=report.samples_f_pos_h_e_ucsf.size()%>, <%=(new Float(report.pos_h_e_ucsf).toString()).equals("NaN")?"NaN":(new Float(report.pos_h_e_ucsf).toString()).substring(0,new Float(report.pos_h_e_ucsf).toString().indexOf("."))%>% (UCSF)<br></td>
+		  <td> <%=report.samples_f_neg_h_e_ucsf.size()%>, <%=(new Float(report.neg_h_e_ucsf).toString()).equals("NaN")?"NaN":(new Float(report.neg_h_e_ucsf).toString()).substring(0,new Float(report.neg_h_e_ucsf).toString().indexOf("."))%>% (UCSF)<br></td>
+			  
+	   </tr>
+	   
+	   <TR>
+	     <td> <%=report.samples_f_h_e_unc.size()%> <//%=(new Float(report.h_e_unc).toString()).equals("NaN")?"NaN":(new Float(report.h_e_unc).toString()).substring(0,new Float(report.h_e_unc).toString().indexOf("."))%> (UNC)<br></td>
+	     <td> <%=report.samples_f_pos_h_e_unc.size()%>, <%=(new Float(report.pos_h_e_unc).toString()).equals("NaN")?"NaN":(new Float(report.pos_h_e_unc).toString()).substring(0,new Float(report.pos_h_e_unc).toString().indexOf("."))%>% (UNC)<br></td>
+		 <td> <%=report.samples_f_neg_h_e_unc.size()%>, <%=(new Float(report.neg_h_e_unc).toString()).equals("NaN")?"NaN":(new Float(report.neg_h_e_unc).toString()).substring(0,new Float(report.neg_h_e_unc).toString().indexOf("."))%>% (UNC)<br></td>
+			   
+	   </tr>
+	   
+	    <TR>
+	     <td> <%=report.samples_f_h_e_upenn.size()%> <//%=(new Float(report.h_e_upenn).toString()).equals("NaN")?"NaN":(new Float(report.h_e_upenn).toString()).substring(0,new Float(report.h_e_upenn).toString().indexOf("."))%> (UPENN)<br></td>
+	     <td> <%=report.samples_f_pos_h_e_upenn.size()%>, <%=(new Float(report.pos_h_e_upenn).toString()).equals("NaN")?"NaN":(new Float(report.pos_h_e_upenn).toString()).substring(0,new Float(report.pos_h_e_upenn).toString().indexOf("."))%>% (UPENN)<br></td>
+		 <td> <%=report.samples_f_neg_h_e_upenn.size()%>, <%=(new Float(report.neg_h_e_upenn).toString()).equals("NaN")?"NaN":(new Float(report.neg_h_e_upenn).toString()).substring(0,new Float(report.neg_h_e_upenn).toString().indexOf("."))%>% (UPENN)<br></td>
+			   
+	   </tr>
+	   
+	   
+	    <TR>
+	     <td> <%=report.samples_f_h_e_uc.size()%> <//%=(new Float(report.h_e_uc).toString()).equals("NaN")?"NaN":(new Float(report.h_e_uc).toString()).substring(0,new Float(report.h_e_uc).toString().indexOf("."))%> (Univ.of Chicago)<br></td>
+	     <td> <%=report.samples_f_pos_h_e_uc.size()%>, <%=(new Float(report.pos_h_e_uc).toString()).equals("NaN")?"NaN":(new Float(report.pos_h_e_uc).toString()).substring(0,new Float(report.pos_h_e_uc).toString().indexOf("."))%>% (Univ.of Chicago)<br></td>
+		 <td> <%=report.samples_f_neg_h_e_uc.size()%>, <%=(new Float(report.neg_h_e_uc).toString()).equals("NaN")?"NaN":(new Float(report.neg_h_e_uc).toString()).substring(0,new Float(report.neg_h_e_uc).toString().indexOf("."))%>% (Univ.of Chicago)<br></td>
+			   
+	   </tr>
+	   
+	   
+	    <TR>
+	     <td> <%=report.samples_f_h_e_uab.size()%> <//%=(new Float(report.h_e_uab).toString()).equals("NaN")?"NaN":(new Float(report.h_e_uab).toString()).substring(0,new Float(report.h_e_uab).toString().indexOf("."))%> (UAB)<br></td>
+	     <td> <%=report.samples_f_pos_h_e_uab.size()%>, <%=(new Float(report.pos_h_e_uab).toString()).equals("NaN")?"NaN":(new Float(report.pos_h_e_uab).toString()).substring(0,new Float(report.pos_h_e_uab).toString().indexOf("."))%>% (UAB)<br></td>
+		 <td> <%=report.samples_f_neg_h_e_uab.size()%>, <%=(new Float(report.neg_h_e_uab).toString()).equals("NaN")?"NaN":(new Float(report.neg_h_e_uab).toString()).substring(0,new Float(report.neg_h_e_uab).toString().indexOf("."))%>% (UAB)<br></td>
+			   
+	   </tr>
+	   
+	   
+	    <TR>
+	     <td> <%=report.samples_f_h_e_mskcc.size()%> <//%=(new Float(report.h_e_mskcc).toString()).equals("NaN")?"NaN":(new Float(report.h_e_mskcc).toString()).substring(0,new Float(report.h_e_mskcc).toString().indexOf("."))%> (MSKCC)<br></td>
+	     <td> <%=report.samples_f_pos_h_e_mskcc.size()%>, <%=(new Float(report.pos_h_e_mskcc).toString()).equals("NaN")?"NaN":(new Float(report.pos_h_e_mskcc).toString()).substring(0,new Float(report.pos_h_e_mskcc).toString().indexOf("."))%>% (MSKCC)<br></td>
+		 <td> <%=report.samples_f_neg_h_e_mskcc.size()%>, <%=(new Float(report.neg_h_e_mskcc).toString()).equals("NaN")?"NaN":(new Float(report.neg_h_e_mskcc).toString()).substring(0,new Float(report.neg_h_e_mskcc).toString().indexOf("."))%>% (MSKCC)<br></td>
+			   
+	   </tr>
+	   
+	   
+	    <TR>
+	     <td> <%=report.samples_f_h_e_gw.size()%> <//%=(new Float(report.h_e_gw).toString()).equals("NaN")?"NaN":(new Float(report.h_e_gw).toString()).substring(0,new Float(report.h_e_gw).toString().indexOf("."))%> (GTWN)<br></td>
+	     <td> <%=report.samples_f_pos_h_e_gw.size()%>, <%=(new Float(report.pos_h_e_gw).toString()).equals("NaN")?"NaN":(new Float(report.pos_h_e_gw).toString()).substring(0,new Float(report.pos_h_e_gw).toString().indexOf("."))%>% (GTWN)<br></td>
+		 <td> <%=report.samples_f_neg_h_e_gw.size()%>, <%=(new Float(report.neg_h_e_gw).toString()).equals("NaN")?"NaN":(new Float(report.neg_h_e_gw).toString()).substring(0,new Float(report.neg_h_e_gw).toString().indexOf("."))%>% (GTWN)<br></td>
+			   
+	   </tr>
+	   
+	   
+	     <TR>
+	     <td> <%=report.samples_f_h_e_uw.size()%> <//%=(new Float(report.h_e_uw).toString()).equals("NaN")?"NaN":(new Float(report.h_e_uw).toString()).substring(0,new Float(report.h_e_uw).toString().indexOf("."))%> (Univ. of Wash.)<br></td>
+	     <td> <%=report.samples_f_pos_h_e_uw.size()%>, <%=(new Float(report.pos_h_e_uw).toString()).equals("NaN")?"NaN":(new Float(report.pos_h_e_uw).toString()).substring(0,new Float(report.pos_h_e_uw).toString().indexOf("."))%>% (Univ. of Wash.)<br></td>
+		 <td> <%=report.samples_f_neg_h_e_uw.size()%>, <%=(new Float(report.neg_h_e_uw).toString()).equals("NaN")?"NaN":(new Float(report.neg_h_e_uw).toString()).substring(0,new Float(report.neg_h_e_uw).toString().indexOf("."))%>% (Univ. of Wash.)<br></td>
+			   
+	   </tr>
+	   
+	   
+	     <TR>
+	     <td> <%=report.samples_f_h_e_ut.size()%> <//%=(new Float(report.h_e_ut).toString()).equals("NaN")?"NaN":(new Float(report.h_e_ut).toString()).substring(0,new Float(report.h_e_ut).toString().indexOf("."))%> (Univ. of Texas)<br></td>
+	     <td> <%=report.samples_f_pos_h_e_ut.size()%>, <%=(new Float(report.pos_h_e_ut).toString()).equals("NaN")?"NaN":(new Float(report.pos_h_e_ut).toString()).substring(0,new Float(report.pos_h_e_ut).toString().indexOf("."))%>% (Univ. of Texas)<br></td>
+		 <td> <%=report.samples_f_neg_h_e_ut.size()%>, <%=(new Float(report.neg_h_e_ut).toString()).equals("NaN")?"NaN":(new Float(report.neg_h_e_ut).toString()).substring(0,new Float(report.neg_h_e_ut).toString().indexOf("."))%>% (Univ. of Texas)<br></td>
+			   
+	   </tr>
+	   
+	   
+	    
+	          
+	 </TABLE>
+  </td>
+ </tr>
+
+
+ 
+ <tr>
+
+    <td valign="top" align="left" class="search"><b>Time Point Based H&E Tumor Review Info For Frozen Core</b></td>
+<TD>
+	 <TABLE cellpadding="2" align="left" border="1" width="100%">
+ 
+    <TR>
+	      <TD><b>Total No. of H&E tumor  samples</b></TD>	     
+	      <TD><b>No. , % of total samples with + (cancer present)</b></TD>		
+		  <TD><b>No. , % of total samples with - (no cancer present)</b></TD>		
+	   </TR>
+	   
+	   <TR>
+	   
+	       <TD><%=report.samples_f_h_e_alltps.size()%> <//%=(new Float(report.h_e_alltps).toString()).equals("NaN")?"NaN":(new Float(report.h_e_alltps).toString()).substring(0,new Float(report.h_e_alltps).toString().indexOf("."))%> (All T.P.)<br></td>
+	       <td><%=report.samples_f_pos_h_e_alltps.size()%>, <%=(new Float(report.pos_h_e_alltps).toString()).equals("NaN")?"NaN":(new Float(report.pos_h_e_alltps).toString()).substring(0,new Float(report.pos_h_e_alltps).toString().indexOf("."))%>% (All T.P.)</td>
+	       <td><%=report.samples_f_neg_h_e_alltps.size()%>, <%=(new Float(report.neg_h_e_alltps).toString()).equals("NaN")?"NaN":(new Float(report.neg_h_e_alltps).toString()).substring(0,new Float(report.neg_h_e_alltps).toString().indexOf("."))%>% (All T.P.)</td> 
+	  
+	   </tr>
+	   
+	   
+	    <TR>
+	   
+	      <td> <%=report.samples_f_h_e_f1.size()%> <//%=(new Float(report.touch_prep_f1).toString()).equals("NaN")?"NaN":(new Float(report.touch_prep_f1).toString()).substring(0,new Float(report.touch_prep_f1).toString().indexOf("."))%> (F1)<br></td>
+		  <td> <%=report.samples_f_pos_h_e_f1.size()%>, <%=(new Float(report.pos_h_e_f1).toString()).equals("NaN")?"NaN":(new Float(report.pos_h_e_f1).toString()).substring(0,new Float(report.pos_h_e_f1).toString().indexOf("."))%>% (F1)<br></td>
+		  <td> <%=report.samples_f_neg_h_e_f1.size()%>, <%=(new Float(report.neg_h_e_f1).toString()).equals("NaN")?"NaN":(new Float(report.neg_h_e_f1).toString()).substring(0,new Float(report.neg_h_e_f1).toString().indexOf("."))%>% (F1)<br></td>
+			  
+	   </tr>
+	   
+	   <TR>
+	     <td> <%=report.samples_f_h_e_f2.size()%> <//%=(new Float(report.touch_prep_f2).toString()).equals("NaN")?"NaN":(new Float(report.touch_prep_f2).toString()).substring(0,new Float(report.touch_prep_f2).toString().indexOf("."))%> (F2)<br></td>
+	     <td> <%=report.samples_f_pos_h_e_f2.size()%>, <%=(new Float(report.pos_h_e_f2).toString()).equals("NaN")?"NaN":(new Float(report.pos_h_e_f2).toString()).substring(0,new Float(report.pos_h_e_f2).toString().indexOf("."))%>% (F2)<br></td>
+		 <td> <%=report.samples_f_neg_h_e_f2.size()%>, <%=(new Float(report.neg_h_e_f2).toString()).equals("NaN")?"NaN":(new Float(report.neg_h_e_f2).toString()).substring(0,new Float(report.neg_h_e_f2).toString().indexOf("."))%>% (F2)<br></td>
+			   
+	   </tr>
+	   
+	    <TR>
+	     <td> <%=report.samples_f_h_e_f3.size()%> <//%=(new Float(report.touch_prep_f3).toString()).equals("NaN")?"NaN":(new Float(report.touch_prep_f3).toString()).substring(0,new Float(report.touch_prep_f3).toString().indexOf("."))%> (F3)<br></td>
+	     <td> <%=report.samples_f_pos_h_e_f3.size()%>, <%=(new Float(report.pos_h_e_f3).toString()).equals("NaN")?"NaN":(new Float(report.pos_h_e_f3).toString()).substring(0,new Float(report.pos_h_e_f3).toString().indexOf("."))%>% (F3)<br></td>
+		 <td> <%=report.samples_f_neg_h_e_f3.size()%>, <%=(new Float(report.neg_h_e_f3).toString()).equals("NaN")?"NaN":(new Float(report.neg_h_e_f3).toString()).substring(0,new Float(report.neg_h_e_f3).toString().indexOf("."))%>% (F3)<br></td>
+			   
+	   </tr>
+	   
+	   
+	    <TR>
+	     <td> <%=report.samples_f_h_e_f4.size()%> <//%=(new Float(report.touch_prep_f4).toString()).equals("NaN")?"NaN":(new Float(report.touch_prep_f4).toString()).substring(0,new Float(report.touch_prep_f4).toString().indexOf("."))%> (F4)<br></td>
+	     <td> <%=report.samples_f_pos_h_e_f4.size()%>, <%=(new Float(report.pos_h_e_f4).toString()).equals("NaN")?"NaN":(new Float(report.pos_h_e_f4).toString()).substring(0,new Float(report.pos_h_e_f4).toString().indexOf("."))%>% (F4)<br></td>
+		 <td> <%=report.samples_f_neg_h_e_f4.size()%>, <%=(new Float(report.neg_h_e_f4).toString()).equals("NaN")?"NaN":(new Float(report.neg_h_e_f4).toString()).substring(0,new Float(report.neg_h_e_f4).toString().indexOf("."))%>% (F4)<br></td>
+			   
+	   </tr>
+	   
+	   
+	    <TR>
+	     <td> <%=report.samples_f_h_e_f5.size()%> <//%=(new Float(report.touch_prep_f5).toString()).equals("NaN")?"NaN":(new Float(report.touch_prep_f5).toString()).substring(0,new Float(report.touch_prep_f5).toString().indexOf("."))%> (F5)<br></td>
+	     <td> <%=report.samples_f_pos_h_e_f5.size()%>, <%=(new Float(report.pos_h_e_f5).toString()).equals("NaN")?"NaN":(new Float(report.pos_h_e_f5).toString()).substring(0,new Float(report.pos_h_e_f5).toString().indexOf("."))%>% (F5)<br></td>
+		 <td> <%=report.samples_f_neg_h_e_f5.size()%>, <%=(new Float(report.neg_h_e_f5).toString()).equals("NaN")?"NaN":(new Float(report.neg_h_e_f5).toString()).substring(0,new Float(report.neg_h_e_f5).toString().indexOf("."))%>% (F5)<br></td>
+			   
+	   </tr>
+	   
+	   
+	    <TR>
+	     <td> <%=report.samples_f_h_e_f6.size()%> <//%=(new Float(report.touch_prep_f6).toString()).equals("NaN")?"NaN":(new Float(report.touch_prep_f6).toString()).substring(0,new Float(report.touch_prep_f6).toString().indexOf("."))%> (F6)<br></td>
+	     <td> <%=report.samples_f_pos_h_e_f6.size()%>, <%=(new Float(report.pos_h_e_f6).toString()).equals("NaN")?"NaN":(new Float(report.pos_h_e_f6).toString()).substring(0,new Float(report.pos_h_e_f6).toString().indexOf("."))%>% (F6)<br></td>
+		 <td> <%=report.samples_f_neg_h_e_f6.size()%>, <%=(new Float(report.neg_h_e_f6).toString()).equals("NaN")?"NaN":(new Float(report.neg_h_e_f6).toString()).substring(0,new Float(report.neg_h_e_f6).toString().indexOf("."))%>% (F6)<br></td>
+			   
+	   </tr>
+	   
+	   
+	    <TR>
+	     <td> <%=report.samples_f_h_e_fs.size()%> <//%=(new Float(report.touch_prep_fs).toString()).equals("NaN")?"NaN":(new Float(report.touch_prep_fs).toString()).substring(0,new Float(report.touch_prep_fs).toString().indexOf("."))%> (FS)<br></td>
+	     <td> <%=report.samples_f_pos_h_e_fs.size()%>, <%=(new Float(report.pos_h_e_fs).toString()).equals("NaN")?"NaN":(new Float(report.pos_h_e_fs).toString()).substring(0,new Float(report.pos_h_e_fs).toString().indexOf("."))%>% (FS)<br></td>
+		 <td> <%=report.samples_f_neg_h_e_fs.size()%>, <%=(new Float(report.neg_h_e_fs).toString()).equals("NaN")?"NaN":(new Float(report.neg_h_e_fs).toString()).substring(0,new Float(report.neg_h_e_fs).toString().indexOf("."))%>% (FS)<br></td>
+			   
+	   </tr>
+	   
+	    
+	          
+	 </TABLE>
+  </td>
+ </tr>
+ 
+ 
+
+	   
+ <tr>
+
+    <td valign="top" align="left" class="search"><b>H&E Review Info For Paraffin Core</b></td>
+<TD>
+  
+  
+  
+   <TABLE cellpadding="2" align="left" border="1" width="100%">  
+      
+       <TR>
+	      <TD><b>Total No. of H&E review samples</b></TD>
+	      <TD><b>No. , % of total samples with +/+</b></TD>
+		  <TD><b>No. , % of total samples with -/-</b></TD>
+		  <TD><b>No. , % of total samples with +/-</b></TD>
+		  <TD><b>No. , % of total samples with -/+</b></TD>
+		  <TD><b>No. , % of total samples with blank</b></TD>		
+	   </TR>
+	    <TR><TD><%=report.samples_p.size()%><br> <//%=(new Float(report.p_h_e).toString()).equals("NaN")?"NaN":(new Float(report.p_h_e).toString()).substring(0,new Float(report.p_h_e).toString().indexOf("."))%> </TD>
+		    <TD><%=report.samples_p_pos_pos_h_e.size()%>,<br>  <%=(new Float(report.p_pos_pos_h_e).toString()).equals("NaN")?"NaN":(new Float(report.p_pos_pos_h_e).toString()).substring(0,new Float(report.p_pos_pos_h_e).toString().indexOf("."))%>% </TD>
+			<TD><%=report.samples_p_neg_neg_h_e.size()%>,<br>  <%=(new Float(report.p_neg_neg_h_e).toString()).equals("NaN")?"NaN":(new Float(report.p_neg_neg_h_e).toString()).substring(0,new Float(report.p_neg_neg_h_e).toString().indexOf("."))%>% </TD>
+			<TD><%=report.samples_p_pos_neg_h_e.size()%>,<br>  <%=(new Float(report.p_pos_neg_h_e).toString()).equals("NaN")?"NaN":(new Float(report.p_pos_neg_h_e).toString()).substring(0,new Float(report.p_pos_neg_h_e).toString().indexOf("."))%>% </TD>
+			<TD><%=report.samples_p_neg_pos_h_e.size()%>,<br>  <%=(new Float(report.p_neg_pos_h_e).toString()).equals("NaN")?"NaN":(new Float(report.p_neg_pos_h_e).toString()).substring(0,new Float(report.p_neg_pos_h_e).toString().indexOf("."))%>% </TD>
+			<TD><%=report.samples_p_blank_h_e.size()%>,<br>  <%=(new Float(report.p_blank_h_e).toString()).equals("NaN")?"NaN":(new Float(report.p_blank_h_e).toString()).substring(0,new Float(report.p_blank_h_e).toString().indexOf("."))%>% </TD>
+	
+		</TR>	
+			
+			  
+	</TABLE>
+  </td>
+ </tr>
+ 
+ 
+ 
+ 
+ 
+ <tr>
+
+    <td valign="top" align="left" class="search"><b>Institution-based H&E Review Info For Paraffin Core</b>  </td>
+<TD>
+	 <TABLE cellpadding="2" align="left" border="1" width="100%">
+ 
+      <TR>
+	      <TD><b>Total No. of H&E review samples</b></TD>
+	      <TD><b>No. , % of total samples with +/+</b></TD>
+		  <TD><b>No. , % of total samples with -/-</b></TD>
+		  <TD><b>No. , % of total samples with +/-</b></TD>
+		  <TD><b>No. , % of total samples with -/+</b></TD>
+		  <TD><b>No. , % of total samples with blank</b></TD>		
+	   </TR>
+	   
+	   <TR>
+	   
+	       <TD><%=report.samples_p_h_e_allInstitutes.size()%> <//%=(new Float(report.p_h_e_allInstitutes).toString()).equals("NaN")?"NaN":(new Float(report.p_h_e_allInstitutes).toString()).substring(0,new Float(report.p_h_e_allInstitutes).toString().indexOf("."))%> (All Institutions)<br></td>
+	       <td><%=report.samples_p_pos_pos_h_e_allInstitutes.size()%>, <%=(new Float(report.p_pos_pos_h_e_allInstitutes).toString()).equals("NaN")?"NaN":(new Float(report.p_pos_pos_h_e_allInstitutes).toString()).substring(0,new Float(report.p_pos_pos_h_e_allInstitutes).toString().indexOf("."))%>% (All Institutions)</td>
+	       <td><%=report.samples_p_neg_neg_h_e_allInstitutes.size()%>, <%=(new Float(report.p_neg_neg_h_e_allInstitutes).toString()).equals("NaN")?"NaN":(new Float(report.p_neg_neg_h_e_allInstitutes).toString()).substring(0,new Float(report.p_neg_neg_h_e_allInstitutes).toString().indexOf("."))%>% (All Institutions)</td>
+		   <td><%=report.samples_p_pos_neg_h_e_allInstitutes.size()%>, <%=(new Float(report.p_pos_neg_h_e_allInstitutes).toString()).equals("NaN")?"NaN":(new Float(report.p_pos_neg_h_e_allInstitutes).toString()).substring(0,new Float(report.p_pos_neg_h_e_allInstitutes).toString().indexOf("."))%>% (All Institutions)</td>
+		   <td><%=report.samples_p_neg_pos_h_e_allInstitutes.size()%>, <%=(new Float(report.p_neg_pos_h_e_allInstitutes).toString()).equals("NaN")?"NaN":(new Float(report.p_neg_pos_h_e_allInstitutes).toString()).substring(0,new Float(report.p_neg_pos_h_e_allInstitutes).toString().indexOf("."))%>% (All Institutions)</td> 
+	       <td><%=report.samples_p_blank_h_e_allInstitutes.size()%>, <%=(new Float(report.p_blank_h_e_allInstitutes).toString()).equals("NaN")?"NaN":(new Float(report.p_blank_h_e_allInstitutes).toString()).substring(0,new Float(report.p_blank_h_e_allInstitutes).toString().indexOf("."))%>% (All Institutions)</td> 
+	 
+	   </tr>
+	   
+	   
+	    <TR>
+	   
+	       <TD><%=report.samples_p_h_e_ucsf.size()%> <//%=(new Float(report.p_h_e_ucsf).toString()).equals("NaN")?"NaN":(new Float(report.p_h_e_ucsf).toString()).substring(0,new Float(report.p_h_e_ucsf).toString().indexOf("."))%> (UCSF)<br></td>
+	       <td><%=report.samples_p_pos_pos_h_e_ucsf.size()%>, <%=(new Float(report.p_pos_pos_h_e_ucsf).toString()).equals("NaN")?"NaN":(new Float(report.p_pos_pos_h_e_ucsf).toString()).substring(0,new Float(report.p_pos_pos_h_e_ucsf).toString().indexOf("."))%>% (UCSF)</td>
+	       <td><%=report.samples_p_neg_neg_h_e_ucsf.size()%>, <%=(new Float(report.p_neg_neg_h_e_ucsf).toString()).equals("NaN")?"NaN":(new Float(report.p_neg_neg_h_e_ucsf).toString()).substring(0,new Float(report.p_neg_neg_h_e_ucsf).toString().indexOf("."))%>% (UCSF)</td>
+		   <td><%=report.samples_p_pos_neg_h_e_ucsf.size()%>, <%=(new Float(report.p_pos_neg_h_e_ucsf).toString()).equals("NaN")?"NaN":(new Float(report.p_pos_neg_h_e_ucsf).toString()).substring(0,new Float(report.p_pos_neg_h_e_ucsf).toString().indexOf("."))%>% (UCSF)</td>
+		   <td><%=report.samples_p_neg_pos_h_e_ucsf.size()%>, <%=(new Float(report.p_neg_pos_h_e_ucsf).toString()).equals("NaN")?"NaN":(new Float(report.p_neg_pos_h_e_ucsf).toString()).substring(0,new Float(report.p_neg_pos_h_e_ucsf).toString().indexOf("."))%>% (UCSF)</td> 
+	       <td><%=report.samples_p_blank_h_e_ucsf.size()%>, <%=(new Float(report.p_blank_h_e_ucsf).toString()).equals("NaN")?"NaN":(new Float(report.p_blank_h_e_ucsf).toString()).substring(0,new Float(report.p_blank_h_e_ucsf).toString().indexOf("."))%>% (UCSF)</td> 
+	 
+	   </tr>
+	   
+	
+	  <TR>
+	   
+	       <TD><%=report.samples_p_h_e_unc.size()%> <//%=(new Float(report.p_h_e_unc).toString()).equals("NaN")?"NaN":(new Float(report.p_h_e_unc).toString()).substring(0,new Float(report.p_h_e_unc).toString().indexOf("."))%> (UNC)<br></td>
+	       <td><%=report.samples_p_pos_pos_h_e_unc.size()%>, <%=(new Float(report.p_pos_pos_h_e_unc).toString()).equals("NaN")?"NaN":(new Float(report.p_pos_pos_h_e_unc).toString()).substring(0,new Float(report.p_pos_pos_h_e_unc).toString().indexOf("."))%>% (UNC)</td>
+	       <td><%=report.samples_p_neg_neg_h_e_unc.size()%>, <%=(new Float(report.p_neg_neg_h_e_unc).toString()).equals("NaN")?"NaN":(new Float(report.p_neg_neg_h_e_unc).toString()).substring(0,new Float(report.p_neg_neg_h_e_unc).toString().indexOf("."))%>% (UNC)</td>
+		   <td><%=report.samples_p_pos_neg_h_e_unc.size()%>, <%=(new Float(report.p_pos_neg_h_e_unc).toString()).equals("NaN")?"NaN":(new Float(report.p_pos_neg_h_e_unc).toString()).substring(0,new Float(report.p_pos_neg_h_e_unc).toString().indexOf("."))%>% (UNC)</td>
+		   <td><%=report.samples_p_neg_pos_h_e_unc.size()%>, <%=(new Float(report.p_neg_pos_h_e_unc).toString()).equals("NaN")?"NaN":(new Float(report.p_neg_pos_h_e_unc).toString()).substring(0,new Float(report.p_neg_pos_h_e_unc).toString().indexOf("."))%>% (UNC)</td> 
+	       <td><%=report.samples_p_blank_h_e_unc.size()%>, <%=(new Float(report.p_blank_h_e_unc).toString()).equals("NaN")?"NaN":(new Float(report.p_blank_h_e_unc).toString()).substring(0,new Float(report.p_blank_h_e_unc).toString().indexOf("."))%>% (UNC)</td> 
+	 
+	   </tr>
+	   
+	   
+	    <TR>
+	   
+	       <TD><%=report.samples_p_h_e_upenn.size()%> <//%=(new Float(report.p_h_e_upenn).toString()).equals("NaN")?"NaN":(new Float(report.p_h_e_upenn).toString()).substring(0,new Float(report.p_h_e_upenn).toString().indexOf("."))%> (UPENN)<br></td>
+	       <td><%=report.samples_p_pos_pos_h_e_upenn.size()%>, <%=(new Float(report.p_pos_pos_h_e_upenn).toString()).equals("NaN")?"NaN":(new Float(report.p_pos_pos_h_e_upenn).toString()).substring(0,new Float(report.p_pos_pos_h_e_upenn).toString().indexOf("."))%>% (UPENN)</td>
+	       <td><%=report.samples_p_neg_neg_h_e_upenn.size()%>, <%=(new Float(report.p_neg_neg_h_e_upenn).toString()).equals("NaN")?"NaN":(new Float(report.p_neg_neg_h_e_upenn).toString()).substring(0,new Float(report.p_neg_neg_h_e_upenn).toString().indexOf("."))%>% (UPENN)</td>
+		   <td><%=report.samples_p_pos_neg_h_e_upenn.size()%>, <%=(new Float(report.p_pos_neg_h_e_upenn).toString()).equals("NaN")?"NaN":(new Float(report.p_pos_neg_h_e_upenn).toString()).substring(0,new Float(report.p_pos_neg_h_e_upenn).toString().indexOf("."))%>% (UPENN)</td>
+		   <td><%=report.samples_p_neg_pos_h_e_upenn.size()%>, <%=(new Float(report.p_neg_pos_h_e_upenn).toString()).equals("NaN")?"NaN":(new Float(report.p_neg_pos_h_e_upenn).toString()).substring(0,new Float(report.p_neg_pos_h_e_upenn).toString().indexOf("."))%>% (UPENN)</td> 
+	       <td><%=report.samples_p_blank_h_e_upenn.size()%>, <%=(new Float(report.p_blank_h_e_upenn).toString()).equals("NaN")?"NaN":(new Float(report.p_blank_h_e_upenn).toString()).substring(0,new Float(report.p_blank_h_e_upenn).toString().indexOf("."))%>% (UPENN)</td> 
+	 
+	    </tr>
+	   
+	  
+	   <TR>
+	   
+	       <TD><%=report.samples_p_h_e_uc.size()%> <//%=(new Float(report.p_h_e_uc).toString()).equals("NaN")?"NaN":(new Float(report.p_h_e_uc).toString()).substring(0,new Float(report.p_h_e_uc).toString().indexOf("."))%> (Univ.of Chicago)<br></td>
+	       <td><%=report.samples_p_pos_pos_h_e_uc.size()%>, <%=(new Float(report.p_pos_pos_h_e_uc).toString()).equals("NaN")?"NaN":(new Float(report.p_pos_pos_h_e_uc).toString()).substring(0,new Float(report.p_pos_pos_h_e_uc).toString().indexOf("."))%>% (Univ.of Chicago)</td>
+	       <td><%=report.samples_p_neg_neg_h_e_uc.size()%>, <%=(new Float(report.p_neg_neg_h_e_uc).toString()).equals("NaN")?"NaN":(new Float(report.p_neg_neg_h_e_uc).toString()).substring(0,new Float(report.p_neg_neg_h_e_uc).toString().indexOf("."))%>% (Univ.of Chicago)</td>
+		   <td><%=report.samples_p_pos_neg_h_e_uc.size()%>, <%=(new Float(report.p_pos_neg_h_e_uc).toString()).equals("NaN")?"NaN":(new Float(report.p_pos_neg_h_e_uc).toString()).substring(0,new Float(report.p_pos_neg_h_e_uc).toString().indexOf("."))%>% (Univ.of Chicago)</td>
+		   <td><%=report.samples_p_neg_pos_h_e_uc.size()%>, <%=(new Float(report.p_neg_pos_h_e_uc).toString()).equals("NaN")?"NaN":(new Float(report.p_neg_pos_h_e_uc).toString()).substring(0,new Float(report.p_neg_pos_h_e_uc).toString().indexOf("."))%>% (Univ.of Chicago)</td> 
+	       <td><%=report.samples_p_blank_h_e_uc.size()%>, <%=(new Float(report.p_blank_h_e_uc).toString()).equals("NaN")?"NaN":(new Float(report.p_blank_h_e_uc).toString()).substring(0,new Float(report.p_blank_h_e_uc).toString().indexOf("."))%>% (Univ.of Chicago)</td> 
+	 
+	    </tr>
+	   
+	    <TR>
+	   
+	       <TD><%=report.samples_p_h_e_uab.size()%> <//%=(new Float(report.p_h_e_uab).toString()).equals("NaN")?"NaN":(new Float(report.p_h_e_uab).toString()).substring(0,new Float(report.p_h_e_uab).toString().indexOf("."))%> (UAB)<br></td>
+	       <td><%=report.samples_p_pos_pos_h_e_uab.size()%>, <%=(new Float(report.p_pos_pos_h_e_uab).toString()).equals("NaN")?"NaN":(new Float(report.p_pos_pos_h_e_uab).toString()).substring(0,new Float(report.p_pos_pos_h_e_uab).toString().indexOf("."))%>% (UAB)</td>
+	       <td><%=report.samples_p_neg_neg_h_e_uab.size()%>, <%=(new Float(report.p_neg_neg_h_e_uab).toString()).equals("NaN")?"NaN":(new Float(report.p_neg_neg_h_e_uab).toString()).substring(0,new Float(report.p_neg_neg_h_e_uab).toString().indexOf("."))%>% (UAB)</td>
+		   <td><%=report.samples_p_pos_neg_h_e_uab.size()%>, <%=(new Float(report.p_pos_neg_h_e_uab).toString()).equals("NaN")?"NaN":(new Float(report.p_pos_neg_h_e_uab).toString()).substring(0,new Float(report.p_pos_neg_h_e_uab).toString().indexOf("."))%>% (UAB)</td>
+		   <td><%=report.samples_p_neg_pos_h_e_uab.size()%>, <%=(new Float(report.p_neg_pos_h_e_uab).toString()).equals("NaN")?"NaN":(new Float(report.p_neg_pos_h_e_uab).toString()).substring(0,new Float(report.p_neg_pos_h_e_uab).toString().indexOf("."))%>% (UAB)</td> 
+	       <td><%=report.samples_p_blank_h_e_uab.size()%>, <%=(new Float(report.p_blank_h_e_uab).toString()).equals("NaN")?"NaN":(new Float(report.p_blank_h_e_uab).toString()).substring(0,new Float(report.p_blank_h_e_uab).toString().indexOf("."))%>% (UAB)</td> 
+	 
+	    </tr>
+	  
+	   <TR>
+	   
+	       <TD><%=report.samples_p_h_e_mskcc.size()%> <//%=(new Float(report.p_h_e_mskcc).toString()).equals("NaN")?"NaN":(new Float(report.p_h_e_mskcc).toString()).substring(0,new Float(report.p_h_e_mskcc).toString().indexOf("."))%> (MSKCC)<br></td>
+	       <td><%=report.samples_p_pos_pos_h_e_mskcc.size()%>, <%=(new Float(report.p_pos_pos_h_e_mskcc).toString()).equals("NaN")?"NaN":(new Float(report.p_pos_pos_h_e_mskcc).toString()).substring(0,new Float(report.p_pos_pos_h_e_mskcc).toString().indexOf("."))%>% (MSKCC)</td>
+	       <td><%=report.samples_p_neg_neg_h_e_mskcc.size()%>, <%=(new Float(report.p_neg_neg_h_e_mskcc).toString()).equals("NaN")?"NaN":(new Float(report.p_neg_neg_h_e_mskcc).toString()).substring(0,new Float(report.p_neg_neg_h_e_mskcc).toString().indexOf("."))%>% (MSKCC)</td>
+		   <td><%=report.samples_p_pos_neg_h_e_mskcc.size()%>, <%=(new Float(report.p_pos_neg_h_e_mskcc).toString()).equals("NaN")?"NaN":(new Float(report.p_pos_neg_h_e_mskcc).toString()).substring(0,new Float(report.p_pos_neg_h_e_mskcc).toString().indexOf("."))%>% (MSKCC)</td>
+		   <td><%=report.samples_p_neg_pos_h_e_mskcc.size()%>, <%=(new Float(report.p_neg_pos_h_e_mskcc).toString()).equals("NaN")?"NaN":(new Float(report.p_neg_pos_h_e_mskcc).toString()).substring(0,new Float(report.p_neg_pos_h_e_mskcc).toString().indexOf("."))%>% (MSKCC)</td> 
+	       <td><%=report.samples_p_blank_h_e_mskcc.size()%>, <%=(new Float(report.p_blank_h_e_mskcc).toString()).equals("NaN")?"NaN":(new Float(report.p_blank_h_e_mskcc).toString()).substring(0,new Float(report.p_blank_h_e_mskcc).toString().indexOf("."))%>% (MSKCC)</td> 
+	 
+	    </tr>
+	   
+	   <TR>
+	   
+	       <TD><%=report.samples_p_h_e_gw.size()%> <//%=(new Float(report.p_h_e_gw).toString()).equals("NaN")?"NaN":(new Float(report.p_h_e_gw).toString()).substring(0,new Float(report.p_h_e_gw).toString().indexOf("."))%> (GTWN)<br></td>
+	       <td><%=report.samples_p_pos_pos_h_e_gw.size()%>, <%=(new Float(report.p_pos_pos_h_e_gw).toString()).equals("NaN")?"NaN":(new Float(report.p_pos_pos_h_e_gw).toString()).substring(0,new Float(report.p_pos_pos_h_e_gw).toString().indexOf("."))%>% (GTWN)</td>
+	       <td><%=report.samples_p_neg_neg_h_e_gw.size()%>, <%=(new Float(report.p_neg_neg_h_e_gw).toString()).equals("NaN")?"NaN":(new Float(report.p_neg_neg_h_e_gw).toString()).substring(0,new Float(report.p_neg_neg_h_e_gw).toString().indexOf("."))%>% (GTWN)</td>
+		   <td><%=report.samples_p_pos_neg_h_e_gw.size()%>, <%=(new Float(report.p_pos_neg_h_e_gw).toString()).equals("NaN")?"NaN":(new Float(report.p_pos_neg_h_e_gw).toString()).substring(0,new Float(report.p_pos_neg_h_e_gw).toString().indexOf("."))%>% (GTWN)</td>
+		   <td><%=report.samples_p_neg_pos_h_e_gw.size()%>, <%=(new Float(report.p_neg_pos_h_e_gw).toString()).equals("NaN")?"NaN":(new Float(report.p_neg_pos_h_e_gw).toString()).substring(0,new Float(report.p_neg_pos_h_e_gw).toString().indexOf("."))%>% (GTWN)</td> 
+	       <td><%=report.samples_p_blank_h_e_gw.size()%>, <%=(new Float(report.p_blank_h_e_gw).toString()).equals("NaN")?"NaN":(new Float(report.p_blank_h_e_gw).toString()).substring(0,new Float(report.p_blank_h_e_gw).toString().indexOf("."))%>% (GTWN)</td> 
+	 
+	    </tr>
+	  
+	   
+	     <TR>
+	   
+	       <TD><%=report.samples_p_h_e_uw.size()%> <//%=(new Float(report.p_h_e_uw).toString()).equals("NaN")?"NaN":(new Float(report.p_h_e_uw).toString()).substring(0,new Float(report.p_h_e_uw).toString().indexOf("."))%> (Univ. of Wash.))<br></td>
+	       <td><%=report.samples_p_pos_pos_h_e_uw.size()%>, <%=(new Float(report.p_pos_pos_h_e_uw).toString()).equals("NaN")?"NaN":(new Float(report.p_pos_pos_h_e_uw).toString()).substring(0,new Float(report.p_pos_pos_h_e_uw).toString().indexOf("."))%>% (Univ. of Wash.))</td>
+	       <td><%=report.samples_p_neg_neg_h_e_uw.size()%>, <%=(new Float(report.p_neg_neg_h_e_uw).toString()).equals("NaN")?"NaN":(new Float(report.p_neg_neg_h_e_uw).toString()).substring(0,new Float(report.p_neg_neg_h_e_uw).toString().indexOf("."))%>% (Univ. of Wash.))</td>
+		   <td><%=report.samples_p_pos_neg_h_e_uw.size()%>, <%=(new Float(report.p_pos_neg_h_e_uw).toString()).equals("NaN")?"NaN":(new Float(report.p_pos_neg_h_e_uw).toString()).substring(0,new Float(report.p_pos_neg_h_e_uw).toString().indexOf("."))%>% (Univ. of Wash.))</td>
+		   <td><%=report.samples_p_neg_pos_h_e_uw.size()%>, <%=(new Float(report.p_neg_pos_h_e_uw).toString()).equals("NaN")?"NaN":(new Float(report.p_neg_pos_h_e_uw).toString()).substring(0,new Float(report.p_neg_pos_h_e_uw).toString().indexOf("."))%>% (Univ. of Wash.))</td> 
+	       <td><%=report.samples_p_blank_h_e_uw.size()%>, <%=(new Float(report.p_blank_h_e_uw).toString()).equals("NaN")?"NaN":(new Float(report.p_blank_h_e_uw).toString()).substring(0,new Float(report.p_blank_h_e_uw).toString().indexOf("."))%>% (Univ. of Wash.))</td> 
+	 
+	    </tr>
+	  
+	  
+	    <TR>
+	   
+	       <TD><%=report.samples_p_h_e_ut.size()%> <//%=(new Float(report.p_h_e_ut).toString()).equals("NaN")?"NaN":(new Float(report.p_h_e_ut).toString()).substring(0,new Float(report.p_h_e_ut).toString().indexOf("."))%> (Univ. of Texas)<br></td>
+	       <td><%=report.samples_p_pos_pos_h_e_ut.size()%>, <%=(new Float(report.p_pos_pos_h_e_ut).toString()).equals("NaN")?"NaN":(new Float(report.p_pos_pos_h_e_ut).toString()).substring(0,new Float(report.p_pos_pos_h_e_ut).toString().indexOf("."))%>% (Univ. of Texas)</td>
+	       <td><%=report.samples_p_neg_neg_h_e_ut.size()%>, <%=(new Float(report.p_neg_neg_h_e_ut).toString()).equals("NaN")?"NaN":(new Float(report.p_neg_neg_h_e_ut).toString()).substring(0,new Float(report.p_neg_neg_h_e_ut).toString().indexOf("."))%>% (Univ. of Texas)</td>
+		   <td><%=report.samples_p_pos_neg_h_e_ut.size()%>, <%=(new Float(report.p_pos_neg_h_e_ut).toString()).equals("NaN")?"NaN":(new Float(report.p_pos_neg_h_e_ut).toString()).substring(0,new Float(report.p_pos_neg_h_e_ut).toString().indexOf("."))%>% (Univ. of Texas)</td>
+		   <td><%=report.samples_p_neg_pos_h_e_ut.size()%>, <%=(new Float(report.p_neg_pos_h_e_ut).toString()).equals("NaN")?"NaN":(new Float(report.p_neg_pos_h_e_ut).toString()).substring(0,new Float(report.p_neg_pos_h_e_ut).toString().indexOf("."))%>% (Univ. of Texas)</td> 
+	       <td><%=report.samples_p_blank_h_e_ut.size()%>, <%=(new Float(report.p_blank_h_e_ut).toString()).equals("NaN")?"NaN":(new Float(report.p_blank_h_e_ut).toString()).substring(0,new Float(report.p_blank_h_e_ut).toString().indexOf("."))%>% (Univ. of Texas)</td> 
+	 
+	    </tr>	   
+	    
+	          
+	 </TABLE>
+  </td>
+ </tr>
+ 
+ 
+ 
+ 
+  
+ <tr>
+
+    <td valign="top" align="left" class="search"><b>Time Point Based H&E Review Info For Paraffin Core</b> </td>
+<TD>
+	 <TABLE cellpadding="2" align="left" border="1" width="100%">
+ 
+    <TR>
+	      <TD><b>Total No. of H&E review samples</b></TD>
+	      <TD><b>No. , % of total samples with +/+</b></TD>
+		  <TD><b>No. , % of total samples with -/-</b></TD>
+		  <TD><b>No. , % of total samples with +/-</b></TD>
+		  <TD><b>No. , % of total samples with -/+</b></TD>
+		  <TD><b>No. , % of total samples with blank</b></TD>		
+	   </TR>
+
+	    <TR>
+	   
+	       <TD><%=report.samples_p_h_e_alltps.size()%> <//%=(new Float(report.p_h_e_alltps).toString()).equals("NaN")?"NaN":(new Float(report.p_h_e_alltps).toString()).substring(0,new Float(report.p_h_e_alltps).toString().indexOf("."))%> (All T.P.)<br></td>
+	       <td><%=report.samples_p_pos_pos_h_e_alltps.size()%>, <%=(new Float(report.p_pos_pos_h_e_alltps).toString()).equals("NaN")?"NaN":(new Float(report.p_pos_pos_h_e_alltps).toString()).substring(0,new Float(report.p_pos_pos_h_e_alltps).toString().indexOf("."))%>% (All T.P.)</td>
+	       <td><%=report.samples_p_neg_neg_h_e_alltps.size()%>, <%=(new Float(report.p_neg_neg_h_e_alltps).toString()).equals("NaN")?"NaN":(new Float(report.p_neg_neg_h_e_alltps).toString()).substring(0,new Float(report.p_neg_neg_h_e_alltps).toString().indexOf("."))%>% (All T.P.)</td>
+		   <td><%=report.samples_p_pos_neg_h_e_alltps.size()%>, <%=(new Float(report.p_pos_neg_h_e_alltps).toString()).equals("NaN")?"NaN":(new Float(report.p_pos_neg_h_e_alltps).toString()).substring(0,new Float(report.p_pos_neg_h_e_alltps).toString().indexOf("."))%>% (All T.P.)</td>
+		   <td><%=report.samples_p_neg_pos_h_e_alltps.size()%>, <%=(new Float(report.p_neg_pos_h_e_alltps).toString()).equals("NaN")?"NaN":(new Float(report.p_neg_pos_h_e_alltps).toString()).substring(0,new Float(report.p_neg_pos_h_e_alltps).toString().indexOf("."))%>% (All T.P.)</td> 
+	       <td><%=report.samples_p_blank_h_e_alltps.size()%>, <%=(new Float(report.p_blank_h_e_alltps).toString()).equals("NaN")?"NaN":(new Float(report.p_blank_h_e_alltps).toString()).substring(0,new Float(report.p_blank_h_e_alltps).toString().indexOf("."))%>% (All T.P.)</td> 
+	 
+	   </tr> 	 
+	   
+	   
+	   
+	    <TR>
+	   
+	       <TD><%=report.samples_p_h_e_p1.size()%> <//%=(new Float(report.p_h_e_p1).toString()).equals("NaN")?"NaN":(new Float(report.p_h_e_p1).toString()).substring(0,new Float(report.p_h_e_p1).toString().indexOf("."))%> (P1)<br></td>
+	       <td><%=report.samples_p_pos_pos_h_e_p1.size()%>, <%=(new Float(report.p_pos_pos_h_e_p1).toString()).equals("NaN")?"NaN":(new Float(report.p_pos_pos_h_e_p1).toString()).substring(0,new Float(report.p_pos_pos_h_e_p1).toString().indexOf("."))%>% (P1)</td>
+	       <td><%=report.samples_p_neg_neg_h_e_p1.size()%>, <%=(new Float(report.p_neg_neg_h_e_p1).toString()).equals("NaN")?"NaN":(new Float(report.p_neg_neg_h_e_p1).toString()).substring(0,new Float(report.p_neg_neg_h_e_p1).toString().indexOf("."))%>% (P1)</td>
+		   <td><%=report.samples_p_pos_neg_h_e_p1.size()%>, <%=(new Float(report.p_pos_neg_h_e_p1).toString()).equals("NaN")?"NaN":(new Float(report.p_pos_neg_h_e_p1).toString()).substring(0,new Float(report.p_pos_neg_h_e_p1).toString().indexOf("."))%>% (P1)</td>
+		   <td><%=report.samples_p_neg_pos_h_e_p1.size()%>, <%=(new Float(report.p_neg_pos_h_e_p1).toString()).equals("NaN")?"NaN":(new Float(report.p_neg_pos_h_e_p1).toString()).substring(0,new Float(report.p_neg_pos_h_e_p1).toString().indexOf("."))%>% (P1)</td> 
+	       <td><%=report.samples_p_blank_h_e_p1.size()%>, <%=(new Float(report.p_blank_h_e_p1).toString()).equals("NaN")?"NaN":(new Float(report.p_blank_h_e_p1).toString()).substring(0,new Float(report.p_blank_h_e_p1).toString().indexOf("."))%>% (P1)</td> 
+	 
+	   </tr>  
+  
+  
+  
+    <TR>
+	   
+	       <TD><%=report.samples_p_h_e_p2.size()%> <//%=(new Float(report.p_h_e_p2).toString()).equals("NaN")?"NaN":(new Float(report.p_h_e_p2).toString()).substring(0,new Float(report.p_h_e_p2).toString().indexOf("."))%> (P2)<br></td>
+	       <td><%=report.samples_p_pos_pos_h_e_p2.size()%>, <%=(new Float(report.p_pos_pos_h_e_p2).toString()).equals("NaN")?"NaN":(new Float(report.p_pos_pos_h_e_p2).toString()).substring(0,new Float(report.p_pos_pos_h_e_p2).toString().indexOf("."))%>% (P2)</td>
+	       <td><%=report.samples_p_neg_neg_h_e_p2.size()%>, <%=(new Float(report.p_neg_neg_h_e_p2).toString()).equals("NaN")?"NaN":(new Float(report.p_neg_neg_h_e_p2).toString()).substring(0,new Float(report.p_neg_neg_h_e_p2).toString().indexOf("."))%>% (P2)</td>
+		   <td><%=report.samples_p_pos_neg_h_e_p2.size()%>, <%=(new Float(report.p_pos_neg_h_e_p2).toString()).equals("NaN")?"NaN":(new Float(report.p_pos_neg_h_e_p2).toString()).substring(0,new Float(report.p_pos_neg_h_e_p2).toString().indexOf("."))%>% (P2)</td>
+		   <td><%=report.samples_p_neg_pos_h_e_p2.size()%>, <%=(new Float(report.p_neg_pos_h_e_p2).toString()).equals("NaN")?"NaN":(new Float(report.p_neg_pos_h_e_p2).toString()).substring(0,new Float(report.p_neg_pos_h_e_p2).toString().indexOf("."))%>% (P2)</td> 
+	       <td><%=report.samples_p_blank_h_e_p2.size()%>, <%=(new Float(report.p_blank_h_e_p2).toString()).equals("NaN")?"NaN":(new Float(report.p_blank_h_e_p2).toString()).substring(0,new Float(report.p_blank_h_e_p2).toString().indexOf("."))%>% (P2)</td> 
+	 
+	   </tr> 
+	   
+	   
+	      <TR>
+	   
+	       <TD><%=report.samples_p_h_e_p3.size()%> <//%=(new Float(report.p_h_e_p3).toString()).equals("NaN")?"NaN":(new Float(report.p_h_e_p3).toString()).substring(0,new Float(report.p_h_e_p3).toString().indexOf("."))%> (P3)<br></td>
+	       <td><%=report.samples_p_pos_pos_h_e_p3.size()%>, <%=(new Float(report.p_pos_pos_h_e_p3).toString()).equals("NaN")?"NaN":(new Float(report.p_pos_pos_h_e_p3).toString()).substring(0,new Float(report.p_pos_pos_h_e_p3).toString().indexOf("."))%>% (P3)</td>
+	       <td><%=report.samples_p_neg_neg_h_e_p3.size()%>, <%=(new Float(report.p_neg_neg_h_e_p3).toString()).equals("NaN")?"NaN":(new Float(report.p_neg_neg_h_e_p3).toString()).substring(0,new Float(report.p_neg_neg_h_e_p3).toString().indexOf("."))%>% (P3)</td>
+		   <td><%=report.samples_p_pos_neg_h_e_p3.size()%>, <%=(new Float(report.p_pos_neg_h_e_p3).toString()).equals("NaN")?"NaN":(new Float(report.p_pos_neg_h_e_p3).toString()).substring(0,new Float(report.p_pos_neg_h_e_p3).toString().indexOf("."))%>% (P3)</td>
+		   <td><%=report.samples_p_neg_pos_h_e_p3.size()%>, <%=(new Float(report.p_neg_pos_h_e_p3).toString()).equals("NaN")?"NaN":(new Float(report.p_neg_pos_h_e_p3).toString()).substring(0,new Float(report.p_neg_pos_h_e_p3).toString().indexOf("."))%>% (P3)</td> 
+	       <td><%=report.samples_p_blank_h_e_p3.size()%>, <%=(new Float(report.p_blank_h_e_p3).toString()).equals("NaN")?"NaN":(new Float(report.p_blank_h_e_p3).toString()).substring(0,new Float(report.p_blank_h_e_p3).toString().indexOf("."))%>% (P3)</td> 
+	 
+	   </tr> 
+	   
+	   
+	     <TR>
+	   
+	       <TD><%=report.samples_p_h_e_p4.size()%> <//%=(new Float(report.p_h_e_p4).toString()).equals("NaN")?"NaN":(new Float(report.p_h_e_p4).toString()).substring(0,new Float(report.p_h_e_p4).toString().indexOf("."))%> (P4)<br></td>
+	       <td><%=report.samples_p_pos_pos_h_e_p4.size()%>, <%=(new Float(report.p_pos_pos_h_e_p4).toString()).equals("NaN")?"NaN":(new Float(report.p_pos_pos_h_e_p4).toString()).substring(0,new Float(report.p_pos_pos_h_e_p4).toString().indexOf("."))%>% (P4)</td>
+	       <td><%=report.samples_p_neg_neg_h_e_p4.size()%>, <%=(new Float(report.p_neg_neg_h_e_p4).toString()).equals("NaN")?"NaN":(new Float(report.p_neg_neg_h_e_p4).toString()).substring(0,new Float(report.p_neg_neg_h_e_p4).toString().indexOf("."))%>% (P4)</td>
+		   <td><%=report.samples_p_pos_neg_h_e_p4.size()%>, <%=(new Float(report.p_pos_neg_h_e_p4).toString()).equals("NaN")?"NaN":(new Float(report.p_pos_neg_h_e_p4).toString()).substring(0,new Float(report.p_pos_neg_h_e_p4).toString().indexOf("."))%>% (P4)</td>
+		   <td><%=report.samples_p_neg_pos_h_e_p4.size()%>, <%=(new Float(report.p_neg_pos_h_e_p4).toString()).equals("NaN")?"NaN":(new Float(report.p_neg_pos_h_e_p4).toString()).substring(0,new Float(report.p_neg_pos_h_e_p4).toString().indexOf("."))%>% (P4)</td> 
+	       <td><%=report.samples_p_blank_h_e_p4.size()%>, <%=(new Float(report.p_blank_h_e_p4).toString()).equals("NaN")?"NaN":(new Float(report.p_blank_h_e_p4).toString()).substring(0,new Float(report.p_blank_h_e_p4).toString().indexOf("."))%>% (P4)</td> 
+	 
+	   </tr> 
+	   
+	   
+	      <TR>
+	   
+	       <TD><%=report.samples_p_h_e_p5.size()%> <//%=(new Float(report.p_h_e_p5).toString()).equals("NaN")?"NaN":(new Float(report.p_h_e_p5).toString()).substring(0,new Float(report.p_h_e_p5).toString().indexOf("."))%> (P5)<br></td>
+	       <td><%=report.samples_p_pos_pos_h_e_p5.size()%>, <%=(new Float(report.p_pos_pos_h_e_p5).toString()).equals("NaN")?"NaN":(new Float(report.p_pos_pos_h_e_p5).toString()).substring(0,new Float(report.p_pos_pos_h_e_p5).toString().indexOf("."))%>% (P5)</td>
+	       <td><%=report.samples_p_neg_neg_h_e_p5.size()%>, <%=(new Float(report.p_neg_neg_h_e_p5).toString()).equals("NaN")?"NaN":(new Float(report.p_neg_neg_h_e_p5).toString()).substring(0,new Float(report.p_neg_neg_h_e_p5).toString().indexOf("."))%>% (P5)</td>
+		   <td><%=report.samples_p_pos_neg_h_e_p5.size()%>, <%=(new Float(report.p_pos_neg_h_e_p5).toString()).equals("NaN")?"NaN":(new Float(report.p_pos_neg_h_e_p5).toString()).substring(0,new Float(report.p_pos_neg_h_e_p5).toString().indexOf("."))%>% (P5)</td>
+		   <td><%=report.samples_p_neg_pos_h_e_p5.size()%>, <%=(new Float(report.p_neg_pos_h_e_p5).toString()).equals("NaN")?"NaN":(new Float(report.p_neg_pos_h_e_p5).toString()).substring(0,new Float(report.p_neg_pos_h_e_p5).toString().indexOf("."))%>% (P5)</td> 
+	       <td><%=report.samples_p_blank_h_e_p5.size()%>, <%=(new Float(report.p_blank_h_e_p5).toString()).equals("NaN")?"NaN":(new Float(report.p_blank_h_e_p5).toString()).substring(0,new Float(report.p_blank_h_e_p5).toString().indexOf("."))%>% (P5)</td> 
+	 
+	   </tr> 
+	   
+	   
+	    <TR>
+	   
+	       <TD><%=report.samples_p_h_e_p6.size()%> <//%=(new Float(report.p_h_e_p6).toString()).equals("NaN")?"NaN":(new Float(report.p_h_e_p6).toString()).substring(0,new Float(report.p_h_e_p6).toString().indexOf("."))%> (P6)<br></td>
+	       <td><%=report.samples_p_pos_pos_h_e_p6.size()%>, <%=(new Float(report.p_pos_pos_h_e_p6).toString()).equals("NaN")?"NaN":(new Float(report.p_pos_pos_h_e_p6).toString()).substring(0,new Float(report.p_pos_pos_h_e_p6).toString().indexOf("."))%>% (P6)</td>
+	       <td><%=report.samples_p_neg_neg_h_e_p6.size()%>, <%=(new Float(report.p_neg_neg_h_e_p6).toString()).equals("NaN")?"NaN":(new Float(report.p_neg_neg_h_e_p6).toString()).substring(0,new Float(report.p_neg_neg_h_e_p6).toString().indexOf("."))%>% (P6)</td>
+		   <td><%=report.samples_p_pos_neg_h_e_p6.size()%>, <%=(new Float(report.p_pos_neg_h_e_p6).toString()).equals("NaN")?"NaN":(new Float(report.p_pos_neg_h_e_p6).toString()).substring(0,new Float(report.p_pos_neg_h_e_p6).toString().indexOf("."))%>% (P6)</td>
+		   <td><%=report.samples_p_neg_pos_h_e_p6.size()%>, <%=(new Float(report.p_neg_pos_h_e_p6).toString()).equals("NaN")?"NaN":(new Float(report.p_neg_pos_h_e_p6).toString()).substring(0,new Float(report.p_neg_pos_h_e_p6).toString().indexOf("."))%>% (P6)</td> 
+	       <td><%=report.samples_p_blank_h_e_p6.size()%>, <%=(new Float(report.p_blank_h_e_p6).toString()).equals("NaN")?"NaN":(new Float(report.p_blank_h_e_p6).toString()).substring(0,new Float(report.p_blank_h_e_p6).toString().indexOf("."))%>% (P6)</td> 
+	 
+	   </tr> 
+  				
+	
+	  <TR>
+	   
+	       <TD><%=report.samples_p_h_e_ps.size()%> <//%=(new Float(report.p_h_e_ps).toString()).equals("NaN")?"NaN":(new Float(report.p_h_e_ps).toString()).substring(0,new Float(report.p_h_e_ps).toString().indexOf("."))%> (PS)<br></td>
+	       <td><%=report.samples_p_pos_pos_h_e_ps.size()%>, <%=(new Float(report.p_pos_pos_h_e_ps).toString()).equals("NaN")?"NaN":(new Float(report.p_pos_pos_h_e_ps).toString()).substring(0,new Float(report.p_pos_pos_h_e_ps).toString().indexOf("."))%>% (PS)</td>
+	       <td><%=report.samples_p_neg_neg_h_e_ps.size()%>, <%=(new Float(report.p_neg_neg_h_e_ps).toString()).equals("NaN")?"NaN":(new Float(report.p_neg_neg_h_e_ps).toString()).substring(0,new Float(report.p_neg_neg_h_e_ps).toString().indexOf("."))%>% (PS)</td>
+		   <td><%=report.samples_p_pos_neg_h_e_ps.size()%>, <%=(new Float(report.p_pos_neg_h_e_ps).toString()).equals("NaN")?"NaN":(new Float(report.p_pos_neg_h_e_ps).toString()).substring(0,new Float(report.p_pos_neg_h_e_ps).toString().indexOf("."))%>% (PS)</td>
+		   <td><%=report.samples_p_neg_pos_h_e_ps.size()%>, <%=(new Float(report.p_neg_pos_h_e_ps).toString()).equals("NaN")?"NaN":(new Float(report.p_neg_pos_h_e_ps).toString()).substring(0,new Float(report.p_neg_pos_h_e_ps).toString().indexOf("."))%>% (PS)</td> 
+	       <td><%=report.samples_p_blank_h_e_ps.size()%>, <%=(new Float(report.p_blank_h_e_ps).toString()).equals("NaN")?"NaN":(new Float(report.p_blank_h_e_ps).toString()).substring(0,new Float(report.p_blank_h_e_ps).toString().indexOf("."))%>% (PS)</td> 
+	 
+	   </tr> 
+  	          
+	 </TABLE>
+  </td>
+ </tr>			
+  																																		
+  
+   <tr>
+
+    <td valign="top" align="left" class="search"><b>H&E Usability Info For Paraffin Core</b></td>
+<TD>
+  
+  
+  
+   <TABLE cellpadding="2" align="left" border="1" width="100%">  
+        
+       <TR> 
+	      <TD><b>Total No. of H&E usability samples</b></TD>
+	      <TD><b>No. , % of total samples with yes </b></TD>
+		  <TD><b>No. , % of total samples with no </b></TD>		 
+		  <TD><b>No. , % of total samples with blank </b></TD>		
+	   </TR>
+	    <TR><TD><%=report.samples_p_usability.size()%><br> <//%=(new Float(report.p_usability).toString()).equals("NaN")?"NaN":(new Float(report.p_usability).toString()).substring(0,new Float(report.p_usability).toString().indexOf("."))%> </TD>
+		    <TD><%=report.samples_p_yes_usability.size()%>,<br>  <%=(new Float(report.p_yes_usability).toString()).equals("NaN")?"NaN":(new Float(report.p_yes_usability).toString()).substring(0,new Float(report.p_yes_usability).toString().indexOf("."))%>% </TD>
+			<TD><%=report.samples_p_no_usability.size()%>,<br>  <%=(new Float(report.p_no_usability).toString()).equals("NaN")?"NaN":(new Float(report.p_no_usability).toString()).substring(0,new Float(report.p_no_usability).toString().indexOf("."))%>% </TD>
+			<TD><%=report.samples_p_blank_usability.size()%>,<br>  <%=(new Float(report.p_blank_usability).toString()).equals("NaN")?"NaN":(new Float(report.p_blank_usability).toString()).substring(0,new Float(report.p_blank_usability).toString().indexOf("."))%>% </TD>
+	
+		</TR>	
+			
+			  
+	</TABLE>
+  </td>
+ </tr>
+ 
+ 
+ 
+  <tr>
+
+    <td valign="top" align="left" class="search"><b>Institution-based H&E Usability Info For Paraffin Core</b>  </td>
+<TD>
+	 <TABLE cellpadding="2" align="left" border="1" width="100%">
+ 
+     <TR> 
+	      <TD><b>Total No. of H&E usability samples</b></TD>
+	      <TD><b>No. , % of total samples with yes </b></TD>
+		  <TD><b>No. , % of total samples with no </b></TD>		 
+		  <TD><b>No. , % of total samples with blank </b></TD>		
+	   </TR>
+	   
+	   <TR>
+	   
+	       <TD><%=report.samples_p_usability_allInstitutes.size()%> <//%=(new Float(report.p_usability_allInstitutes).toString()).equals("NaN")?"NaN":(new Float(report.p_usability_allInstitutes).toString()).substring(0,new Float(report.p_usability_allInstitutes).toString().indexOf("."))%> (All Institutions)<br></td>
+	       <td><%=report.samples_p_yes_usability_allInstitutes.size()%>, <%=(new Float(report.p_yes_usability_allInstitutes).toString()).equals("NaN")?"NaN":(new Float(report.p_yes_usability_allInstitutes).toString()).substring(0,new Float(report.p_yes_usability_allInstitutes).toString().indexOf("."))%>% (All Institutions)</td>
+	       <td><%=report.samples_p_no_usability_allInstitutes.size()%>, <%=(new Float(report.p_no_usability_allInstitutes).toString()).equals("NaN")?"NaN":(new Float(report.p_no_usability_allInstitutes).toString()).substring(0,new Float(report.p_no_usability_allInstitutes).toString().indexOf("."))%>% (All Institutions)</td>
+		   <td><%=report.samples_p_blank_usability_allInstitutes.size()%>, <%=(new Float(report.p_blank_usability_allInstitutes).toString()).equals("NaN")?"NaN":(new Float(report.p_blank_usability_allInstitutes).toString()).substring(0,new Float(report.p_blank_usability_allInstitutes).toString().indexOf("."))%>% (All Institutions)</td> 
+	 
+	   </tr>
+	   
+	   
+	    <TR>
+	   
+	       <TD><%=report.samples_p_usability_ucsf.size()%> <//%=(new Float(report.p_usability_ucsf).toString()).equals("NaN")?"NaN":(new Float(report.p_usability_ucsf).toString()).substring(0,new Float(report.p_usability_ucsf).toString().indexOf("."))%> (UCSF)<br></td>
+	       <td><%=report.samples_p_yes_usability_ucsf.size()%>, <%=(new Float(report.p_yes_usability_ucsf).toString()).equals("NaN")?"NaN":(new Float(report.p_yes_usability_ucsf).toString()).substring(0,new Float(report.p_yes_usability_ucsf).toString().indexOf("."))%>% (UCSF)</td>
+	       <td><%=report.samples_p_no_usability_ucsf.size()%>, <%=(new Float(report.p_no_usability_ucsf).toString()).equals("NaN")?"NaN":(new Float(report.p_no_usability_ucsf).toString()).substring(0,new Float(report.p_no_usability_ucsf).toString().indexOf("."))%>% (UCSF)</td>
+		   <td><%=report.samples_p_blank_usability_ucsf.size()%>, <%=(new Float(report.p_blank_usability_ucsf).toString()).equals("NaN")?"NaN":(new Float(report.p_blank_usability_ucsf).toString()).substring(0,new Float(report.p_blank_usability_ucsf).toString().indexOf("."))%>% (UCSF)</td> 
+	 
+	   </tr>
+	   
+	
+	  <TR>
+	   
+	       <TD><%=report.samples_p_usability_unc.size()%> <//%=(new Float(report.p_usability_unc).toString()).equals("NaN")?"NaN":(new Float(report.p_usability_unc).toString()).substring(0,new Float(report.p_usability_unc).toString().indexOf("."))%> (UNC)<br></td>
+	       <td><%=report.samples_p_yes_usability_unc.size()%>, <%=(new Float(report.p_yes_usability_unc).toString()).equals("NaN")?"NaN":(new Float(report.p_yes_usability_unc).toString()).substring(0,new Float(report.p_yes_usability_unc).toString().indexOf("."))%>% (UNC)</td>
+	       <td><%=report.samples_p_no_usability_unc.size()%>, <%=(new Float(report.p_no_usability_unc).toString()).equals("NaN")?"NaN":(new Float(report.p_no_usability_unc).toString()).substring(0,new Float(report.p_no_usability_unc).toString().indexOf("."))%>% (UNC)</td>
+		   <td><%=report.samples_p_blank_usability_unc.size()%>, <%=(new Float(report.p_blank_usability_unc).toString()).equals("NaN")?"NaN":(new Float(report.p_blank_usability_unc).toString()).substring(0,new Float(report.p_blank_usability_unc).toString().indexOf("."))%>% (UNC)</td> 
+	 
+	   </tr>
+	   
+	   
+	    <TR>
+	   
+	       <TD><%=report.samples_p_usability_upenn.size()%> <//%=(new Float(report.p_usability_upenn).toString()).equals("NaN")?"NaN":(new Float(report.p_usability_upenn).toString()).substring(0,new Float(report.p_usability_upenn).toString().indexOf("."))%> (UPENN)<br></td>
+	       <td><%=report.samples_p_yes_usability_upenn.size()%>, <%=(new Float(report.p_yes_usability_upenn).toString()).equals("NaN")?"NaN":(new Float(report.p_yes_usability_upenn).toString()).substring(0,new Float(report.p_yes_usability_upenn).toString().indexOf("."))%>% (UPENN)</td>
+	       <td><%=report.samples_p_no_usability_upenn.size()%>, <%=(new Float(report.p_no_usability_upenn).toString()).equals("NaN")?"NaN":(new Float(report.p_no_usability_upenn).toString()).substring(0,new Float(report.p_no_usability_upenn).toString().indexOf("."))%>% (UPENN)</td>
+		   <td><%=report.samples_p_blank_usability_upenn.size()%>, <%=(new Float(report.p_blank_usability_upenn).toString()).equals("NaN")?"NaN":(new Float(report.p_blank_usability_upenn).toString()).substring(0,new Float(report.p_blank_usability_upenn).toString().indexOf("."))%>% (UPENN)</td> 
+	 
+	    </tr>
+	   
+	  
+	   <TR>
+	   
+	       <TD><%=report.samples_p_usability_uc.size()%> <//%=(new Float(report.p_usability_uc).toString()).equals("NaN")?"NaN":(new Float(report.p_usability_uc).toString()).substring(0,new Float(report.p_usability_uc).toString().indexOf("."))%> (Univ.of Chicago)<br></td>
+	       <td><%=report.samples_p_yes_usability_uc.size()%>, <%=(new Float(report.p_yes_usability_uc).toString()).equals("NaN")?"NaN":(new Float(report.p_yes_usability_uc).toString()).substring(0,new Float(report.p_yes_usability_uc).toString().indexOf("."))%>% (Univ.of Chicago)</td>
+	       <td><%=report.samples_p_no_usability_uc.size()%>, <%=(new Float(report.p_no_usability_uc).toString()).equals("NaN")?"NaN":(new Float(report.p_no_usability_uc).toString()).substring(0,new Float(report.p_no_usability_uc).toString().indexOf("."))%>% (Univ.of Chicago)</td>
+		   <td><%=report.samples_p_blank_usability_uc.size()%>, <%=(new Float(report.p_blank_usability_uc).toString()).equals("NaN")?"NaN":(new Float(report.p_blank_usability_uc).toString()).substring(0,new Float(report.p_blank_usability_uc).toString().indexOf("."))%>% (Univ.of Chicago)</td> 
+	 
+	    </tr>
+	   
+	    <TR>
+	   
+	       <TD><%=report.samples_p_usability_uab.size()%> <//%=(new Float(report.p_usability_uab).toString()).equals("NaN")?"NaN":(new Float(report.p_usability_uab).toString()).substring(0,new Float(report.p_usability_uab).toString().indexOf("."))%> (UAB)<br></td>
+	       <td><%=report.samples_p_yes_usability_uab.size()%>, <%=(new Float(report.p_yes_usability_uab).toString()).equals("NaN")?"NaN":(new Float(report.p_yes_usability_uab).toString()).substring(0,new Float(report.p_yes_usability_uab).toString().indexOf("."))%>% (UAB)</td>
+	       <td><%=report.samples_p_no_usability_uab.size()%>, <%=(new Float(report.p_no_usability_uab).toString()).equals("NaN")?"NaN":(new Float(report.p_no_usability_uab).toString()).substring(0,new Float(report.p_no_usability_uab).toString().indexOf("."))%>% (UAB)</td>
+		   <td><%=report.samples_p_blank_usability_uab.size()%>, <%=(new Float(report.p_blank_usability_uab).toString()).equals("NaN")?"NaN":(new Float(report.p_blank_usability_uab).toString()).substring(0,new Float(report.p_blank_usability_uab).toString().indexOf("."))%>% (UAB)</td> 
+	 
+	    </tr>
+	  
+	   <TR>
+	   
+	       <TD><%=report.samples_p_usability_mskcc.size()%> <//%=(new Float(report.p_usability_mskcc).toString()).equals("NaN")?"NaN":(new Float(report.p_usability_mskcc).toString()).substring(0,new Float(report.p_usability_mskcc).toString().indexOf("."))%> (MSKCC)<br></td>
+	       <td><%=report.samples_p_yes_usability_mskcc.size()%>, <%=(new Float(report.p_yes_usability_mskcc).toString()).equals("NaN")?"NaN":(new Float(report.p_yes_usability_mskcc).toString()).substring(0,new Float(report.p_yes_usability_mskcc).toString().indexOf("."))%>% (MSKCC)</td>
+	       <td><%=report.samples_p_no_usability_mskcc.size()%>, <%=(new Float(report.p_no_usability_mskcc).toString()).equals("NaN")?"NaN":(new Float(report.p_no_usability_mskcc).toString()).substring(0,new Float(report.p_no_usability_mskcc).toString().indexOf("."))%>% (MSKCC)</td>
+		   <td><%=report.samples_p_blank_usability_mskcc.size()%>, <%=(new Float(report.p_blank_usability_mskcc).toString()).equals("NaN")?"NaN":(new Float(report.p_blank_usability_mskcc).toString()).substring(0,new Float(report.p_blank_usability_mskcc).toString().indexOf("."))%>% (MSKCC)</td> 
+	 
+	    </tr>
+	   
+	   <TR>
+	   
+	       <TD><%=report.samples_p_usability_gw.size()%> <//%=(new Float(report.p_usability_gw).toString()).equals("NaN")?"NaN":(new Float(report.p_usability_gw).toString()).substring(0,new Float(report.p_usability_gw).toString().indexOf("."))%> (GTWN)<br></td>
+	       <td><%=report.samples_p_yes_usability_gw.size()%>, <%=(new Float(report.p_yes_usability_gw).toString()).equals("NaN")?"NaN":(new Float(report.p_yes_usability_gw).toString()).substring(0,new Float(report.p_yes_usability_gw).toString().indexOf("."))%>% (GTWN)</td>
+	       <td><%=report.samples_p_no_usability_gw.size()%>, <%=(new Float(report.p_no_usability_gw).toString()).equals("NaN")?"NaN":(new Float(report.p_no_usability_gw).toString()).substring(0,new Float(report.p_no_usability_gw).toString().indexOf("."))%>% (GTWN)</td>
+		   <td><%=report.samples_p_blank_usability_gw.size()%>, <%=(new Float(report.p_blank_usability_gw).toString()).equals("NaN")?"NaN":(new Float(report.p_blank_usability_gw).toString()).substring(0,new Float(report.p_blank_usability_gw).toString().indexOf("."))%>% (GTWN)</td> 
+	 
+	    </tr>
+	  
+	   
+	     <TR>
+	   
+	       <TD><%=report.samples_p_usability_uw.size()%> <//%=(new Float(report.p_usability_uw).toString()).equals("NaN")?"NaN":(new Float(report.p_usability_uw).toString()).substring(0,new Float(report.p_usability_uw).toString().indexOf("."))%> (Univ. of Wash.))<br></td>
+	       <td><%=report.samples_p_yes_usability_uw.size()%>, <%=(new Float(report.p_yes_usability_uw).toString()).equals("NaN")?"NaN":(new Float(report.p_yes_usability_uw).toString()).substring(0,new Float(report.p_yes_usability_uw).toString().indexOf("."))%>% (Univ. of Wash.))</td>
+	       <td><%=report.samples_p_no_usability_uw.size()%>, <%=(new Float(report.p_no_usability_uw).toString()).equals("NaN")?"NaN":(new Float(report.p_no_usability_uw).toString()).substring(0,new Float(report.p_no_usability_uw).toString().indexOf("."))%>% (Univ. of Wash.))</td>
+		   <td><%=report.samples_p_blank_usability_uw.size()%>, <%=(new Float(report.p_blank_usability_uw).toString()).equals("NaN")?"NaN":(new Float(report.p_blank_usability_uw).toString()).substring(0,new Float(report.p_blank_usability_uw).toString().indexOf("."))%>% (Univ. of Wash.))</td> 
+	 
+	    </tr>
+	  
+	  
+	    <TR>
+	   
+	       <TD><%=report.samples_p_usability_ut.size()%> <//%=(new Float(report.p_usability_ut).toString()).equals("NaN")?"NaN":(new Float(report.p_usability_ut).toString()).substring(0,new Float(report.p_usability_ut).toString().indexOf("."))%> (Univ. of Texas)<br></td>
+	       <td><%=report.samples_p_yes_usability_ut.size()%>, <%=(new Float(report.p_yes_usability_ut).toString()).equals("NaN")?"NaN":(new Float(report.p_yes_usability_ut).toString()).substring(0,new Float(report.p_yes_usability_ut).toString().indexOf("."))%>% (Univ. of Texas)</td>
+	       <td><%=report.samples_p_no_usability_ut.size()%>, <%=(new Float(report.p_no_usability_ut).toString()).equals("NaN")?"NaN":(new Float(report.p_no_usability_ut).toString()).substring(0,new Float(report.p_no_usability_ut).toString().indexOf("."))%>% (Univ. of Texas)</td>
+		   <td><%=report.samples_p_blank_usability_ut.size()%>, <%=(new Float(report.p_blank_usability_ut).toString()).equals("NaN")?"NaN":(new Float(report.p_blank_usability_ut).toString()).substring(0,new Float(report.p_blank_usability_ut).toString().indexOf("."))%>% (Univ. of Texas)</td> 
+	 
+	    </tr>	   
+	    
+	          
+	 </TABLE>
+  </td>
+ </tr>
+ 
+ 
+ 
+ 
+  <tr>
+
+    <td valign="top" align="left" class="search"><b>Time Point Based H&E Usability Info For Paraffin Core</b>  </td>
+<TD>
+	 <TABLE cellpadding="2" align="left" border="1" width="100%">
+ 
+    <TR> 
+	      <TD><b>Total No. of H&E usability samples</b></TD>
+	      <TD><b>No. , % of total samples with yes </b></TD>
+		  <TD><b>No. , % of total samples with no </b></TD>		 
+		  <TD><b>No. , % of total samples with blank </b></TD>		
+	   </TR>
+
+	    <TR>
+	   
+	       <TD><%=report.samples_p_usability_alltps.size()%> <//%=(new Float(report.p_usability_alltps).toString()).equals("NaN")?"NaN":(new Float(report.p_usability_alltps).toString()).substring(0,new Float(report.p_usability_alltps).toString().indexOf("."))%> (All T.P.)<br></td>
+	       <td><%=report.samples_p_yes_usability_alltps.size()%>, <%=(new Float(report.p_yes_usability_alltps).toString()).equals("NaN")?"NaN":(new Float(report.p_yes_usability_alltps).toString()).substring(0,new Float(report.p_yes_usability_alltps).toString().indexOf("."))%>% (All T.P.)</td>
+	       <td><%=report.samples_p_no_usability_alltps.size()%>, <%=(new Float(report.p_yes_usability_alltps).toString()).equals("NaN")?"NaN":(new Float(report.p_yes_usability_alltps).toString()).substring(0,new Float(report.p_no_usability_alltps).toString().indexOf("."))%>% (All T.P.)</td>
+		   <td><%=report.samples_p_blank_usability_alltps.size()%>, <%=(new Float(report.p_blank_usability_alltps).toString()).equals("NaN")?"NaN":(new Float(report.p_blank_usability_alltps).toString()).substring(0,new Float(report.p_blank_usability_alltps).toString().indexOf("."))%>% (All T.P.)</td> 
+	 
+	   </tr> 	 
+	   
+	   
+	   
+	    <TR>
+	   
+	       <TD><%=report.samples_p_usability_p1.size()%> <//%=(new Float(report.p_usability_p1).toString()).equals("NaN")?"NaN":(new Float(report.p_usability_p1).toString()).substring(0,new Float(report.p_usability_p1).toString().indexOf("."))%> (P1)<br></td>
+	       <td><%=report.samples_p_yes_usability_p1.size()%>, <%=(new Float(report.p_yes_usability_p1).toString()).equals("NaN")?"NaN":(new Float(report.p_yes_usability_p1).toString()).substring(0,new Float(report.p_yes_usability_p1).toString().indexOf("."))%>% (P1)</td>
+	       <td><%=report.samples_p_no_usability_p1.size()%>, <%=(new Float(report.p_no_usability_p1).toString()).equals("NaN")?"NaN":(new Float(report.p_no_usability_p1).toString()).substring(0,new Float(report.p_no_usability_p1).toString().indexOf("."))%>% (P1)</td>
+		   <td><%=report.samples_p_blank_usability_p1.size()%>, <%=(new Float(report.p_blank_usability_p1).toString()).equals("NaN")?"NaN":(new Float(report.p_blank_usability_p1).toString()).substring(0,new Float(report.p_blank_usability_p1).toString().indexOf("."))%>% (P1)</td> 
+	 
+	   </tr>  
+  
+  
+  
+    <TR>
+	   
+	       <TD><%=report.samples_p_usability_p2.size()%> <//%=(new Float(report.p_usability_p2).toString()).equals("NaN")?"NaN":(new Float(report.p_usability_p2).toString()).substring(0,new Float(report.p_usability_p2).toString().indexOf("."))%> (P2)<br></td>
+	       <td><%=report.samples_p_yes_usability_p2.size()%>, <%=(new Float(report.p_yes_usability_p2).toString()).equals("NaN")?"NaN":(new Float(report.p_yes_usability_p2).toString()).substring(0,new Float(report.p_yes_usability_p2).toString().indexOf("."))%>% (P2)</td>
+	       <td><%=report.samples_p_no_usability_p2.size()%>, <%=(new Float(report.p_no_usability_p2).toString()).equals("NaN")?"NaN":(new Float(report.p_no_usability_p2).toString()).substring(0,new Float(report.p_no_usability_p2).toString().indexOf("."))%>% (P2)</td>
+		   <td><%=report.samples_p_blank_usability_p2.size()%>, <%=(new Float(report.p_blank_usability_p2).toString()).equals("NaN")?"NaN":(new Float(report.p_blank_usability_p2).toString()).substring(0,new Float(report.p_blank_usability_p2).toString().indexOf("."))%>% (P2)</td> 
+	 
+	   </tr> 
+	   
+	   
+	      <TR>
+	   
+	       <TD><%=report.samples_p_usability_p3.size()%> <//%=(new Float(report.p_usability_p3).toString()).equals("NaN")?"NaN":(new Float(report.p_usability_p3).toString()).substring(0,new Float(report.p_usability_p3).toString().indexOf("."))%> (P3)<br></td>
+	       <td><%=report.samples_p_yes_usability_p3.size()%>, <%=(new Float(report.p_yes_usability_p3).toString()).equals("NaN")?"NaN":(new Float(report.p_yes_usability_p3).toString()).substring(0,new Float(report.p_yes_usability_p3).toString().indexOf("."))%>% (P3)</td>
+	       <td><%=report.samples_p_no_usability_p3.size()%>, <%=(new Float(report.p_no_usability_p3).toString()).equals("NaN")?"NaN":(new Float(report.p_no_usability_p3).toString()).substring(0,new Float(report.p_no_usability_p3).toString().indexOf("."))%>% (P3)</td>
+		   <td><%=report.samples_p_blank_usability_p3.size()%>, <%=(new Float(report.p_blank_usability_p3).toString()).equals("NaN")?"NaN":(new Float(report.p_blank_usability_p3).toString()).substring(0,new Float(report.p_blank_usability_p3).toString().indexOf("."))%>% (P3)</td> 
+	 
+	   </tr> 
+	   
+	   
+	     <TR>
+	   
+	       <TD><%=report.samples_p_usability_p4.size()%> <//%=(new Float(report.p_usability_p4).toString()).equals("NaN")?"NaN":(new Float(report.p_usability_p4).toString()).substring(0,new Float(report.p_usability_p4).toString().indexOf("."))%> (P4)<br></td>
+	       <td><%=report.samples_p_yes_usability_p4.size()%>, <%=(new Float(report.p_yes_usability_p4).toString()).equals("NaN")?"NaN":(new Float(report.p_yes_usability_p4).toString()).substring(0,new Float(report.p_yes_usability_p4).toString().indexOf("."))%>% (P4)</td>
+	       <td><%=report.samples_p_no_usability_p4.size()%>, <%=(new Float(report.p_no_usability_p4).toString()).equals("NaN")?"NaN":(new Float(report.p_no_usability_p4).toString()).substring(0,new Float(report.p_no_usability_p4).toString().indexOf("."))%>% (P4)</td>
+		   <td><%=report.samples_p_blank_usability_p4.size()%>, <%=(new Float(report.p_blank_usability_p4).toString()).equals("NaN")?"NaN":(new Float(report.p_blank_usability_p4).toString()).substring(0,new Float(report.p_blank_usability_p4).toString().indexOf("."))%>% (P4)</td> 
+	 
+	   </tr> 
+	   
+	   
+	      <TR>
+	   
+	       <TD><%=report.samples_p_usability_p5.size()%> <//%=(new Float(report.p_usability_p5).toString()).equals("NaN")?"NaN":(new Float(report.p_usability_p5).toString()).substring(0,new Float(report.p_usability_p5).toString().indexOf("."))%> (P5)<br></td>
+	       <td><%=report.samples_p_yes_usability_p5.size()%>, <%=(new Float(report.p_yes_usability_p5).toString()).equals("NaN")?"NaN":(new Float(report.p_yes_usability_p5).toString()).substring(0,new Float(report.p_yes_usability_p5).toString().indexOf("."))%>% (P5)</td>
+	       <td><%=report.samples_p_no_usability_p5.size()%>, <%=(new Float(report.p_no_usability_p5).toString()).equals("NaN")?"NaN":(new Float(report.p_no_usability_p5).toString()).substring(0,new Float(report.p_no_usability_p5).toString().indexOf("."))%>% (P5)</td>
+		   <td><%=report.samples_p_blank_usability_p5.size()%>, <%=(new Float(report.p_blank_usability_p5).toString()).equals("NaN")?"NaN":(new Float(report.p_blank_usability_p5).toString()).substring(0,new Float(report.p_blank_usability_p5).toString().indexOf("."))%>% (P5)</td> 
+	 
+	   </tr> 
+	   
+	   
+	    <TR>
+	   
+	       <TD><%=report.samples_p_usability_p6.size()%> <//%=(new Float(report.p_usability_p6).toString()).equals("NaN")?"NaN":(new Float(report.p_usability_p6).toString()).substring(0,new Float(report.p_usability_p6).toString().indexOf("."))%> (P6)<br></td>
+	       <td><%=report.samples_p_yes_usability_p6.size()%>, <%=(new Float(report.p_yes_usability_p6).toString()).equals("NaN")?"NaN":(new Float(report.p_yes_usability_p6).toString()).substring(0,new Float(report.p_yes_usability_p6).toString().indexOf("."))%>% (P6)</td>
+	       <td><%=report.samples_p_no_usability_p6.size()%>, <%=(new Float(report.p_no_usability_p6).toString()).equals("NaN")?"NaN":(new Float(report.p_no_usability_p6).toString()).substring(0,new Float(report.p_no_usability_p6).toString().indexOf("."))%>% (P6)</td>
+		   <td><%=report.samples_p_blank_usability_p6.size()%>, <%=(new Float(report.p_blank_usability_p6).toString()).equals("NaN")?"NaN":(new Float(report.p_blank_usability_p6).toString()).substring(0,new Float(report.p_blank_usability_p6).toString().indexOf("."))%>% (P6)</td> 
+	 
+	   </tr> 
+  				
+	
+	  <TR>
+	   
+	       <TD><%=report.samples_p_usability_ps.size()%> <//%=(new Float(report.p_usability_ps).toString()).equals("NaN")?"NaN":(new Float(report.p_usability_ps).toString()).substring(0,new Float(report.p_usability_ps).toString().indexOf("."))%> (PS)<br></td>
+	       <td><%=report.samples_p_yes_usability_ps.size()%>, <%=(new Float(report.p_yes_usability_ps).toString()).equals("NaN")?"NaN":(new Float(report.p_yes_usability_ps).toString()).substring(0,new Float(report.p_yes_usability_ps).toString().indexOf("."))%>% (PS)</td>
+	       <td><%=report.samples_p_no_usability_ps.size()%>, <%=(new Float(report.p_no_usability_ps).toString()).equals("NaN")?"NaN":(new Float(report.p_no_usability_ps).toString()).substring(0,new Float(report.p_no_usability_ps).toString().indexOf("."))%>% (PS)</td>
+		   <td><%=report.samples_p_blank_usability_ps.size()%>, <%=(new Float(report.p_blank_usability_ps).toString()).equals("NaN")?"NaN":(new Float(report.p_blank_usability_ps).toString()).substring(0,new Float(report.p_blank_usability_ps).toString().indexOf("."))%>% (PS)</td> 
+	 
+	   </tr> 
+  	          
+	 </TABLE>
+  </td>
+ </tr>			
+  																																		
+  
+
+ 
+ 
+  <tr>
+
+    <td valign="top" align="left" class="search"><b>Touch Preps Received Info For Paraffin Core</b></td>
+<TD>
+  
+  
+  
+   <TABLE cellpadding="2" align="left" border="1" width="100%">  
+        
+      <TR>
+	      <TD><b>Total No. of touch preps received samples</b></TD>
+	      <TD><b>No. , % of total samples with yes </b></TD>
+		  <TD><b>No. , % of total samples with no </b></TD>		 
+		  <TD><b>No. , % of total samples with blank </b></TD>		
+	   </TR>
+	    <TR><TD><%=report.samples_p_touchPrepRecvd.size()%><br> <//%=(new Float(report.p_touchPrepRecvd).toString()).equals("NaN")?"NaN":(new Float(report.p_touchPrepRecvd).toString()).substring(0,new Float(report.p_touchPrepRecvd).toString().indexOf("."))%> </TD>
+		    <TD><%=report.samples_p_yes_touchPrepRecvd.size()%>,<br>  <%=(new Float(report.p_yes_touchPrepRecvd).toString()).equals("NaN")?"NaN":(new Float(report.p_yes_touchPrepRecvd).toString()).substring(0,new Float(report.p_yes_touchPrepRecvd).toString().indexOf("."))%>% </TD>
+			<TD><%=report.samples_p_no_touchPrepRecvd.size()%>,<br>  <%=(new Float(report.p_no_touchPrepRecvd).toString()).equals("NaN")?"NaN":(new Float(report.p_no_touchPrepRecvd).toString()).substring(0,new Float(report.p_no_touchPrepRecvd).toString().indexOf("."))%>% </TD>
+			<TD><%=report.samples_p_blank_touchPrepRecvd.size()%>,<br>  <%=(new Float(report.p_blank_touchPrepRecvd).toString()).equals("NaN")?"NaN":(new Float(report.p_blank_touchPrepRecvd).toString()).substring(0,new Float(report.p_blank_touchPrepRecvd).toString().indexOf("."))%>% </TD>
+	
+		</TR>	
+			
+			  
+	</TABLE>
+  </td>
+ </tr>
+
+
+  <tr>
+
+    <td valign="top" align="left" class="search"><b>Institution-based Touch Preps Received Info For Paraffin Core</b> </td>
+<TD>
+	 <TABLE cellpadding="2" align="left" border="1" width="100%">
+ 
+     <TR>
+	      <TD><b>Total No. of touch preps received samples</b></TD>
+	      <TD><b>No. , % of total samples with yes </b></TD>
+		  <TD><b>No. , % of total samples with no </b></TD>		 
+		  <TD><b>No. , % of total samples with blank </b></TD>		
+	   </TR>
+	   
+	   <TR>
+	   
+	       <TD><%=report.samples_p_touchPrepRecvd_allInstitutes.size()%> <//%=(new Float(report.p_touchPrepRecvd_allInstitutes).toString()).equals("NaN")?"NaN":(new Float(report.p_touchPrepRecvd_allInstitutes).toString()).substring(0,new Float(report.p_touchPrepRecvd_allInstitutes).toString().indexOf("."))%> (All Institutions)<br></td>
+	       <td><%=report.samples_p_yes_touchPrepRecvd_allInstitutes.size()%>, <%=(new Float(report.p_yes_touchPrepRecvd_allInstitutes).toString()).equals("NaN")?"NaN":(new Float(report.p_yes_touchPrepRecvd_allInstitutes).toString()).substring(0,new Float(report.p_yes_touchPrepRecvd_allInstitutes).toString().indexOf("."))%>% (All Institutions)</td>
+	       <td><%=report.samples_p_no_touchPrepRecvd_allInstitutes.size()%>, <%=(new Float(report.p_no_touchPrepRecvd_allInstitutes).toString()).equals("NaN")?"NaN":(new Float(report.p_no_touchPrepRecvd_allInstitutes).toString()).substring(0,new Float(report.p_no_touchPrepRecvd_allInstitutes).toString().indexOf("."))%>% (All Institutions)</td>
+		   <td><%=report.samples_p_blank_touchPrepRecvd_allInstitutes.size()%>, <%=(new Float(report.p_blank_touchPrepRecvd_allInstitutes).toString()).equals("NaN")?"NaN":(new Float(report.p_blank_touchPrepRecvd_allInstitutes).toString()).substring(0,new Float(report.p_blank_touchPrepRecvd_allInstitutes).toString().indexOf("."))%>% (All Institutions)</td> 
+	 
+	   </tr>
+	   
+	   
+	    <TR>
+	   
+	       <TD><%=report.samples_p_touchPrepRecvd_ucsf.size()%> <//%=(new Float(report.p_touchPrepRecvd_ucsf).toString()).equals("NaN")?"NaN":(new Float(report.p_touchPrepRecvd_ucsf).toString()).substring(0,new Float(report.p_touchPrepRecvd_ucsf).toString().indexOf("."))%> (UCSF)<br></td>
+	       <td><%=report.samples_p_yes_touchPrepRecvd_ucsf.size()%>, <%=(new Float(report.p_yes_touchPrepRecvd_ucsf).toString()).equals("NaN")?"NaN":(new Float(report.p_yes_touchPrepRecvd_ucsf).toString()).substring(0,new Float(report.p_yes_touchPrepRecvd_ucsf).toString().indexOf("."))%>% (UCSF)</td>
+	       <td><%=report.samples_p_no_touchPrepRecvd_ucsf.size()%>, <%=(new Float(report.p_no_touchPrepRecvd_ucsf).toString()).equals("NaN")?"NaN":(new Float(report.p_no_touchPrepRecvd_ucsf).toString()).substring(0,new Float(report.p_no_touchPrepRecvd_ucsf).toString().indexOf("."))%>% (UCSF)</td>
+		   <td><%=report.samples_p_blank_touchPrepRecvd_ucsf.size()%>, <%=(new Float(report.p_blank_touchPrepRecvd_ucsf).toString()).equals("NaN")?"NaN":(new Float(report.p_blank_touchPrepRecvd_ucsf).toString()).substring(0,new Float(report.p_blank_touchPrepRecvd_ucsf).toString().indexOf("."))%>% (UCSF)</td> 
+	 
+	   </tr>
+	   
+	
+	  <TR>
+	   
+	       <TD><%=report.samples_p_touchPrepRecvd_unc.size()%> <//%=(new Float(report.p_touchPrepRecvd_unc).toString()).equals("NaN")?"NaN":(new Float(report.p_touchPrepRecvd_unc).toString()).substring(0,new Float(report.p_touchPrepRecvd_unc).toString().indexOf("."))%> (UNC)<br></td>
+	       <td><%=report.samples_p_yes_touchPrepRecvd_unc.size()%>, <%=(new Float(report.p_yes_touchPrepRecvd_unc).toString()).equals("NaN")?"NaN":(new Float(report.p_yes_touchPrepRecvd_unc).toString()).substring(0,new Float(report.p_yes_touchPrepRecvd_unc).toString().indexOf("."))%>% (UNC)</td>
+	       <td><%=report.samples_p_no_touchPrepRecvd_unc.size()%>, <%=(new Float(report.p_no_touchPrepRecvd_unc).toString()).equals("NaN")?"NaN":(new Float(report.p_no_touchPrepRecvd_unc).toString()).substring(0,new Float(report.p_no_touchPrepRecvd_unc).toString().indexOf("."))%>% (UNC)</td>
+		   <td><%=report.samples_p_blank_touchPrepRecvd_unc.size()%>, <%=(new Float(report.p_blank_touchPrepRecvd_unc).toString()).equals("NaN")?"NaN":(new Float(report.p_blank_touchPrepRecvd_unc).toString()).substring(0,new Float(report.p_blank_touchPrepRecvd_unc).toString().indexOf("."))%>% (UNC)</td> 
+	 
+	   </tr>
+	   
+	   
+	    <TR>
+	   
+	       <TD><%=report.samples_p_touchPrepRecvd_upenn.size()%> <//%=(new Float(report.p_touchPrepRecvd_upenn).toString()).equals("NaN")?"NaN":(new Float(report.p_touchPrepRecvd_upenn).toString()).substring(0,new Float(report.p_touchPrepRecvd_upenn).toString().indexOf("."))%> (UPENN)<br></td>
+	       <td><%=report.samples_p_yes_touchPrepRecvd_upenn.size()%>, <%=(new Float(report.p_yes_touchPrepRecvd_upenn).toString()).equals("NaN")?"NaN":(new Float(report.p_yes_touchPrepRecvd_upenn).toString()).substring(0,new Float(report.p_yes_touchPrepRecvd_upenn).toString().indexOf("."))%>% (UPENN)</td>
+	       <td><%=report.samples_p_no_touchPrepRecvd_upenn.size()%>, <%=(new Float(report.p_no_touchPrepRecvd_upenn).toString()).equals("NaN")?"NaN":(new Float(report.p_no_touchPrepRecvd_upenn).toString()).substring(0,new Float(report.p_no_touchPrepRecvd_upenn).toString().indexOf("."))%>% (UPENN)</td>
+		   <td><%=report.samples_p_blank_touchPrepRecvd_upenn.size()%>, <%=(new Float(report.p_blank_touchPrepRecvd_upenn).toString()).equals("NaN")?"NaN":(new Float(report.p_blank_touchPrepRecvd_upenn).toString()).substring(0,new Float(report.p_blank_touchPrepRecvd_upenn).toString().indexOf("."))%>% (UPENN)</td> 
+	 
+	    </tr>
+	   
+	  
+	   <TR>
+	   
+	       <TD><%=report.samples_p_touchPrepRecvd_uc.size()%> <//%=(new Float(report.p_touchPrepRecvd_uc).toString()).equals("NaN")?"NaN":(new Float(report.p_touchPrepRecvd_uc).toString()).substring(0,new Float(report.p_touchPrepRecvd_uc).toString().indexOf("."))%> (Univ.of Chicago)<br></td>
+	       <td><%=report.samples_p_yes_touchPrepRecvd_uc.size()%>, <%=(new Float(report.p_yes_touchPrepRecvd_uc).toString()).equals("NaN")?"NaN":(new Float(report.p_yes_touchPrepRecvd_uc).toString()).substring(0,new Float(report.p_yes_touchPrepRecvd_uc).toString().indexOf("."))%>% (Univ.of Chicago)</td>
+	       <td><%=report.samples_p_no_touchPrepRecvd_uc.size()%>, <%=(new Float(report.p_no_touchPrepRecvd_uc).toString()).equals("NaN")?"NaN":(new Float(report.p_no_touchPrepRecvd_uc).toString()).substring(0,new Float(report.p_no_touchPrepRecvd_uc).toString().indexOf("."))%>% (Univ.of Chicago)</td>
+		   <td><%=report.samples_p_blank_touchPrepRecvd_uc.size()%>, <%=(new Float(report.p_blank_touchPrepRecvd_uc).toString()).equals("NaN")?"NaN":(new Float(report.p_blank_touchPrepRecvd_uc).toString()).substring(0,new Float(report.p_blank_touchPrepRecvd_uc).toString().indexOf("."))%>% (Univ.of Chicago)</td> 
+	 
+	    </tr>
+	   
+	    <TR>
+	   
+	       <TD><%=report.samples_p_touchPrepRecvd_uab.size()%> <//%=(new Float(report.p_touchPrepRecvd_uab).toString()).equals("NaN")?"NaN":(new Float(report.p_touchPrepRecvd_uab).toString()).substring(0,new Float(report.p_touchPrepRecvd_uab).toString().indexOf("."))%> (UAB)<br></td>
+	       <td><%=report.samples_p_yes_touchPrepRecvd_uab.size()%>, <%=(new Float(report.p_yes_touchPrepRecvd_uab).toString()).equals("NaN")?"NaN":(new Float(report.p_yes_touchPrepRecvd_uab).toString()).substring(0,new Float(report.p_yes_touchPrepRecvd_uab).toString().indexOf("."))%>% (UAB)</td>
+	       <td><%=report.samples_p_no_touchPrepRecvd_uab.size()%>, <%=(new Float(report.p_no_touchPrepRecvd_uab).toString()).equals("NaN")?"NaN":(new Float(report.p_no_touchPrepRecvd_uab).toString()).substring(0,new Float(report.p_no_touchPrepRecvd_uab).toString().indexOf("."))%>% (UAB)</td>
+		   <td><%=report.samples_p_blank_touchPrepRecvd_uab.size()%>, <%=(new Float(report.p_blank_touchPrepRecvd_uab).toString()).equals("NaN")?"NaN":(new Float(report.p_blank_touchPrepRecvd_uab).toString()).substring(0,new Float(report.p_blank_touchPrepRecvd_uab).toString().indexOf("."))%>% (UAB)</td> 
+	 
+	    </tr>
+	  
+	   <TR>
+	   
+	       <TD><%=report.samples_p_touchPrepRecvd_mskcc.size()%> <//%=(new Float(report.p_touchPrepRecvd_mskcc).toString()).equals("NaN")?"NaN":(new Float(report.p_touchPrepRecvd_mskcc).toString()).substring(0,new Float(report.p_touchPrepRecvd_mskcc).toString().indexOf("."))%> (MSKCC)<br></td>
+	       <td><%=report.samples_p_yes_touchPrepRecvd_mskcc.size()%>, <%=(new Float(report.p_yes_touchPrepRecvd_mskcc).toString()).equals("NaN")?"NaN":(new Float(report.p_yes_touchPrepRecvd_mskcc).toString()).substring(0,new Float(report.p_yes_touchPrepRecvd_mskcc).toString().indexOf("."))%>% (MSKCC)</td>
+	       <td><%=report.samples_p_no_touchPrepRecvd_mskcc.size()%>, <%=(new Float(report.p_no_touchPrepRecvd_mskcc).toString()).equals("NaN")?"NaN":(new Float(report.p_no_touchPrepRecvd_mskcc).toString()).substring(0,new Float(report.p_no_touchPrepRecvd_mskcc).toString().indexOf("."))%>% (MSKCC)</td>
+		   <td><%=report.samples_p_blank_touchPrepRecvd_mskcc.size()%>, <%=(new Float(report.p_blank_touchPrepRecvd_mskcc).toString()).equals("NaN")?"NaN":(new Float(report.p_blank_touchPrepRecvd_mskcc).toString()).substring(0,new Float(report.p_blank_touchPrepRecvd_mskcc).toString().indexOf("."))%>% (MSKCC)</td> 
+	 
+	    </tr>
+	   
+	   <TR>
+	   
+	       <TD><%=report.samples_p_touchPrepRecvd_gw.size()%> <//%=(new Float(report.p_touchPrepRecvd_gw).toString()).equals("NaN")?"NaN":(new Float(report.p_touchPrepRecvd_gw).toString()).substring(0,new Float(report.p_touchPrepRecvd_gw).toString().indexOf("."))%> (GTWN)<br></td>
+	       <td><%=report.samples_p_yes_touchPrepRecvd_gw.size()%>, <%=(new Float(report.p_yes_touchPrepRecvd_gw).toString()).equals("NaN")?"NaN":(new Float(report.p_yes_touchPrepRecvd_gw).toString()).substring(0,new Float(report.p_yes_touchPrepRecvd_gw).toString().indexOf("."))%>% (GTWN)</td>
+	       <td><%=report.samples_p_no_touchPrepRecvd_gw.size()%>, <%=(new Float(report.p_no_touchPrepRecvd_gw).toString()).equals("NaN")?"NaN":(new Float(report.p_no_touchPrepRecvd_gw).toString()).substring(0,new Float(report.p_no_touchPrepRecvd_gw).toString().indexOf("."))%>% (GTWN)</td>
+		   <td><%=report.samples_p_blank_touchPrepRecvd_gw.size()%>, <%=(new Float(report.p_blank_touchPrepRecvd_gw).toString()).equals("NaN")?"NaN":(new Float(report.p_blank_touchPrepRecvd_gw).toString()).substring(0,new Float(report.p_blank_touchPrepRecvd_gw).toString().indexOf("."))%>% (GTWN)</td> 
+	 
+	    </tr>
+	  
+	   
+	     <TR>
+	   
+	       <TD><%=report.samples_p_touchPrepRecvd_uw.size()%> <//%=(new Float(report.p_touchPrepRecvd_uw).toString()).equals("NaN")?"NaN":(new Float(report.p_touchPrepRecvd_uw).toString()).substring(0,new Float(report.p_touchPrepRecvd_uw).toString().indexOf("."))%> (Univ. of Wash.))<br></td>
+	       <td><%=report.samples_p_yes_touchPrepRecvd_uw.size()%>, <%=(new Float(report.p_yes_touchPrepRecvd_uw).toString()).equals("NaN")?"NaN":(new Float(report.p_yes_touchPrepRecvd_uw).toString()).substring(0,new Float(report.p_yes_touchPrepRecvd_uw).toString().indexOf("."))%>% (Univ. of Wash.))</td>
+	       <td><%=report.samples_p_no_touchPrepRecvd_uw.size()%>, <%=(new Float(report.p_no_touchPrepRecvd_uw).toString()).equals("NaN")?"NaN":(new Float(report.p_no_touchPrepRecvd_uw).toString()).substring(0,new Float(report.p_no_touchPrepRecvd_uw).toString().indexOf("."))%>% (Univ. of Wash.))</td>
+		   <td><%=report.samples_p_blank_touchPrepRecvd_uw.size()%>, <%=(new Float(report.p_blank_touchPrepRecvd_uw).toString()).equals("NaN")?"NaN":(new Float(report.p_blank_touchPrepRecvd_uw).toString()).substring(0,new Float(report.p_blank_touchPrepRecvd_uw).toString().indexOf("."))%>% (Univ. of Wash.))</td> 
+	 
+	    </tr>
+	  
+	  
+	    <TR>
+	   
+	       <TD><%=report.samples_p_touchPrepRecvd_ut.size()%> <//%=(new Float(report.p_touchPrepRecvd_ut).toString()).equals("NaN")?"NaN":(new Float(report.p_touchPrepRecvd_ut).toString()).substring(0,new Float(report.p_touchPrepRecvd_ut).toString().indexOf("."))%> (Univ. of Texas)<br></td>
+	       <td><%=report.samples_p_yes_touchPrepRecvd_ut.size()%>, <%=(new Float(report.p_yes_touchPrepRecvd_ut).toString()).equals("NaN")?"NaN":(new Float(report.p_yes_touchPrepRecvd_ut).toString()).substring(0,new Float(report.p_yes_touchPrepRecvd_ut).toString().indexOf("."))%>% (Univ. of Texas)</td>
+	       <td><%=report.samples_p_no_touchPrepRecvd_ut.size()%>, <%=(new Float(report.p_no_touchPrepRecvd_ut).toString()).equals("NaN")?"NaN":(new Float(report.p_no_touchPrepRecvd_ut).toString()).substring(0,new Float(report.p_no_touchPrepRecvd_ut).toString().indexOf("."))%>% (Univ. of Texas)</td>
+		   <td><%=report.samples_p_blank_touchPrepRecvd_ut.size()%>, <%=(new Float(report.p_blank_touchPrepRecvd_ut).toString()).equals("NaN")?"NaN":(new Float(report.p_blank_touchPrepRecvd_ut).toString()).substring(0,new Float(report.p_blank_touchPrepRecvd_ut).toString().indexOf("."))%>% (Univ. of Texas)</td> 
+	 
+	    </tr>	   
+	    
+	          
+	 </TABLE>
+  </td>
+ </tr>
+
+ <tr>
+
+    <td valign="top" align="left" class="search"><b>Time Point Based Touch Preps Received Info For Paraffin Core</b>  </td>
+<TD>
+	 <TABLE cellpadding="2" align="left" border="1" width="100%">
+ 
+       <TR>
+	      <TD><b>Total No. of touch preps received samples</b></TD>
+	      <TD><b>No. , % of total samples with yes </b></TD>
+		  <TD><b>No. , % of total samples with no </b></TD>		 
+		  <TD><b>No. , % of total samples with blank </b></TD>		
+	   </TR>
+
+	    <TR>
+	   
+	       <TD><%=report.samples_p_touchPrepRecvd_alltps.size()%> <//%=(new Float(report.p_touchPrepRecvd_alltps).toString()).equals("NaN")?"NaN":(new Float(report.p_touchPrepRecvd_alltps).toString()).substring(0,new Float(report.p_touchPrepRecvd_alltps).toString().indexOf("."))%> (All T.P.)<br></td>
+	       <td><%=report.samples_p_yes_touchPrepRecvd_alltps.size()%>, <%=(new Float(report.p_yes_touchPrepRecvd_alltps).toString()).equals("NaN")?"NaN":(new Float(report.p_yes_touchPrepRecvd_alltps).toString()).substring(0,new Float(report.p_yes_touchPrepRecvd_alltps).toString().indexOf("."))%>% (All T.P.)</td>
+	       <td><%=report.samples_p_no_touchPrepRecvd_alltps.size()%>, <%=(new Float(report.p_no_touchPrepRecvd_alltps).toString()).equals("NaN")?"NaN":(new Float(report.p_no_touchPrepRecvd_alltps).toString()).substring(0,new Float(report.p_no_touchPrepRecvd_alltps).toString().indexOf("."))%>% (All T.P.)</td>
+		   <td><%=report.samples_p_blank_touchPrepRecvd_alltps.size()%>, <%=(new Float(report.p_blank_touchPrepRecvd_alltps).toString()).equals("NaN")?"NaN":(new Float(report.p_blank_touchPrepRecvd_alltps).toString()).substring(0,new Float(report.p_blank_touchPrepRecvd_alltps).toString().indexOf("."))%>% (All T.P.)</td> 
+	 
+	   </tr> 	 
+	   
+	   
+	  
+	    <TR>
+	   
+	       <TD><%=report.samples_p_touchPrepRecvd_p1.size()%> <//%=(new Float(report.p_touchPrepRecvd_p1).toString()).equals("NaN")?"NaN":(new Float(report.p_touchPrepRecvd_p1).toString()).substring(0,new Float(report.p_touchPrepRecvd_p1).toString().indexOf("."))%> (P1)<br></td>
+	       <td><%=report.samples_p_yes_touchPrepRecvd_p1.size()%>, <%=(new Float(report.p_yes_touchPrepRecvd_p1).toString()).equals("NaN")?"NaN":(new Float(report.p_yes_touchPrepRecvd_p1).toString()).substring(0,new Float(report.p_yes_touchPrepRecvd_p1).toString().indexOf("."))%>% (P1)</td>
+	       <td><%=report.samples_p_no_touchPrepRecvd_p1.size()%>, <%=(new Float(report.p_no_touchPrepRecvd_p1).toString()).equals("NaN")?"NaN":(new Float(report.p_no_touchPrepRecvd_p1).toString()).substring(0,new Float(report.p_no_touchPrepRecvd_p1).toString().indexOf("."))%>% (P1)</td>
+		   <td><%=report.samples_p_blank_touchPrepRecvd_p1.size()%>, <%=(new Float(report.p_blank_touchPrepRecvd_p1).toString()).equals("NaN")?"NaN":(new Float(report.p_blank_touchPrepRecvd_p1).toString()).substring(0,new Float(report.p_blank_touchPrepRecvd_p1).toString().indexOf("."))%>% (P1)</td> 
+	 
+	   </tr>  
+  
+  
+  
+    <TR>
+	   
+	       <TD><%=report.samples_p_touchPrepRecvd_p2.size()%> <//%=(new Float(report.p_touchPrepRecvd_p2).toString()).equals("NaN")?"NaN":(new Float(report.p_touchPrepRecvd_p2).toString()).substring(0,new Float(report.p_touchPrepRecvd_p2).toString().indexOf("."))%> (P2)<br></td>
+	       <td><%=report.samples_p_yes_touchPrepRecvd_p2.size()%>, <%=(new Float(report.p_yes_touchPrepRecvd_p2).toString()).equals("NaN")?"NaN":(new Float(report.p_yes_touchPrepRecvd_p2).toString()).substring(0,new Float(report.p_yes_touchPrepRecvd_p2).toString().indexOf("."))%>% (P2)</td>
+	       <td><%=report.samples_p_no_touchPrepRecvd_p2.size()%>, <%=(new Float(report.p_no_touchPrepRecvd_p2).toString()).equals("NaN")?"NaN":(new Float(report.p_no_touchPrepRecvd_p2).toString()).substring(0,new Float(report.p_no_touchPrepRecvd_p2).toString().indexOf("."))%>% (P2)</td>
+		   <td><%=report.samples_p_blank_touchPrepRecvd_p2.size()%>, <%=(new Float(report.p_blank_touchPrepRecvd_p2).toString()).equals("NaN")?"NaN":(new Float(report.p_blank_touchPrepRecvd_p2).toString()).substring(0,new Float(report.p_blank_touchPrepRecvd_p2).toString().indexOf("."))%>% (P2)</td> 
+	 
+	   </tr> 
+	   
+	   
+	      <TR>
+	   
+	       <TD><%=report.samples_p_touchPrepRecvd_p3.size()%> <//%=(new Float(report.p_touchPrepRecvd_p3).toString()).equals("NaN")?"NaN":(new Float(report.p_touchPrepRecvd_p3).toString()).substring(0,new Float(report.p_touchPrepRecvd_p3).toString().indexOf("."))%> (P3)<br></td>
+	       <td><%=report.samples_p_yes_touchPrepRecvd_p3.size()%>, <%=(new Float(report.p_yes_touchPrepRecvd_p3).toString()).equals("NaN")?"NaN":(new Float(report.p_yes_touchPrepRecvd_p3).toString()).substring(0,new Float(report.p_yes_touchPrepRecvd_p3).toString().indexOf("."))%>% (P3)</td>
+	       <td><%=report.samples_p_no_touchPrepRecvd_p3.size()%>, <%=(new Float(report.p_no_touchPrepRecvd_p3).toString()).equals("NaN")?"NaN":(new Float(report.p_no_touchPrepRecvd_p3).toString()).substring(0,new Float(report.p_no_touchPrepRecvd_p3).toString().indexOf("."))%>% (P3)</td>
+		   <td><%=report.samples_p_blank_touchPrepRecvd_p3.size()%>, <%=(new Float(report.p_blank_touchPrepRecvd_p3).toString()).equals("NaN")?"NaN":(new Float(report.p_blank_touchPrepRecvd_p3).toString()).substring(0,new Float(report.p_blank_touchPrepRecvd_p3).toString().indexOf("."))%>% (P3)</td> 
+	 
+	   </tr> 
+	   
+	   
+	     <TR>
+	   
+	       <TD><%=report.samples_p_touchPrepRecvd_p4.size()%> <//%=(new Float(report.p_touchPrepRecvd_p4).toString()).equals("NaN")?"NaN":(new Float(report.p_touchPrepRecvd_p4).toString()).substring(0,new Float(report.p_touchPrepRecvd_p4).toString().indexOf("."))%> (P4)<br></td>
+	       <td><%=report.samples_p_yes_touchPrepRecvd_p4.size()%>, <%=(new Float(report.p_yes_touchPrepRecvd_p4).toString()).equals("NaN")?"NaN":(new Float(report.p_yes_touchPrepRecvd_p4).toString()).substring(0,new Float(report.p_yes_touchPrepRecvd_p4).toString().indexOf("."))%>% (P4)</td>
+	       <td><%=report.samples_p_no_touchPrepRecvd_p4.size()%>, <%=(new Float(report.p_no_touchPrepRecvd_p4).toString()).equals("NaN")?"NaN":(new Float(report.p_no_touchPrepRecvd_p4).toString()).substring(0,new Float(report.p_no_touchPrepRecvd_p4).toString().indexOf("."))%>% (P4)</td>
+		   <td><%=report.samples_p_blank_touchPrepRecvd_p4.size()%>, <%=(new Float(report.p_blank_touchPrepRecvd_p4).toString()).equals("NaN")?"NaN":(new Float(report.p_blank_touchPrepRecvd_p4).toString()).substring(0,new Float(report.p_blank_touchPrepRecvd_p4).toString().indexOf("."))%>% (P4)</td> 
+	 
+	   </tr> 
+	   
+	   
+	      <TR>
+	   
+	       <TD><%=report.samples_p_touchPrepRecvd_p5.size()%> <//%=(new Float(report.p_touchPrepRecvd_p5).toString()).equals("NaN")?"NaN":(new Float(report.p_touchPrepRecvd_p5).toString()).substring(0,new Float(report.p_touchPrepRecvd_p5).toString().indexOf("."))%> (P5)<br></td>
+	       <td><%=report.samples_p_yes_touchPrepRecvd_p5.size()%>, <%=(new Float(report.p_yes_touchPrepRecvd_p5).toString()).equals("NaN")?"NaN":(new Float(report.p_yes_touchPrepRecvd_p5).toString()).substring(0,new Float(report.p_yes_touchPrepRecvd_p5).toString().indexOf("."))%>% (P5)</td>
+	       <td><%=report.samples_p_no_touchPrepRecvd_p5.size()%>, <%=(new Float(report.p_no_touchPrepRecvd_p5).toString()).equals("NaN")?"NaN":(new Float(report.p_no_touchPrepRecvd_p5).toString()).substring(0,new Float(report.p_no_touchPrepRecvd_p5).toString().indexOf("."))%>% (P5)</td>
+		   <td><%=report.samples_p_blank_touchPrepRecvd_p5.size()%>, <%=(new Float(report.p_blank_touchPrepRecvd_p5).toString()).equals("NaN")?"NaN":(new Float(report.p_blank_touchPrepRecvd_p5).toString()).substring(0,new Float(report.p_blank_touchPrepRecvd_p5).toString().indexOf("."))%>% (P5)</td> 
+	 
+	   </tr> 
+	   
+	   
+	    <TR>
+	   
+	       <TD><%=report.samples_p_touchPrepRecvd_p6.size()%> <//%=(new Float(report.p_touchPrepRecvd_p6).toString()).equals("NaN")?"NaN":(new Float(report.p_touchPrepRecvd_p6).toString()).substring(0,new Float(report.p_touchPrepRecvd_p6).toString().indexOf("."))%> (P6)<br></td>
+	       <td><%=report.samples_p_yes_touchPrepRecvd_p6.size()%>, <%=(new Float(report.p_yes_touchPrepRecvd_p6).toString()).equals("NaN")?"NaN":(new Float(report.p_yes_touchPrepRecvd_p6).toString()).substring(0,new Float(report.p_yes_touchPrepRecvd_p6).toString().indexOf("."))%>% (P6)</td>
+	       <td><%=report.samples_p_no_touchPrepRecvd_p6.size()%>, <%=(new Float(report.p_no_touchPrepRecvd_p6).toString()).equals("NaN")?"NaN":(new Float(report.p_no_touchPrepRecvd_p6).toString()).substring(0,new Float(report.p_no_touchPrepRecvd_p6).toString().indexOf("."))%>% (P6)</td>
+		   <td><%=report.samples_p_blank_touchPrepRecvd_p6.size()%>, <%=(new Float(report.p_blank_touchPrepRecvd_p6).toString()).equals("NaN")?"NaN":(new Float(report.p_blank_touchPrepRecvd_p6).toString()).substring(0,new Float(report.p_blank_touchPrepRecvd_p6).toString().indexOf("."))%>% (P6)</td> 
+	 
+	   </tr> 
+  				
+	
+	  <TR>
+	   
+	       <TD><%=report.samples_p_touchPrepRecvd_ps.size()%> <//%=(new Float(report.p_touchPrepRecvd_ps).toString()).equals("NaN")?"NaN":(new Float(report.p_touchPrepRecvd_ps).toString()).substring(0,new Float(report.p_touchPrepRecvd_ps).toString().indexOf("."))%> (PS)<br></td>
+	       <td><%=report.samples_p_yes_touchPrepRecvd_ps.size()%>, <%=(new Float(report.p_yes_touchPrepRecvd_ps).toString()).equals("NaN")?"NaN":(new Float(report.p_yes_touchPrepRecvd_ps).toString()).substring(0,new Float(report.p_yes_touchPrepRecvd_ps).toString().indexOf("."))%>% (PS)</td>
+	       <td><%=report.samples_p_no_touchPrepRecvd_ps.size()%>, <%=(new Float(report.p_no_touchPrepRecvd_ps).toString()).equals("NaN")?"NaN":(new Float(report.p_no_touchPrepRecvd_ps).toString()).substring(0,new Float(report.p_no_touchPrepRecvd_ps).toString().indexOf("."))%>% (PS)</td>
+		   <td><%=report.samples_p_blank_touchPrepRecvd_ps.size()%>, <%=(new Float(report.p_blank_touchPrepRecvd_ps).toString()).equals("NaN")?"NaN":(new Float(report.p_blank_touchPrepRecvd_ps).toString()).substring(0,new Float(report.p_blank_touchPrepRecvd_ps).toString().indexOf("."))%>% (PS)</td> 
+	 
+	   </tr> 
+  	          
+	 </TABLE>
+  </td>
+ </tr>		  																																		
+
+    
+  <tr>
+
+    <td valign="top" align="left" class="search"><b>Frozen Core Samples Containing DNA Quality Information</b></td>
+<TD>
+  
+  
+  
+   <TABLE cellpadding="2" align="left" border="1" width="100%">  
+        
+       <TR>
+	      <TD><b>Total No. of DNA samples </TD>
+		<!---   <TD><b>Total No. of total samples not containg DNA info (<u>ignored for calculating %</u>)</b></TD>
+	    --->   <TD><b>No. , % of total samples with good (ratio of 1.7 - 2.0 for 260/280 absorbance) DNA</b></TD>
+		  <TD><b>No. , % of total samples with fair (ratio of 1.6 - 1.7) DNA</TD>		 
+		  <TD><b>No. , % of total samples with poor (ratio of 1.6 - 1.7) DNA</TD>		
+	   </TR>
+	    <TR><TD><%=report.samples_dna.size()%> </TD>
+		    <!--- <TD><//%=report.samples_no_dna.size()%></TD> --->
+			<TD><%=report.samples_good_dna.size()%>,<br>  <%=(new Float(report.samples_good_dna_ratio).toString()).equals("NaN")?"NaN":(new Float(report.samples_good_dna_ratio).toString()).substring(0,new Float(report.samples_good_dna_ratio).toString().indexOf("."))%>% </TD>
+			<TD><%=report.samples_fair_dna.size()%>,<br>  <%=(new Float(report.samples_fair_dna_ratio).toString()).equals("NaN")?"NaN":(new Float(report.samples_fair_dna_ratio).toString()).substring(0,new Float(report.samples_fair_dna_ratio).toString().indexOf("."))%>% </TD>
+	        <TD><%=report.samples_poor_dna.size()%>,<br>  <%=(new Float(report.samples_poor_dna_ratio).toString()).equals("NaN")?"NaN":(new Float(report.samples_poor_dna_ratio).toString()).substring(0,new Float(report.samples_poor_dna_ratio).toString().indexOf("."))%>% </TD>
+	
+		</TR>	
+			
+			  
+	</TABLE>
+  </td>
+ </tr>
+ 
+ 
+   
+ 
+  <tr>
+
+    <td valign="top" align="left" class="search"><b>P53 PCR Lab - P53 PCR Quality Information</b></td>
+<TD>
+  
+  
+  
+   <TABLE cellpadding="2" align="left" border="1" width="100%">  
+  
+        
+       <TR>
+	  
+		  <TD><b>Total No. of DNA sub-samples with P53 multiplex PCR quality info</b></TD>
+		<!---  <TD><b>Total No. of DNA sub-samples not containing any P53 multiplex PCR quality info (<u>ignored for calculating %</u>)</b></TD>
+	    --->   <TD><b>No. , % of total sub-samples with best P53 multiplex PCR rating</b></TD>
+		  <TD><b>No. , % of total sub-samples with good P53 multiplex PCR rating</b></TD>		 
+		  <TD><b>No. , % of total sub-samples with poor P53 multiplex PCR rating</b></TD>		
+		  <TD><b>No. , % of total sub-samples with worst P53 multiplex PCR rating</b></TD>		
+	   </TR>
+	    <TR>
+		<!---     <TD><//%=report.subsamples_pcr.size()+report.subsamples_no_pcr.size()%> </TD>
+		 --->    <TD><%=report.subsamples_pcr.size()%></TD>
+			<!--- <TD><//%=report.subsamples_no_pcr.size()%></TD> --->
+			<TD><%=report.subsamples_best_pcr.size()%>,<br>  <%=(new Float(report.subsamples_best_pcr_ratio).toString()).equals("NaN")?"NaN":(new Float(report.subsamples_best_pcr_ratio).toString()).substring(0,new Float(report.subsamples_best_pcr_ratio).toString().indexOf("."))%>% </TD>
+			<TD><%=report.subsamples_good_pcr.size()%>,<br>  <%=(new Float(report.subsamples_good_pcr_ratio).toString()).equals("NaN")?"NaN":(new Float(report.subsamples_good_pcr_ratio).toString()).substring(0,new Float(report.subsamples_good_pcr_ratio).toString().indexOf("."))%>% </TD>
+	        <TD><%=report.subsamples_poor_pcr.size()%>,<br>  <%=(new Float(report.subsamples_poor_pcr_ratio).toString()).equals("NaN")?"NaN":(new Float(report.subsamples_poor_pcr_ratio).toString()).substring(0,new Float(report.subsamples_poor_pcr_ratio).toString().indexOf("."))%>% </TD>
+	        <TD><%=report.subsamples_worst_pcr.size()%>,<br>  <%=(new Float(report.subsamples_worst_pcr_ratio).toString()).equals("NaN")?"NaN":(new Float(report.subsamples_worst_pcr_ratio).toString()).substring(0,new Float(report.subsamples_worst_pcr_ratio).toString().indexOf("."))%>% </TD>
+	
+		</TR>	
+			
+			  
+	</TABLE>
+  </td>
+ </tr>
+ 
+ 
+ <tr>
+
+    <td valign="top" align="left" class="search"><b>CGH Lab - DNA Labeling Information</b></td>
+<TD>
+  
+  
+  
+   <TABLE cellpadding="2" align="left" border="1" width="100%">  
+  
+        
+       <TR>
+	      <TD><b>Total No. of DNA Samples with DNA Labeling Info </b></TD>
+		 <TD> <b>Total No. of DNA Labeling Samples </b></TD>
+		  <TD><b>No. , % of High (intensity reading >=8) DNA Labeling Intensity</b></TD>
+		  <TD><b>No. , % of Medium (intensity reading btwn 6-8) DNA Labeling Intensity</b></TD>		 
+		  <TD><b>No. , % of Low (intensity reading < 6) DNA Labeling Intensity</b></TD>		
+		 		
+	   </TR>
+	    <TR>
+		    <TD><%=dna_with_labeling_total.size()%></TD>		
+		    <TD><%=dna_labels_total.size()%></TD>
+		    <TD><%=high_dna_labels.size()%>,<br> <%=(new Float(high_dna_labels_ratio).toString()).equals("NaN")?"NaN":(new Float(high_dna_labels_ratio).toString()).substring(0,new Float(high_dna_labels_ratio).toString().indexOf("."))%>%</TD>
+			
+			<TD><%=medium_dna_labels.size()%>,<br> <%=(new Float(medium_dna_labels_ratio).toString()).equals("NaN")?"NaN":(new Float(medium_dna_labels_ratio).toString()).substring(0,new Float(medium_dna_labels_ratio).toString().indexOf("."))%>%</TD>
+			
+			<TD><%=low_dna_labels.size()%>,<br> <%=(new Float(low_dna_labels_ratio).toString()).equals("NaN")?"NaN":(new Float(low_dna_labels_ratio).toString()).substring(0,new Float(low_dna_labels_ratio).toString().indexOf("."))%>%</TD>
+			
+			
+		</TR>	
+			
+			  
+	</TABLE>
+  </td>
+ </tr>
+ 
+ <tr>
+
+    <td valign="top" align="left" class="search"><b>CGH Lab - CGH Quality Information</b></td>
+<TD>
+  
+  
+  
+   <TABLE cellpadding="2" align="left" border="1" width="100%">  
+  
+        
+       <TR>
+	      <TD><b>Total No. of DNA Samples with CGH Hybridization Info </b></TD>
+	      <TD><b>Total No. of CGH Hybridization Samples </b></TD>
+		  <TD><b>No. , % of Good, Acceptable( score >=3) CGH Hybridization Samples</b></TD>
+		  <TD><b>No. , % of Poor (score <3) CGH Hybridization Samples</b></TD>		 
+		 	
+		 		
+	   </TR>
+	    <TR> <TD><%=dna_with_cgh_total.size()%> </TD>
+		     <TD><%=cgh_hybs_total.size()%> </TD>
+		     <TD><%=good_cgh_hybs.size()%>,<br> <%=(new Float(good_cgh_hybs_ratio).toString()).equals("NaN")?"NaN":(new Float(good_cgh_hybs_ratio).toString()).substring(0,new Float(good_cgh_hybs_ratio).toString().indexOf("."))%>%</TD>
+			 <TD><%=poor_cgh_hybs.size()%>,<br> <%=(new Float(poor_cgh_hybs_ratio).toString()).equals("NaN")?"NaN":(new Float(poor_cgh_hybs_ratio).toString()).substring(0,new Float(poor_cgh_hybs_ratio).toString().indexOf("."))%>%</TD>
+			
+			
+		</TR>	
+			
+			  
+	</TABLE>
+  </td>
+ </tr>
+
+ 
+ <tr>
+
+    <td valign="top" align="left" class="search"><b>Frozen Core Samples Containing RNA Quality Information</b></td>
+<TD>
+  
+  
+  
+   <TABLE cellpadding="2" align="left" border="1" width="100%">  
+   
+   
+     <TR>
+	      <TD><b>Total No. of RNA samples </TD>
+	<!--- 	  <TD><b>Total No. of total samples not containg RNA info (<u>ignored for calculating %</u>)</b></TD>
+	 --->      <TD><b>No. , % of total samples with good (ratio of 1.7 - 2.0 for 260/280 absorbance) RNA</b></TD>
+		  <TD><b>No. , % of total samples with fair (ratio of 1.6 - 1.7) RNA</TD>		 
+		  <TD><b>No. , % of total samples with poor (ratio of 1.6 - 1.7) RNA</TD>		
+	   </TR>
+        
+       
+	    <TR><TD><%=report.samples_rna.size()%> </TD>
+		  <!---   <TD><%=report.samples_no_rna.size()%></TD> --->
+			<TD><%=report.samples_good_rna.size()%>,<br>  <%=(new Float(report.samples_good_rna_ratio).toString()).equals("NaN")?"NaN":(new Float(report.samples_good_rna_ratio).toString()).substring(0,new Float(report.samples_good_rna_ratio).toString().indexOf("."))%>% </TD>
+			<TD><%=report.samples_fair_rna.size()%>,<br>  <%=(new Float(report.samples_fair_rna_ratio).toString()).equals("NaN")?"NaN":(new Float(report.samples_fair_rna_ratio).toString()).substring(0,new Float(report.samples_fair_rna_ratio).toString().indexOf("."))%>% </TD>
+	        <TD><%=report.samples_poor_rna.size()%>,<br>  <%=(new Float(report.samples_poor_rna_ratio).toString()).equals("NaN")?"NaN":(new Float(report.samples_poor_rna_ratio).toString()).substring(0,new Float(report.samples_poor_rna_ratio).toString().indexOf("."))%>% </TD>
+	
+		</TR>	
+			
+			  
+	</TABLE>
+  </td>
+ </tr>
+
+  <tr>
+
+    <td valign="top" align="left" class="search"><b>Gene Expression Lab - RNA Analysis Quality Information </b></td>
+<TD>
+  
+  
+  
+   <TABLE cellpadding="2" align="left" border="1" width="100%">  
+        <tr>      
+	      <TD><b>Total No. of  RNA sub-samples</TD>
+		  <TD><b>Total No. of RNA sub-samples containing RNA analysis quality info</b></TD>
+		  <TD><b>Total No. of RNA sub-samples not containing any RNA analysis quality info(<u>ignored for calculating %</u>)</b></TD>
+	      <TD><b>No. , % of RNA sub-samples with good (discernable 18s and 28s peaks and no degradation) RNA rating</b></TD>	
+		  <TD><b>No. , % of RNA sub-samples with fair (discernable peaks with substantial degradation) RNA rating</b></TD>		 
+		  <TD><b>No. , % of RNA sub-samples with poor (no discernable peaks) RNA rating</b></TD>		
+		  	
+	   </TR>
+	    <TR><TD><%=report.subsamples_rna.size()+report.subsamples_no_rna.size()%> </TD>
+		    <TD><%=report.subsamples_rna.size()%></TD>
+			<TD><%=report.subsamples_no_rna.size()%></TD>
+			<TD><%=report.subsamples_good_rna.size()%>,<br>  <%=(new Float(report.subsamples_good_rna_ratio).toString()).equals("NaN")?"NaN":(new Float(report.subsamples_good_rna_ratio).toString()).substring(0,new Float(report.subsamples_good_rna_ratio).toString().indexOf("."))%>% </TD>
+	        <TD><%=report.subsamples_fair_rna.size()%>,<br>  <%=(new Float(report.subsamples_fair_rna_ratio).toString()).equals("NaN")?"NaN":(new Float(report.subsamples_fair_rna_ratio).toString()).substring(0,new Float(report.subsamples_fair_rna_ratio).toString().indexOf("."))%>% </TD>
+			<TD><%=report.subsamples_poor_rna.size()%>,<br>  <%=(new Float(report.subsamples_poor_rna_ratio).toString()).equals("NaN")?"NaN":(new Float(report.subsamples_poor_rna_ratio).toString()).substring(0,new Float(report.subsamples_poor_rna_ratio).toString().indexOf("."))%>% </TD>
+	    
+		</TR>	
+			
+			  
+	</TABLE>
+  </td>
+ </tr>
+
+ 
+  <tr>
+
+    <td valign="top" align="left" class="search"><b>Proteomics Lab - Protein Quality Information</b></td>
+<TD>
+  
+  
+  
+   <TABLE cellpadding="2" align="left" border="1" width="100%">  
+        
+       <TR> 
+	      <TD><b>Total No. of protein sub-samples </b></TD>
+		  <TD><b>Total No. of protein sub-samples with tumor presence info</b></TD>
+		  <TD><b>Total No. of protein sub-samples w/o any tumor presence info</b></TD>
+	     
+	   </TR>
+	    <TR><TD><%=report.getProteinSize()%> </TD>
+		    <TD><%=report.protein_tumor.size()%></TD>
+			<TD><%=report.protein_no_tumor.size()%></TD>
+			
+		</TR>	
+			
+			  
+	</TABLE>
+  </td>
+ </tr>
+
+
+      
+ </table>
+  <p>
+
+<table>
+<tr>
+	<td colspan="2" align="right">
+		<a href="select.jsp">Home</a>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
+		<a href="search.jsp">Back to Search</a>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
+		<a href="searchResults.jsp">Back to search Results</a>
+	&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
+		<INPUT type="submit" class="buttons" name="download" value="  Download this report ">
+		
+	</td>
+</tr>
+</table>
+
+<%
+if(request.getParameter("download")!=null){
+   PopulateSummaryReport populateSummaryReport = new PopulateSummaryReport();  
+   
+   Hashtable hashExl = report.getReportHash();
+   System.out.println(":"+hashExl.size());
+   populateSummaryReport.run(hashExl,"summaryReport.row");
+   String summaryFile = MessageRetriever.getProperty("QI_SUMMARY_FILE");
+   File fFile = new File (summaryFile);
+   String stFileName = "qiSummary.xls";
+  
+   
+	//the content type set as excel
+	response.setContentType ("application/excel");
+	//the header and also the Nameis set by which user will be prompted to save
+	response.setHeader ("Content-Disposition", "attachment;filename=\""+stFileName+"\"");
+
+	//Open an input stream to the file and post the file contents thru the
+	//servlet output stream to the client m/c
+	InputStream isStream = null;
+	ServletOutputStream sosStream = null;
+  	try
+  	{
+  		//response.flushBuffer();
+		isStream = new FileInputStream(fFile);
+		sosStream = response.getOutputStream();
+		//int ibit = 256;
+		int ibit = 512;
+   		while ((ibit) >= 0)
+   		{
+        		ibit = isStream.read();
+        		sosStream.write(ibit);
+         }
+
+	}
+	catch (IOException ioeException)
+	{
+             }
+    sosStream.flush();
+    sosStream.close();
+    isStream.close();
+
+	
+	
+	}
+
+
+
+   
+   %>
+
+ 
+

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE web-app
+    PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.2//EN"
+    "http://java.sun.com/j2ee/dtds/web-app_2_2.dtd">
+
+<web-app>
+  	  <!-- Begin: Host Type ID -->
+  	  <!-- Valid Host Types are: LOCAL, DEV, PROT, PROD  -->
+	  <context-param>
+		<param-name>host_type</param-name>
+            	<param-value>cbioapp102.nci.nih.gov</param-value>  
+	  </context-param>
+  	  <!-- End: Host Identifcation Parameters -->
+	  
+	  <context-param>
+		<param-name>dbProp_WIN32</param-name>
+            	<param-value>C:\\local\\content\\qualityIndicator\\resources\\qidev.db.properties</param-value>
+          </context-param>
+	  <context-param>
+		<param-name>dbProp_UNIX</param-name>
+            	<param-value>/local/content/qualityIndicator/resources/qi.db.properties</param-value> 
+	  </context-param>	
+	 <context-param>
+		<param-name>ftpur1_WIN</param-name>
+           	<param-value>lpgdev101.nci.nih.gov</param-value>
+ 	  </context-param>
+      	  <context-param>
+		<param-name>ftpur1_UNIX</param-name>
+            	<param-value>ncicbftp2.nci.nih.gov</param-value>
+ 	  </context-param>
+	  
+	  <context-param>
+		<param-name>ftppath_WIN</param-name>
+             	<param-value>/usr/local/LizardTech</param-value>
+ 	  </context-param> 
+      	  <context-param>
+		<param-name>ftppath_UNIX</param-name>
+            	<param-value>/Images</param-value>
+ 	  </context-param>    
+	     
+	  <context-param>
+		<param-name>ftpusername_WIN</param-name>
+            	<param-value>lizard</param-value>
+ 	  </context-param> 
+      	  <context-param>
+		<param-name>ftpusername_UNIX</param-name>
+            	<param-value>lizupload</param-value>
+ 	  </context-param>
+	  
+	  <context-param>
+		<param-name>ftppwd_WIN</param-name>
+            	<param-value>ncicbliz</param-value>
+ 	  </context-param>
+      	  <context-param>
+		<param-name>ftppwd_UNIX</param-name>
+            	<param-value>ncicblts</param-value>
+ 	  </context-param>
+	  
+       <context-param>
+		<param-name>lizard_Window</param-name>
+             	<param-value>http://lpgdev101.nci.nih.gov/lizardtech/</param-value> 
+ 	  </context-param>
+	  
+      	  <context-param>
+		<param-name>lizard_Unix</param-name>
+             	<param-value>http://caimage.nci.nih.gov/lizardtech/</param-value>	 
+ 	  </context-param>
+	
+	<servlet>
+        	<servlet-name>
+            		LoadServlet
+        	</servlet-name>
+        	<servlet-class>
+            		gov.nih.nci.qi.util.LoadServlet
+        	</servlet-class>
+	  	<load-on-startup>1</load-on-startup>	  
+	</servlet>
+
+	<servlet>		
+		<servlet-name>
+	    		DispatcherServlet
+		</servlet-name>
+		<servlet-class>
+	    		gov.nih.nci.qi.util.DispatcherServlet
+		</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet>
+		<servlet-name>
+	    		Search
+		</servlet-name>
+		<servlet-class>
+	    		gov.nih.nci.qi.util.Search
+		</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>  	
+
+	<servlet-mapping>
+        <servlet-name>
+            Search
+        </servlet-name>
+        <url-pattern>
+            /Search
+        </url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+        <servlet-name>
+            DispatcherServlet
+        </servlet-name>
+        <url-pattern>
+            /DispatcherServlet
+        </url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+        <servlet-name>
+            LoadServlet
+        </servlet-name>
+        <url-pattern>
+            /LoadServlet
+        </url-pattern>
+	</servlet-mapping>
+	
+	
+   	<session-config>
+       		<session-timeout>60</session-timeout>
+   	</session-config>
+
+</web-app>
+

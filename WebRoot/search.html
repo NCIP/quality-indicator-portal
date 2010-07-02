@@ -1,0 +1,232 @@
+<%@ include file="submission_header.html"%>
+<%@ include file="OrganSelectionJS.html"%>
+
+
+
+</head>
+
+
+
+<body>
+
+	<!--start of main table--> 
+		
+	<center>
+		<title>Search animal model information based on the followings: </title>
+	</center>
+		
+
+		
+	
+		
+		<FORM Name="bodyparts" METHOD="GET" ACTION="Search">
+	<TABLE border="0" align="center" cellspacing="1" cellpadding="1" width="50%">	
+	<tr><td>
+<tr>
+<td valign="top" colspan="2"><center><INPUT TYPE="submit" NAME="search" VALUE="Retrieve"> 
+<INPUT TYPE=RESET VALUE="  Clear   " tabindex="4" width = "8"> 
+<hr width=100%></center></td>
+</tr>
+
+	
+	<!--insert mainpart here-->
+	
+	<tr>
+<td valign="top" colspan="2"><center><b><font size =3 color="#800000">Model</b></font></center></td>
+</tr>
+	<TR ALIGN="LEFT" VALIGN="TOP">
+	<TD>
+		<B>Model Name: </B>
+	</TD>
+
+	<TD>
+		<INPUT NAME="modelName" TYPE=TEXT SIZE=30 MAXLENGTH=255>
+	</TD>
+</TR>
+
+
+
+<TR ALIGN="LEFT" VALIGN="TOP">
+	<TD>
+		<B>Species: </B>
+	</TD>
+
+	<TD>
+		<SELECT NAME="SpeciesKey" SIZE=1>
+		
+	<option value="">	
+		
+<option value="11">Cat (felis catus)
+		
+<option value="3">Cattle (bos taurus)
+		
+<option value="4">Dog (canis familiaris)
+		
+<option value="5">Goat (capra hircus)
+		
+<option value="6">Horse (equus caballus)
+		
+<option value="1">Mouse (mus musculus)
+		
+<option value="10">Pig (sus scrofa)
+		
+<option value="8">Rat (rattus norvegicus)
+		
+<option value="9">Rat (rattus rattus)
+		
+<option value="7">Sheep (ovis aries)
+
+		
+		
+		</SELECT>
+	</TD>
+</TR>
+<TR ALIGN="LEFT" VALIGN="TOP">
+	<TD>
+		<b>Strain:</b><br>
+		<font size="-2">(for mice only)</font> 
+	</TD>
+
+	<TD>
+		<SELECT NAME="StrainKey" SIZE=1>
+		
+	<option value="">	
+		
+<option value="4">129 
+		
+<option value="2">BALB/c 
+		
+<option value="3">C57BL/6 
+		
+<option value="1">FVB/N 
+		
+<option value="5">Other 
+
+		
+		
+		</SELECT>
+	</TD>
+</TR>
+
+<TR ALIGN="LEFT" VALIGN="TOP">
+	<TD>
+		<B>Phenotype: </B>
+	</TD>
+
+	<TD>
+	 <INPUT NAME="Phenotype" TYPE=TEXT SIZE=30 MAXLENGTH=255>
+		
+	</TD>
+</TR>
+<tr>
+<td valign="top" colspan="2"><center><b><font size =3  color="#800000">Publicaiton</b></font></center></td>
+</tr>
+<TR ALIGN="LEFT" VALIGN="TOP">
+	<TD>
+		<b>PMID:</b><br>
+		<font size="-2">(PubMed Identifier)</font> 
+	</TD>
+
+	<TD>
+		<INPUT NAME="PMID" TYPE=TEXT SIZE=10 MAXLENGTH=30>
+	</TD>
+</TR>
+<TR ALIGN="LEFT" VALIGN="TOP">
+	<TD>
+		<b>First Author:</b><br> 
+		<font size="-2">(Lastnames Only)</font> 
+	</TD>
+
+	<TD>
+		<INPUT NAME="Author" TYPE=TEXT SIZE=40 MAXLENGTH=150>
+	</TD>
+</TR>
+<tr>
+<td valign="top" colspan="2"><center><b><font size=3 color="#800000">Tumor Site</font></b></center></td>
+</tr>
+
+
+
+	
+<tr>
+<td><b>Organ System:</b></td>
+	<TD>
+	<SELECT name="organsystem" onChange="populateOrgan(document.bodyparts,document.bodyparts.organsystem.options[document.bodyparts.organsystem.selectedIndex].value)">
+		<OPTION selected value=''>Select Organ System</OPTION>
+		<OPTION value='test'>Select Organ System
+		<OPTION value="cardio">Cardiovascular System
+		<OPTION value="digestive">Digestive System
+		<OPTION value="endocrinegland">Endocrine Gland System
+		<OPTION value="female">Female Reproductive System
+		<OPTION value="integument">Integument System
+		<OPTION value="lympho">Lymphohematopoietic System
+		<OPTION value="male">Male Reproductive System
+		<OPTION value="nervous">Nervous System
+		<OPTION value="respiratory">Respiratory System
+		<OPTION value="skeletal">Skeletal System
+		<OPTION value="softtissue">Soft Tissues
+		<OPTION value="sensory">Special Sensory Organs
+		<OPTION value="unspecified">Unspecified
+		<OPTION value="urinary">Urinary System
+	</SELECT>
+	
+	</td></tr>
+	<tr>
+<td><b>Tissue / Cell Type:</b></td>
+	<TD><SELECT name="organ" >
+		<OPTION value=''>-------------------</OPTION>
+	</SELECT>
+	
+	
+	</TD>
+</TR>
+<tr>
+<td valign="top" colspan="2"><center><b><font size=3  color="#800000">Cell Line</b></font></center></td>
+</tr>
+<TR ALIGN="LEFT" VALIGN="TOP">
+	<TD>
+		<B>Cell-line Name: </B>
+	</TD>
+
+	<TD>
+		<INPUT NAME="required_Cell line name" TYPE=TEXT SIZE=40 MAXLENGTH=50>
+	</TD>
+</TR>
+<TR ALIGN="LEFT" VALIGN="TOP">
+	<TD>
+		<B>Cell Origin: </B>
+	</TD>
+
+	<TD>
+		<INPUT NAME="cellorigin" TYPE=TEXT SIZE=40 MAXLENGTH=50>
+	</TD>
+</TR>
+<tr>
+<td valign="top" colspan="2"><center><b><font size=3 color="#800000">Therapy</b></font></center></td>
+</tr>
+<TR ALIGN="LEFT" VALIGN="TOP">
+	<TD>
+		<B>Drug/Compound: </B>
+	</TD>
+
+	<TD>
+		<INPUT NAME="required_Compound" TYPE=TEXT SIZE=40 MAXLENGTH=255>
+	</TD>
+</TR>
+
+
+
+<tr>
+<td valign="top" colspan="2"><center><hr><INPUT TYPE="submit" NAME="search" VALUE="Retrieve"> 
+<INPUT TYPE=RESET VALUE="  Clear  " tabindex="4"> 
+</center>
+</td>
+</tr>	</FORM>
+		
+		</table>
+		
+		<!--end of main table-->
+
+</BODY>
+</HTML>
+

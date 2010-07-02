@@ -1,0 +1,1595 @@
+<!doctype html public "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/Transitional.dtd">
+
+<html> 
+
+<head>
+
+<title>Search Results</title>
+
+<meta http-equiv="Content-Type" content="text/html;">
+
+<link rel=stylesheet href="css/qiStyle.css" type="text/css">
+
+
+ <%response.setDateHeader("Expires",System.currentTimeMillis());%>
+
+ 	<script src="images/sorttable.js"></script>
+	<script src="images/filter_cols.js"></script>
+	<script src="images/ispyScripts.js"></script>
+	<script src="images/overlib.js"></script>
+	<script src="images/overlib_hideform.js"></script>
+	
+ 
+
+	<style>
+
+		/* Sortable tables */
+
+		table.sortable a.sortheader {  
+
+			background-color:#eee;
+
+			color:#666666;
+
+			font-weight: bold;
+
+			text-decoration: none;
+
+			display: block; 
+
+		}
+
+   
+
+		table.sortable span.sortarrow {
+
+			color: black; 
+
+			text-decoration: none;
+
+		}
+
+
+
+		table.sortable {border:1px solid black;	}
+
+		table#unique_id TD { border: 1px solid gray; padding:3px; font-size: 10px; padding:2px }
+
+
+
+		.over TD {background-color:#E0E0E0;}
+
+		.out TD { background-color:#FFFFFF;}
+
+		thead	{ background-color:#eee }
+
+		
+
+	</style>
+
+</head>
+
+ 
+
+<body>
+
+
+
+<div class="page">
+
+<%@ include file="header.html"%> 
+
+
+
+<div class="main">
+
+ 
+
+   
+
+ <script>
+
+var refresh = true;
+
+<!--- var timeoutID =	window.setTimeout(refreshMe(),10) --->
+
+function refreshMe(){
+
+if(refresh){
+
+	window.location.reload()
+	refresh = false;
+
+  }   
+
+}      
+
+<!--- clearTimeout(timeoutID) ---> 
+
+</script>
+
+<%response.setDateHeader("Expires",System.currentTimeMillis());%>
+
+
+
+<%  int sampleNumber = 0;
+
+    int sampleNumber_ = 0;
+
+    if(request.getParameter("q") != null){
+
+	   sampleNumber = Integer.parseInt((String)request.getParameter("q"));
+
+	   sampleNumber_ = Integer.parseInt((String)request.getParameter("q"));
+
+	}
+
+	int sampleNumber2 = sampleNumber +  10;
+
+	int sampleNumber2_ = sampleNumber_ +  10;
+
+	%>
+
+<form method ="post" action ="searchResults.jsp?q=<%=sampleNumber2%>" name="clinicalReport">
+
+<input  type = "HIDDEN" name = "sampleNumber2" value = "<%=sampleNumber2%>">  
+
+
+
+<!--- <form action="javascript:refreshMe()" onFOcus=window.setTimeout("location.reload()",10000)></form> --->
+
+	  <a name="top"></a>
+
+	 <h2 class="title">Search Results</h2>
+
+	   <table class="data" width="85%" cellpadding="5" cellspacing="0" border="0">
+
+	  <%if(samples != null && samples.size()<= 0){
+
+	     
+
+		 %><tr>
+
+	 <td colspan="4" height="50" valign="top" class="blbo" align ="center"> Sorry, No matching records found.		</td>
+
+	 </tr>
+
+	 </table><%}
+
+	 
+
+	 else {
+	 
+	 
+
+	%>
+	
+	
+	
+	  <table border="0" align="center">
+    <tr style="vertical-align:top">
+      <td>Do not show these columns
+        <br/>
+			<!--- <SELECT name="clinicalShow" size="4"  multiple width="10"> --->
+		
+    <select id="clinicalShow" style="width:300px" multiple="true" size="5"> 
+        <!---   <option value="clinicalReport.column2">+Patient ID</option> --->
+          <option value="search_result.column3">+LabTrak ID</option>
+          <option value="search_result.column4">+Institution(Core Collected)</option>
+          <option value="search_result.column5">+T.P.</option>
+          <option value="search_result.column6">+Core Type</option>
+          <option value="search_result.column7">+Sample Process Date</option>
+          <option value="search_result.column8">+Comment on Sample</option>
+          <option value="search_result.column9">+Frozen Core Touch Prep</option>
+          <option value="search_result.column10">+Frozen Core H&E Tumor Review</option>
+          <option value="search_result.column11">+Tumor Density (%)</option>
+          <option value="search_result.column12">+Non-Tumor Nucleated Cells (%)</option>
+          <option value="search_result.column13">+DNA Process Date</option>
+          <option value="search_result.column14">+DNA Yield</option>
+          <option value="search_result.column15">+DNA Reading Instrument</option>
+          <option value="search_result.column16">+DNA Extraction Quality</option>
+		  <option value="search_result.column24">+P53 Multiplex PCR Rating</option>
+          <option value="search_result.column25">+DNA Labeling Attempts</option>
+          <option value="search_result.column26">+Intensity of Labeling DNA at Last Attempt</option>
+          <option value="search_result.column27">+Date of Labeling DNA at Last Attempt</option>
+          <option value="search_result.column28">+CGH Hybridization Attempts</option>
+          <option value="search_result.column29">+CGH Hybridization Quality at Last Attempt</option>
+          <option value="search_result.column30">+Date of CGH Hybridization at Last Attempt</option>
+         
+          <option value="search_result.column17">+RNA Process Date</option>
+          <option value="search_result.column18">+RNA Yield</option>
+          <option value="search_result.column19">+RNA Reading Instrument</option>
+          <option value="search_result.column20">+RNA Extraction Quality</option>
+		  <option value="search_result.column31">+RNA Analysis Quality</option>
+          <option value="search_result.column21">+Paraffin Core H&E Review</option>
+          <option value="search_result.column22">+Paraffin Core H&E Usability</option>
+          <option value="search_result.column23">+Paraffin Core Touch Preps Received</option>      
+          <option value="search_result.column32">+Protein Sample Microdissection Efficiency of Capture</option>
+          <option value="search_result.column33">+Protein Sample Tumor Presence</option>      
+         
+        </select>
+      </td>
+      <td style="vertical-align:middle">
+     <!---    <input type="button" value="show" onclick="move(document.getElementById('clinicalHide'),document.getElementById('clinicalShow'))"/>
+        <input type="button" value="hide" onclick="move(document.getElementById('clinicalShow'),document.getElementById('clinicalHide'))"/>
+     --->  
+	 <!---   <INPUT type="button" onClick="move(this.form.clinicalHide,this.form.clinicalShow)" value="<<">
+		<INPUT type="button" onClick="move(this.form.clinicalShow,this.form.clinicalHide)" value=">>">
+		 ---> <input type="button" value="<<" onclick="move(document.getElementById('clinicalHide'),document.getElementById('clinicalShow'))"/>
+        <input type="button" value=">>" onclick="move(document.getElementById('clinicalShow'),document.getElementById('clinicalHide'))"/>
+ 
+		
+		</td>
+      <td>Show these columns
+        <br/>
+		<!--- <SELECT name="clinicalHide" size="4"  multiple width="10">
+		 </select> --->
+      <select id="clinicalHide" style="width:300px" multiple="true" size="5"/> 
+      </td>
+    </tr>
+    <tr>
+      <td align="center" colspan="3">
+	  
+	  <input type="button" value="Show Selected Columns" action="refresh page" onclick="javascript:goFilterColumnFromSelect(document.getElementById('clinicalShow'), document.getElementById('clinicalHide'));"/>
+     <input type="button" value="Show All Columns" action="refresh page" onclick="javascript:refreshMe();"/>
+
+ <!---        <input type="button" value="Filter Search Result Columns" action="refresh page" onclick="javascript:goFilterColumnFromSelect(document.getElementById('clinicalHide'), document.getElementById('clinicalShow'));"/>
+  --->     </td>
+    </tr>
+  </table>
+
+ <table align="center" width="85%" cellpadding="5" cellspacing="0" border="0">
+
+ <tr>
+
+    <td valign="top">Your search returned <b><%=resultsTotal%> </b>matching 
+
+      records (Labtrak IDs).&nbsp;&nbsp;
+
+	  </td>
+
+ 
+
+	  
+
+   <td align="right" valign="top">
+
+   <%if( sampleNumber2 >10){
+
+   int p = sampleNumber - 10;
+
+   %>
+
+   
+
+  <a href="searchResults.jsp?q=<%=p%>">&lt;&lt;previous </a>&nbsp;&nbsp;
+
+  <%}
+
+  int t = sampleNumber + 1;
+
+  if(resultsTotal<sampleNumber2){%>
+
+   <b><%=t%>-<%=resultsTotal%></b> records&nbsp;&nbsp;
+
+   <%}
+
+   else{%>
+
+   <b><%=t%>-<%=sampleNumber2%></b> records&nbsp;&nbsp;
+
+   <%}%>
+
+
+
+<%if(sampleNumber2<samples.size()){%>
+
+   <a href="searchResults.jsp?q=<%=sampleNumber2%>">next&gt;&gt;</a>
+
+<%}%>
+
+</td></tr> 
+
+</table>
+
+<table>
+
+<tr>
+
+	<td colspan="2" align="right">
+
+		<a href="select.jsp">Home</a>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
+
+		<a href="search.jsp">Back to Search</a>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
+
+		<input type="submit" class="buttons" name="summary" value=" View Summary Report  ">&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
+
+		<input type="submit" class="buttons" name="download" value="  Download This Result ">
+
+		
+
+	</td>
+
+</tr>
+
+<tr><td>&nbsp;</td></tr>
+
+</table>
+
+<table class="sortable" id="unique_id" cellpadding="0" cellspacing="0">
+	
+
+	<thead>
+
+        <tr>
+
+		  <td class="search_result.column2">I-SPY Patient ID<br>(range 1001-1244)</td>
+
+		  <td class="search_result.column3">LabTrak ID </td>
+
+		  <td class="search_result.column4">Institution(Core Collected)</td>          
+
+          <td class="search_result.column5">T.P.</td>
+
+		  <td class="search_result.column6">Core Type</td>
+
+		  <td class="search_result.column7">Sample Process Date</td>
+
+		  <td class="search_result.column8">Comment on Sample</td>
+
+		  <td class="search_result.column9">Frozen Core Touch Prep</td>
+
+		  <td class="search_result.column10">Frozen Core H&E Tumor Review</td>
+
+          <td class="search_result.column11">Tumor Density (%) </td>
+
+          <td class="search_result.column12">Non-Tumor Nucleated Cells (%)</td>
+
+		  <td class="search_result.column13">DNA Process Date</td>
+
+		  <td class="search_result.column14">DNA Yield</td>
+
+		  <td class="search_result.column15">DNA Reading Instrument</td>
+
+		  <td class="search_result.column16">DNA Extraction Quality</td>
+		   <td class="search_result.column24" >P53 Multiplex PCR Rating</td>
+
+		  <td class="search_result.column25">DNA Labeling Attempts</td>
+
+		  <td class="search_result.column26">Intensity of Labeling DNA at Last Attempt</td>
+
+		  <td class="search_result.column27">Date of Labeling DNA at Last Attempt</td>		  
+
+		  <td class="search_result.column28">CGH Hybridization Attempts</td>
+
+		  <td class="search_result.column29">CGH Hybridization Quality at Last Attempt</td>
+
+		  <td class="search_result.column30">Date of CGH Hybridization at Last Attempt</td>
+
+
+		  <td class="search_result.column17">RNA Process Date</td>
+
+		  <td class="search_result.column18">RNA Yield</td>
+
+		  <td class="search_result.column19">RNA Reading Instrument</td>
+
+		  <td class="search_result.column20">RNA Extraction Quality</td>
+		   <td class="search_result.column31">RNA Analysis Quality </td>	 
+
+		  <td class="search_result.column21">Paraffin Core H&E Review</td>
+
+		  <td class="search_result.column22">Paraffin Core H&E Usability</td>
+
+		  <td class="search_result.column23">Paraffin Core Touch Preps Received</td>  
+
+		  
+
+		  
+
+
+		  <td class="search_result.column32">Protein Sample Microdissection Efficiency of Capture</td>
+
+          <td class="search_result.column33">Protein Sample Tumor Presence</td>		  
+
+         
+
+       
+
+		 </tr>	 
+
+		</thead>
+
+
+
+				
+
+ <%
+ //if(samples != null){
+
+ 
+
+int sampleSize = 1;  
+
+int dna1sSize = 0;
+
+int rna1sSize = 0;
+
+int compare = 0;
+
+int finalSize = 0;
+
+int sampleNo = 0;
+
+int proteinSize =0;
+
+int count=0;
+
+     
+
+for(int i =sampleNumber;i<samples.size();i++){	   
+
+		sampleNumber ++;				
+
+		SampleEx resultSample = (SampleEx)samples.elementAt(i);		
+
+		
+
+		sampleSize = samples.size();		
+
+		
+
+		Qi_dna dna1 = new Qi_dna();
+
+        String where1 = "SAMPLE_ID = " + resultSample.getSample_id();
+
+        Vector dna1s = dna1.retrieveAllWhere(where1);
+
+		dna1sSize = dna1s.size();	
+
+	
+
+			
+
+	   Qi_rna rna1 = new Qi_rna();					 
+
+	   String where3 = "SAMPLE_ID = " + resultSample.getSample_id();
+
+       Vector rna1s = rna1.retrieveAllWhere(where3);
+
+	   rna1sSize = rna1s.size();   
+
+	   
+
+	   Qi_protein protein1 = new Qi_protein();
+
+	   Vector protein1s = protein1.retrieveAllWhere(where3);
+
+	   proteinSize = protein1s.size();
+
+	
+
+	 if(dna1sSize>=rna1sSize){
+
+	    finalSize = dna1sSize;
+
+	   }
+
+	  else{
+
+	    finalSize =rna1sSize;
+
+	  }
+
+	  
+
+	  if(finalSize<=proteinSize){
+
+	    finalSize = proteinSize;
+
+	   }
+
+	 
+
+	 if( finalSize<sampleSize){
+
+	   finalSize=1;
+
+	  }
+
+	
+
+	
+
+	 for(int l =0;l<finalSize;l++){	
+
+	   
+
+	
+
+	   if(	requestType.equals("Search")){ 
+
+	   count++; %>
+
+			   <tr onMouseOver="this.className='over';" onMouseOut="this.className='out';"><%if(l==0){
+
+			   		
+
+			   		%>
+
+		          <td class="search_result.column2">&nbsp;<%=DatabaseSetup.checkForNull(resultSample.getPatient_accrual())%></td>
+
+				  <%
+
+				  }
+
+				   else{%>
+
+				    <td> &nbsp;</td>
+
+				   <%}%>
+
+		          <td class="search_result.column3"><a href="searchResultsDetail.jsp?sampleId=<%=resultSample.getSample_id()%>"  ><%=resultSample.getLabtrak_id()%></td>
+
+		          <%if(resultSample.getSample_generating_institute_id()!=null){
+
+				      Qi_institution institution = new Qi_institution();
+
+					  Vector institutions = institution.retrieveAllWhere("INSTITUTION_ID = "+resultSample.getSample_generating_institute_id());
+
+					  for(int j=0;j<institutions.size();j++){
+
+					    institution = (Qi_institution)institutions.elementAt(j);
+
+					%>
+
+					
+
+				  <td class="search_result.column4"><%=DatabaseSetup.checkForNull(institution.getInstitute_name())%></td>
+
+				    <% }
+
+					  }
+
+				    %>
+
+				  <td class="search_result.column5"><%=DatabaseSetup.checkForNull(resultSample.getTimepoint_name())%></td>
+
+				    <%if(resultSample.getCore_type()!=null){
+
+					     Core_type coreType = new Core_type();
+
+						  Vector coreTypes = coreType.retrieveAllWhere("CORE_TYPE = '"+resultSample.getCore_type()+"'");
+
+						  for(int j=0;j<coreTypes.size();j++){
+
+						    coreType = (Core_type)coreTypes.elementAt(j);
+
+						%>  
+
+  
+
+				  <td class="search_result.column6"><%=DatabaseSetup.checkForNull(coreType.getCore_type_desc())%></td>	
+
+				    <%  }
+
+					  }
+
+				    
+
+				    if(	resultSample.getProcess_date()!= null){%>	 	  
+
+		                 <td class="search_result.column7"><%=formatter.format(resultSample.getProcess_date())%></td>
+
+		              <%}	
+
+					  else{%>
+
+					      <td class="search_result.column7"> &nbsp;</td>
+
+					   <%}    
+
+					if(	resultSample.getQi_comment()!= null){%>	 	  
+
+		                <td class="search_result.column8"><%=DatabaseSetup.checkForNull(resultSample.getQi_comment())%></td>
+
+		                <%}
+
+					 else{%>
+
+					   <td class="search_result.column8"> &nbsp;</td>
+
+					<%}%>  
+
+		          <td class="search_result.column9"><%=DatabaseSetup.checkForNull(resultSample.getFrozen_touch_prep())%></td>
+
+		          <td class="search_result.column10"><%=DatabaseSetup.checkForNull(resultSample.getFrozen_h_e())%></td>			   
+
+		          <td class="search_result.column11"><%=DatabaseSetup.checkForNull(resultSample.getTumorpresence())%></td>
+
+		    	  <td class="search_result.column12"><%=DatabaseSetup.checkForNull(resultSample.getNontumor())%></td>
+
+                  <% if(resultSample.getDna_process_date() != null){%>
+
+				  <td class="search_result.column13"><%=formatter.format(resultSample.getDna_process_date())%></td>
+
+				   <%}
+
+				    else{%>
+
+					   <td class="search_result.column13"> &nbsp;</td>
+
+					<%}%>
+
+				  
+
+				
+
+				    <td class="search_result.column14"><%=DatabaseSetup.checkForNull(resultSample.getDna_reading())%>  <%=DatabaseSetup.checkForNull(resultSample.getDna_quantity_unit())%></td>
+
+				  <%if(resultSample.getDna_instrument_id()!=null){
+
+                      Qi_instrument instrument = new Qi_instrument();
+
+					  Vector instruments = instrument.retrieveAllWhere("INSTRUMENT_ID = "+resultSample.getDna_instrument_id());
+
+					  for(int j=0;j<instruments.size();j++){
+
+					   instrument = (Qi_instrument)instruments.elementAt(j);
+
+					%>
+
+	 
+
+
+
+               <td class="search_result.column15"><%=DatabaseSetup.checkForNull(instrument.getInstrument_name())%></td>
+
+ 
+
+                <%}
+
+               }
+
+			    else{%>
+
+				  <td class="search_result.column15"> &nbsp;</td>
+
+				 <%}%>
+				 
+				 
+				 
+				 
+
+			    <%if(resultSample.getDna_extraction_quality()!=null){
+
+			      Qi_quality quality = new Qi_quality();	 
+
+				  Vector qualities = quality.retrieveAllWhere("QUALITY_NAME = "+"\'"+resultSample.getDna_extraction_quality()+"\'"+" AND QUALITY_CATEGORY = "+"\'"+"DNA"+"\'");
+
+				  for(int j=0;j<qualities.size();j++){
+
+				   quality = (Qi_quality)qualities.elementAt(j);
+
+				%>
+
+				 			 
+
+			    <td class="search_result.column16"><%=DatabaseSetup.checkForNull(quality.getQuality_desc())%></td>
+
+			
+
+			      <%}
+
+			      }
+
+				 else{%>
+
+				  <td class="search_result.column16"> &nbsp;</td>
+
+				 <%}
+
+				 
+
+				    // starting sub sample DNA quality indicators
+
+				   
+
+				    
+
+				      Qi_dna dna = new Qi_dna();
+
+					  String subDNA_where = null;
+
+					  Qi_dna_labeling dna_label = new Qi_dna_labeling();
+
+					  Qi_cgh_hybridization  cgh_hyb = new Qi_cgh_hybridization();
+
+					  Qi_dna_labeling_intensity intensity = new Qi_dna_labeling_intensity();
+
+					  Qi_cgh_quality cgh_quality = new Qi_cgh_quality();
+
+					  
+
+					  Vector dna_labels = new Vector();
+
+				      Vector cgh_hybs = new Vector();
+
+					  Vector intensitys = new Vector();
+
+					  Vector cgh_qualitys = new Vector();
+
+				    
+
+				     if(pcr_rating != null &&!pcr_rating.equals("") ){	
+
+					   request.getSession().setAttribute("gov.nih.nci.qi.pcr_rating",pcr_rating);			     
+
+				       subDNA_where = " dna_id IN (SELECT DNA_ID FROM QI_DNA WHERE SAMPLE_ID = " + resultSample.getSample_id() +" AND PCR_RATING in("+pcr_rating+"))";
+
+				      }
+
+					  else {
+
+					     if(labId != null){
+
+					        subDNA_where = "SAMPLE_ID = " + resultSample.getSample_id() +" and DNA_SUBSAMPLE_ID LIKE ("+"'"+"%-"+labId+"')";
+
+						   }
+
+						 else{
+
+						    subDNA_where = "SAMPLE_ID = " + resultSample.getSample_id();
+
+						   }
+
+					  }
+
+				      
+
+                      Vector dnas = dna.retrieveAllWhere(subDNA_where);
+
+                	  boolean flag = false;
+
+                      if(dnas.size()>0){						 
+
+						  for(int j=0; j<dnas.size();j++){						  
+
+						   if(l==j){
+
+		                     dna =(Qi_dna)dnas.elementAt(j);	
+
+							 flag = true;
+
+						  %>
+
+				        
+						      <td class="search_result.column24"><%=DatabaseSetup.checkForNull(dna.getPcr_rating())%> </td>																
+
+				              <%}
+
+					
+
+					      }
+
+					    }
+
+					else{		
+
+				   %>			 
+
+				   <td class="search_result.column24">&nbsp;</td> 
+
+						  
+
+					<%    
+
+					}
+
+
+
+				dna_labels = dna_label.retrieveAllWhere(" DNA_ID IN (SELECT DNA_ID FROM QI_DNA WHERE sample_id IN (SELECT sample_id FROM QI_SAMPLE WHERE sample_id=" +"'"+resultSample.getSample_id() +"'))");
+
+			   %>  <td class="search_result.column25"><%=dna_labels.size()%></td>
+
+				<%if(dna_labels.size()==0){%>
+
+				    <td class="search_result.column26">&nbsp;</td>
+
+				    <td class="search_result.column27">&nbsp;</td>
+
+					
+
+				<%}
+
+				int dna_labeling_id = 0;
+
+				for(int p=0; p<dna_labels.size();p++){ 
+
+				  dna_label = (Qi_dna_labeling)dna_labels.elementAt(p);
+
+				  if(dna_label.getLabeling_id().intValue()>dna_labeling_id){
+
+				     dna_labeling_id = dna_label.getLabeling_id().intValue();
+
+				   }
+
+				}
+
+				if(dna_labeling_id>0){
+
+				 dna_labels = dna_label.retrieveAllWhere(" LABELING_ID = "+new Long(dna_labeling_id));
+
+				}
+
+				if(dna_labels.size()>0){
+
+					for(int p=0; p<dna_labels.size();p++){ 
+
+					   dna_label = (Qi_dna_labeling)dna_labels.elementAt(p);
+
+					   intensitys = intensity.retrieveAllWhere(" INTENSITY_ID="+dna_label.getIntensity_id());
+
+					   for(int q=0; q<intensitys.size();q++){
+
+					     intensity = (Qi_dna_labeling_intensity)intensitys.elementAt(q);
+
+					    %>
+
+					    <td class="search_result.column26"><%=intensity.getIntensity_desc()%></td>
+
+					  <%  }
+
+					   if(dna_label.getLabeling_date()!= null){%>
+
+					       <td class="search_result.column27"><%=formatter.format(dna_label.getLabeling_date())%></td>
+
+						<%}	
+
+					   else{%>
+
+					     <td class="search_result.column27">&nbsp;</td>
+
+					   <%}
+
+					 	
+
+				      }
+
+				   }// end of dna labeling info
+
+				 
+
+				 // starting cgh_hyb info
+
+				 String cgh_where =" DNA_ID IN (SELECT DNA_ID FROM QI_DNA WHERE sample_id IN (SELECT sample_id FROM QI_SAMPLE WHERE sample_id=" +"'"+resultSample.getSample_id() +"'))";
+
+			
+
+				 cgh_hybs = cgh_hyb.retrieveAllWhere(cgh_where);
+
+				%>  <td class="search_result.column28"><%=cgh_hybs.size()%></td>
+
+					
+
+				<%if(cgh_hybs.size()==0){%>
+
+				    <td class="search_result.column29">&nbsp;</td>
+
+				    <td class="search_result.column30">&nbsp;</td>
+
+				
+
+				<%}
+
+				int cghHyb_id =0;
+
+				for(int p=0; p<cgh_hybs.size();p++){ 
+
+				    cgh_hyb = (Qi_cgh_hybridization)cgh_hybs.elementAt(p);	
+
+					if(	cgh_hyb.getHybridization_id().intValue()>cghHyb_id){
+
+					  cghHyb_id  = cgh_hyb.getHybridization_id().intValue();
+
+					}
+
+			
+
+				}
+
+				
+
+				
+
+				if(cghHyb_id>0){
+
+				 cgh_hybs = cgh_hyb.retrieveAllWhere(" HYBRIDIZATION_ID = "+new Long(cghHyb_id));
+
+				}
+
+				if(cgh_hybs.size()>0){
+
+					for(int p=0; p<cgh_hybs.size();p++){ 
+
+					   cgh_hyb = (Qi_cgh_hybridization)cgh_hybs.elementAt(p);				   
+
+					   cgh_qualitys = cgh_quality.retrieveAllWhere(" CGH_QUALITY_ID="+cgh_hyb.getCgh_quality_id());
+
+					   for(int q=0; q<cgh_qualitys.size();q++){%>
+
+					    <td class="search_result.column29"><%=((Qi_cgh_quality)cgh_qualitys.elementAt(q)).getCgh_quality_desc()%></td>
+
+					  <%  }
+
+					   if(cgh_hyb.getHybridization_date()!= null){%>
+
+					       <td class="search_result.column30"><%=formatter.format(cgh_hyb.getHybridization_date())%></td>
+
+						<%}	
+
+					   else{%>
+
+					     <td class="search_result.column30">&nbsp;</td>
+
+					   <%}
+
+				
+
+				 }%>	
+
+					 	   
+
+				  
+
+				 <%}// end of cgh_hyb info
+
+				 
+
+				 
+
+				
+
+				
+
+				
+
+				
+
+
+				  // starting RNA quality on the sameple page
+
+				
+
+				  if(resultSample.getRna_process_date() != null){%>
+
+				  <td class="search_result.column17"><%=formatter.format(resultSample.getRna_process_date())%></td>
+
+				   <%}
+
+				    else{%>
+
+					   <td class="search_result.column17">&nbsp;</td>
+
+					<%}
+
+					if(resultSample.getRna_reading()!= null){%>
+
+				   
+
+				    <td class="search_result.column18"><%=DatabaseSetup.checkForNull(resultSample.getRna_reading())%>  <%=DatabaseSetup.checkForNull(resultSample.getRna_quantity_unit())%></td>
+
+				  <%}
+
+				   else{%>
+
+				   <td class="search_result.column18"> &nbsp;</td>
+
+					<%}
+
+				   if(resultSample.getRna_instrument_id()!=null){
+
+                      Qi_instrument instrument = new Qi_instrument();
+
+					  Vector instruments = instrument.retrieveAllWhere("INSTRUMENT_ID = "+resultSample.getRna_instrument_id());
+
+					  for(int j=0;j<instruments.size();j++){
+
+					   instrument = (Qi_instrument)instruments.elementAt(j);
+
+					%>
+
+	 
+
+
+
+               <td class="search_result.column19"><%=DatabaseSetup.checkForNull(instrument.getInstrument_name())%></td>
+
+ 
+
+                <%}
+
+               }
+
+			     else{%>
+
+				   <td class="search_result.column19"> &nbsp;</td>
+
+					<%}
+
+	 
+
+				 if(resultSample.getRna_extraction_quality()!=null){
+
+			      Qi_quality quality = new Qi_quality();	 
+
+				  Vector qualities = quality.retrieveAllWhere("QUALITY_NAME = "+"\'"+resultSample.getRna_extraction_quality()+"\'"+" AND QUALITY_CATEGORY = "+"\'"+"DNA"+"\'");
+
+				  for(int j=0;j<qualities.size();j++){
+
+				   quality = (Qi_quality)qualities.elementAt(j);
+
+				%>
+
+				 
+
+			 
+
+			    <td class="search_result.column20"><%=DatabaseSetup.checkForNull(quality.getQuality_desc())%></td>
+
+			
+
+			     <%}
+
+			     }
+
+				else{%>
+
+				   <td class="search_result.column20"> &nbsp;</td>
+
+					<%}
+					
+					// starting RNA quality indicators
+
+				 	
+
+				  Qi_rna rna = new Qi_rna();	
+
+				  String where2 = null;
+
+				 
+
+				  if(rna_analysis_quality != null && !rna_analysis_quality.equals("")){		 
+
+				    request.getSession().setAttribute("gov.nih.nci.qi.rna_analysis_quality",rna_analysis_quality);			     
+
+				  
+
+					where2 =  " rna_id IN (SELECT RNA_ID FROM QI_RNA WHERE SAMPLE_ID = " + resultSample.getSample_id() +" AND RNA_ANALYSIS_QUALITY ="+"'"+rna_analysis_quality+"'"+")";
+
+				
+
+				  }
+
+				  
+
+				  if(rna_analysis_quality ==null){				  
+
+				   where2 = "SAMPLE_ID = " + resultSample.getSample_id();  
+
+				  }
+
+                  Vector rnas = rna.retrieveAllWhere(where2);
+
+				  boolean flag2=false;
+
+				  if(rnas.size()>0){			 
+
+				  
+
+				  for(int j=0; j<rnas.size();j++){	                
+
+					  if(l==j){
+
+					      rna =(Qi_rna)rnas.elementAt(j);	
+
+						  flag2=true;
+
+						 %>
+
+						   <%
+
+					  	
+
+							
+
+							 if(rna.getRna_analysis_quality() != null){
+
+							   Qi_quality quality = new Qi_quality();	 
+
+				               Vector qualities = quality.retrieveAllWhere("QUALITY_NAME = "+"\'"+rna.getRna_analysis_quality()+"\'"+" AND QUALITY_CATEGORY = "+"\'"+"RNA"+"\'");
+
+				               for(int u=0;u<qualities.size();u++){
+
+				                quality = (Qi_quality)qualities.elementAt(u);%>						 
+
+						   
+
+						       <td class="search_result.column31"><%=DatabaseSetup.checkForNull(quality.getQuality_desc())%></td>
+
+					            <%   }
+
+								}
+
+						        else{%>
+
+							    <td class="search_result.column31">&nbsp;</td>	
+
+							    <%}
+
+							     }		   
+
+					   }				   
+
+					  }
+
+					   else{
+
+				   %>
+
+				
+
+				   <td class="search_result.column31">&nbsp;</td>
+
+				  
+
+				  
+
+				  
+
+					<%}
+
+					
+
+					
+
+				// end of rna quality indicator
+
+
+
+				// starting displaying H&E info
+
+				    Qi_h_e_review h_e = new Qi_h_e_review();
+
+					int c=0;
+
+					  Vector h_es = h_e.retrieveAllWhere("H_E_REVIEW = "+resultSample. getH_e_review());
+
+					  for(int j=0;j<h_es.size();j++){
+
+					  c++;
+
+					    h_e = (Qi_h_e_review)h_es.elementAt(j);
+
+					%>
+
+				  <td class="search_result.column21"><%=DatabaseSetup.checkForNull(h_e.getH_e_review_desc())%></td>
+
+				    <% }
+
+					  
+
+				    if(c==0){%>
+
+					   <td class="search_result.column21"> &nbsp;</td>
+
+					<%}
+
+				    Qi_usability usability = new Qi_usability();
+
+					int a=0;
+
+					  Vector usabilitys = usability.retrieveAllWhere("USABILITY = "+resultSample.getUsability());
+
+					  for(int j=0;j<usabilitys.size();j++){
+
+					    a++;
+
+					    usability = (Qi_usability)usabilitys.elementAt(j);
+
+					%>
+
+				  <td class="search_result.column22"><%=DatabaseSetup.checkForNull(usability.getUsability_desc())%></td>
+
+				    <% }
+
+					if(a==0){%>
+
+					   <td class="search_result.column22"> &nbsp;</td>
+
+					<%}
+
+					 
+
+					  Qi_touchprep_recvd touchprep_recvd = new Qi_touchprep_recvd();
+
+					  int b=0;
+
+					  Vector touchprep_recvds = touchprep_recvd.retrieveAllWhere("TOUCHPREP_RECVD = "+resultSample.getTouchprep_recvd());
+
+					  for(int j=0;j<touchprep_recvds.size();j++){
+
+					    b++;
+
+					    touchprep_recvd = (Qi_touchprep_recvd)touchprep_recvds.elementAt(j);
+
+					%>
+
+				  <td class="search_result.column23"><%=DatabaseSetup.checkForNull(touchprep_recvd.getTouchprep_recvd_desc())%></td>
+
+				    <% }
+
+					if(b==0){%>
+
+					   <td class="search_result.column23"> &nbsp;</td>
+
+					<%}
+
+				   // end of  displaying H&E info
+
+				   
+
+				   
+
+				  
+
+				   
+
+				   
+
+				
+								   
+
+				   // starting protein indicator retrieval
+
+				   
+
+				     Qi_protein protein = new Qi_protein();
+
+				     
+
+                     // Vector proteins = protein.retrieveAllWhere(where);
+
+					   Vector proteins = protein.retrieveAllWhere("SAMPLE_ID = " + resultSample.getSample_id());
+
+					
+
+					  boolean flag_protein = false;
+
+                      if(proteins.size()>0){
+
+					
+
+						  for(int j=0; j<proteins.size();j++){						  
+
+						   if(l==j){
+
+		                     protein =(Qi_protein)proteins.elementAt(j);	
+
+							 flag_protein = true;
+
+						  %>
+
+			
+						  <td class="search_result.column32"><%=DatabaseSetup.checkForNull(protein.getMicodissection_efficiency())%> </td>	
+
+						  <td class="search_result.column33"><%=DatabaseSetup.checkForNull(protein.getProtein_sample_tumor_presence())%></td>
+
+							 
+
+							
+
+							<%						
+
+				              }
+
+							}
+
+					
+
+					      }
+
+					
+
+					else{				
+
+						
+
+				   %>
+
+				
+
+				    <td class="search_result.column32">&nbsp;</td>
+
+				    <td class="search_result.column33">&nbsp;</td>
+
+				  
+
+				   		  
+
+					<%    
+
+					}
+
+					
+
+				
+
+
+				// end of protein indicator
+
+				   
+
+				   
+
+				   
+
+				}
+
+				
+
+				 	%>	   
+
+			   </tr>
+
+	      <%
+		  break;}
+
+ 
+
+	if(	sampleNumber == sampleNumber2){
+
+	  System.out.println("sample size 666666:"+sampleNumber);
+
+	     break;
+
+	   }
+
+	}//end for
+
+	//}//end if
+	%>
+
+	
+
+ </table>
+
+
+
+<table align="center" width="85%" cellpadding="5" cellspacing="0" border="0">
+
+ <tr>
+
+    <td valign="top">Your search returned <b><%=resultsTotal%> </b>matching 
+
+      records (Labtrak IDs).&nbsp;&nbsp;
+
+	  </td>
+
+   <td align="right" valign="top">
+
+   <%if( sampleNumber2_ >10){
+
+   int p_ = sampleNumber_-10;
+
+   %>
+
+   
+
+  <a href="searchResults.jsp?q=<%=p_%>">&lt;&lt;previous </a>&nbsp;&nbsp;
+
+  <%}
+
+  int t_ = sampleNumber_ + 1;
+
+  if(resultsTotal<sampleNumber2_){%>
+
+   <b><%=t_%>-<%=resultsTotal%></b> records&nbsp;&nbsp;
+
+   <%}
+
+   else{%>
+
+   <b><%=t_%>-<%=sampleNumber2_%></b> records&nbsp;&nbsp;
+
+   <%}%>
+
+
+
+<%if(sampleNumber2_<samples.size()){%>
+
+   <a href="searchResults.jsp?q=<%=sampleNumber2_%>">next&gt;&gt;</a>
+
+<%}%>
+
+</td></tr> 
+
+<tr>
+
+	<td colspan="2" align="right">
+
+		<a href="select.jsp">Home</a>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
+
+		<a href="search.jsp">Back to Search</a>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
+
+		 <input type="submit" class="buttons" name="summary" value=" View Summary Report ">&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
+
+		 <input type="submit" class="buttons" name="download" value="  Download This Result ">
+
+		
+
+	</td>
+
+</tr>
+
+
+
+</table>
+
+<% }%>
+
+
+
+<%
+
+
+
+ if(request.getParameter("summary")!=null){  
+
+        session.setAttribute("gov.nih.nci.qi.patientHash",patientHash);
+
+		session.setAttribute("gov.nih.nci.qi.labTrakId_vec",labTrakId_vec);
+
+		
+
+	    
+
+	     %>
+
+	     <jsp:forward page="summaryReport.jsp"/>
+
+	 <% }
+
+	 
+
+	 
+
+	 
+
+if(request.getParameter("download")!=null){
+
+   PopulateResult populateResult = new PopulateResult();
+
+   populateResult.run(samples,pcr_rating,rna_analysis_quality);
+
+   String searchResultFile = MessageRetriever.getProperty("QI_SEARCH_RESULT_FILE");
+
+   File fFile = new File (searchResultFile);
+
+   String stFileName = "qiResults.xls";
+
+  
+
+   
+
+	//the content type set as excel
+
+	response.setContentType ("application/excel");
+
+	//the header and also the Nameis set by which user will be prompted to save
+
+	response.setHeader ("Content-Disposition", "attachment;filename=\""+stFileName+"\"");
+
+
+
+	//Open an input stream to the file and post the file contents thru the
+
+	//servlet output stream to the client m/c
+
+	InputStream isStream = null;
+
+	ServletOutputStream sosStream = null;
+
+  	try
+
+  	{
+
+  		//response.flushBuffer();
+
+		isStream = new FileInputStream(fFile);
+
+		sosStream = response.getOutputStream();
+
+		int ibit = 256;
+
+		
+
+		
+
+   		while ((ibit) >= 0)
+
+   		{
+
+        		ibit = isStream.read();
+
+        		sosStream.write(ibit);
+
+        		
+
+         }
+
+        
+
+
+
+	}
+
+	catch (IOException ioeException)
+
+	{
+
+         System.out.println("ioeException is :"+ioeException);   
+
+    }
+
+    out.clear();
+
+    out = pageContext.pushBody(); 
+
+    sosStream.flush();
+
+    sosStream.close();
+
+    isStream.close();
+
+
+
+	
+
+	
+
+	
+
+
+
+
+
+
+
+   
+
+   %>
+
+  	
+
+<%}%>
+
+</form>
+
+
+
+<%//}
+
+//}
+
+//catch(Exception e){%>
+
+  <//%@ page errorpage="Error.jsp"%>
+
+<%//}%>
+
+
+
+
+
+
+
