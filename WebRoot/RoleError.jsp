@@ -1,3 +1,10 @@
+<%--L
+  Copyright SAIC
+
+  Distributed under the OSI-approved BSD 3-Clause License.
+  See http://ncip.github.com/quality-indicator-portal/LICENSE.txt for details.
+L--%>
+
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>

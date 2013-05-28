@@ -1,3 +1,10 @@
+<%--L
+  Copyright SAIC
+
+  Distributed under the OSI-approved BSD 3-Clause License.
+  See http://ncip.github.com/quality-indicator-portal/LICENSE.txt for details.
+L--%>
+
 <%@ page language="java" import="java.util.*,gov.nih.nci.qi.util.*, gov.nih.nci.qi.*,gov.nih.nci.qi.db.*" %>
 <%@ page info="this page is the login page, first name & last name and verified on tbis page "%>
  <jsp:useBean id="user"  scope="page" class="gov.nih.nci.qi.db.Submitter" />

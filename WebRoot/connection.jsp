@@ -1,3 +1,10 @@
+<%--L
+  Copyright SAIC
+
+  Distributed under the OSI-approved BSD 3-Clause License.
+  See http://ncip.github.com/quality-indicator-portal/LICENSE.txt for details.
+L--%>
+
 <%@ page import="java.util.*"%>
 <%@ page import="java.io.File"%>
 <jsp:useBean id="db" scope="application" class="gov.nih.nci.qi.DatabaseSetup"/>
